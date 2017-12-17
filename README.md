@@ -3,9 +3,11 @@
 <h3>Setup
 
 Neuer Ordner erstellen z.B. "Game-Dev"
+Git Bash 
 
-<pre>git init
-git pull https://github.com/Wetwer/game-dev.git
+<pre>
+~/ Game-dev/ $ git init
+~/ Game-dev/ $ git pull https://github.com/Wetwer/game-dev.git
 </pre>
 
 ${projectdir}Build/pom.xml mit IntelliJ als Projekt öffnen.
