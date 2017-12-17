@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Generate</title>
+    <link rel="stylesheet" href="../vorlage.css"/>
+    <script rel="script" src="../urlParam.js"></script>
+</head>
+<body>
+<div id="outer">
+    <div id="inner">
+        <p id="title">Login</p>
+        <hr/>
+        <!--/*@thymesVar id="LoginModel" type="ch.felix.loginapp.model.LoginModel"*/-->
+        <form action="/command/edit" th:method="post" method="post">
+            <label for="commands">Command:</label>
+            <!--/*@thymesVar id="commands" type="ch.lebois.TroyServer.controller.CommandController"*/-->
+            <textarea id="commands" name="commands" th:text="${commands}">
+            </textarea>
+            <input type="submit"/>
+        </form>
+        <p id="error"></p>
+    </div>
+</div>
+</body>
+</html>
