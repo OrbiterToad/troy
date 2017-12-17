@@ -1,9 +1,6 @@
 package ch.lebois.troyclient;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLEncoder;
 
 public class Sender {
@@ -23,15 +20,12 @@ public class Sender {
         this.url = url;
     }
 
-    public void send(String user, String type, String value){
+    public void send(String type, String value){
         try {
-            String specUrl = url +"/" + user +
-                    "/?type=" + URLEncoder.encode(type, "UTF-8") +
+            String specUrl = url +"/?type=" + URLEncoder.encode(type, "UTF-8") +
                     "&value=" + URLEncoder.encode(value, "UTF-8");
             System.out.println(specUrl);
-
-            System.out.println(new WebHandler(url).getContent());
-
+            new WebHandler(specUrl).getContent();
         } catch (IOException e) {
             e.printStackTrace();
         }

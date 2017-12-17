@@ -1,7 +1,8 @@
 package ch.lebois.TroyServer.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,14 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value = "reciver")
 public class ReciverController {
 
-    @RequestMapping(value = {"/{user}", "/{user}/"}, method = RequestMethod.GET)
-    public String getInfo(@PathVariable String user,
-                          @RequestParam(name = "type", defaultValue = "") String type,
+
+    final Logger log = LoggerFactory.getLogger(ReciverController.class);
+
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
+    public String getInfo(@RequestParam(name = "type", defaultValue = "") String type,
                           @RequestParam(name = "value", defaultValue = "") String value){
 
-        System.out.println("user  - " + user);
-        System.out.println("type  - " + type);
-        System.out.println("value - " + value);
+        log.info("type  - " + type);
+        log.info("value - " + value);
 
         return "test";
     }

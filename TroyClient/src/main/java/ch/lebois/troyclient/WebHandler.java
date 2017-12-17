@@ -25,9 +25,6 @@ public class WebHandler {
             InputStream is = urlConnection.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
 
-
-
-
             int numCharsRead;
             char[] charArray = new char[1024];
             StringBuilder sb = new StringBuilder();
