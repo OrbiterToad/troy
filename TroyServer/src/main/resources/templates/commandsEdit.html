@@ -9,13 +9,13 @@
 <body>
 <div id="outer">
     <div id="inner">
-        <p id="title">Login</p>
+        <p id="title">Edit Commands</p>
         <hr/>
         <!--/*@thymesVar id="LoginModel" type="ch.felix.loginapp.model.LoginModel"*/-->
         <form action="/command/edit" th:method="post" method="post">
-            <label for="commands">Command:</label>
+            <label for="commandsArea">Command:</label>
             <!--/*@thymesVar id="commands" type="ch.lebois.TroyServer.controller.CommandController"*/-->
-            <textarea id="commands" name="commands" th:text="${commands}">
+            <textarea id="commandsArea" name="commands" th:text="${commands}">
             </textarea>
             <input type="submit"/>
         </form>

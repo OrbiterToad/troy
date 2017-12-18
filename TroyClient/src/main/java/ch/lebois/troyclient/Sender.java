@@ -24,7 +24,6 @@ public class Sender {
         try {
             String specUrl = url +"/?type=" + URLEncoder.encode(type, "UTF-8") +
                     "&value=" + URLEncoder.encode(value, "UTF-8");
-            System.out.println(specUrl);
             new WebHandler(specUrl).getContent();
         } catch (IOException e) {
             e.printStackTrace();

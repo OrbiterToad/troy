@@ -12,26 +12,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CommandController {
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET, produces = "application/json")
-    public String getCommands(){
+    public String getCommands(Model model) {
+        FileService fileService = new FileService();
+        fileService.setFilePath("commands.properties");
+
+        model.addAttribute("commands", fileService.read());
         return "commands";
     }
 
     @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.GET)
-    public String getEdit(Model model){
+    public String getEdit(Model model) {
         FileService fileService = new FileService();
         fileService.setFilePath("commands.properties");
+
         model.addAttribute("commands", fileService.read());
-        System.out.println("file: " + fileService.read());
         return "commandsEdit";
     }
 
     @RequestMapping(value = {"/edit", "/edit/"}, method = RequestMethod.POST)
-    public String edited(@RequestParam(name = "commands") String commands){
-        FileService fileService = new FileService();
-        fileService.setFilePath("commands.properties");
-        fileService.clear();
-        System.out.println(commands);
-        fileService.write(commands);
+    public String edited(@RequestParam(name = "commands") String commands) {
+        FileService propertiesFile = new FileService();
+        propertiesFile.setFilePath("commands.properties");
+        propertiesFile.clear();
+        propertiesFile.write(commands);
         return "redirect:/command/edit";
     }
 

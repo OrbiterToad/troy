@@ -16,14 +16,12 @@ public class ReciverController {
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public String getInfo(@RequestParam(name = "type", defaultValue = "") String type,
-                          @RequestParam(name = "value", defaultValue = "") String value){
+                          @RequestParam(name = "value", defaultValue = "") String value) {
 
-        log.info("type  - " + type);
-        log.info("value - " + value);
-
-        return "test";
+//        log.info("type  - " + type);
+        log.info(value);
+        return "receiver";
     }
-
 
 
 }

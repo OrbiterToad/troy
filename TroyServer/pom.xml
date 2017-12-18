@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>TroyServer</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Server for Troy</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -57,8 +57,6 @@
             <artifactId>guava</artifactId>
             <version>23.0</version>
         </dependency>
-
-
     </dependencies>
 
     <build>
@@ -69,6 +67,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
