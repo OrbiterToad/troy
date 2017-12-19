@@ -1,0 +1,123 @@
+* {
+    font: 400 14px Arial;
+}
+
+body {
+    background-color: darkgray;
+}
+
+input::selection {
+    background: lightblue;
+}
+
+.input {
+    padding: 5px;
+    background: white;
+    border-radius: 6px;
+    border: 3px solid lightgray;
+    outline: none;
+}
+
+.input:focus {
+    border-radius: 6px;
+    border: 3px solid darkgray;
+    outline: none;
+}
+
+#outer {
+    position: relative;
+    padding: 10px;
+    width: 50%;
+    height: 99%;
+    background: darkslategray;
+    border-radius: 15px;
+    outline: none;
+    text-align: center;
+}
+
+#inner {
+    padding: 20px;
+    background: white;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    box-shadow: 2px 2px 2px 2px darkslategray;
+}
+
+form {
+    text-align: left;
+}
+
+#tabletd {
+    width: 50%;
+}
+
+#primaryAction {
+    cursor: pointer;
+    background-color: aliceblue;
+    border-color: lightblue;
+}
+
+#primaryAction:focus {
+    border-color: skyblue;
+}
+
+.secondaryAction {
+    text-decoration: none;
+    color: black;
+    background-color: whitesmoke;
+    border-color: lightgray;
+}
+
+.secondaryAction:focus {
+    border-color: darkgray;
+}
+
+.psw {
+    font-family: Consolas, serif;
+    font-size: 14px;
+}
+
+#title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#error {
+    color: red;
+}
+
+#outerApp {
+    position: relative;
+    width: 50%;
+    padding: 10px;
+    background: darkslategray;
+    border-radius: 15px;
+    outline: none;
+    text-align: left;
+}
+
+#currentuser {
+    position: relative;
+    text-align: right;
+    border-radius: 3px;
+}
+
+.logb{
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.log {
+    background-color: black;
+    color: white;
+    text-align: left;
+    font-family: Consolas, serif;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+h3 {
+    font: 400 16px Arial;
+    font-style: oblique;
+}

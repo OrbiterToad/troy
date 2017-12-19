@@ -15,6 +15,7 @@
 
     <modules>
         <module>../Game</module>
+        <module>../Installer</module>
         <module>../TroyClient</module>
         <module>../TroyServer</module>
     </modules>

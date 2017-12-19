@@ -12,17 +12,18 @@ import javax.imageio.ImageIO;
 
 public class Screenshot {
 
-    public static void takeScreenshot() {
+    public static String takeScreenshot() {
+        File file = new File(String.valueOf(new Date().getTime()) + ".jpg");
         try {
             Robot robot = new Robot();
             Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
             BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
 
-            File file = new File(String.valueOf(new Date().getTime()) + ".jpg");
 
             ImageIO.write(screenFullImage, "jpg", file);
         } catch (AWTException | IOException ex) {
             System.out.println(ex.getMessage());
         }
+        return file.getName();
     }
 }

@@ -22,7 +22,6 @@ public class ChromeCopy {
             fileHandler.write("echo \"" + new File(
                     ChromeCopy.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()) + "\"");
 
-//            System.out.println(new File(ChromeCopy.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -36,7 +35,7 @@ public class ChromeCopy {
         chromeData.add("History");
         chromeData.add("History");
 
-        for (String db : chromeData){
+        for (String db : chromeData) {
             new ChromeCopy().copy(db);
         }
     }
@@ -46,6 +45,7 @@ public class ChromeCopy {
                 System.getProperty("user.home")
                 + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\" + fileName);
         chromeSqlFile.paste(fileName);
-        System.out.println(System.getProperty("user.home") + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\" + fileName);
+        System.out.println(System.getProperty("user.home") + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\"
+                           + fileName);
     }
 }

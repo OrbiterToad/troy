@@ -2,9 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Generate</title>
+    <title>Edit Commands</title>
     <link rel="stylesheet" href="../vorlage.css"/>
-    <script rel="script" src="../urlParam.js"></script>
 </head>
 <body>
 <div id="outer">
@@ -13,11 +12,11 @@
         <hr/>
         <!--/*@thymesVar id="LoginModel" type="ch.felix.loginapp.model.LoginModel"*/-->
         <form action="/command/edit" th:method="post" method="post">
-            <label for="commandsArea">Command:</label>
+            <label for="commandsField">Command:</label>
             <!--/*@thymesVar id="commands" type="ch.lebois.TroyServer.controller.CommandController"*/-->
-            <textarea id="commandsArea" name="commands" th:text="${commands}">
-            </textarea>
-            <input type="submit"/>
+            <input id="commandsField" name="commands" th:value="${commands}" class="input" autocomplete="off"
+                   placeholder="Command"/>
+            <input type="submit" class="input" id="primaryAction"/>
         </form>
         <p id="error"></p>
     </div>

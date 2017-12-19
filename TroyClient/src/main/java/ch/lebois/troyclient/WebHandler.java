@@ -33,7 +33,7 @@ public class WebHandler {
                 sb.append(charArray, 0, numCharsRead);
             }
             return sb.toString();
-        } catch (ConnectException e){
+        } catch (ConnectException e) {
             //TODO log to local file
         } catch (IOException e) {
             e.printStackTrace();
