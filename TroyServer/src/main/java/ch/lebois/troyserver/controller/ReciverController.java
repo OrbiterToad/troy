@@ -1,6 +1,6 @@
-package ch.lebois.TroyServer.controller;
+package ch.lebois.troyserver.controller;
 
-import ch.lebois.TroyServer.service.FileService;
+import ch.lebois.troyserver.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

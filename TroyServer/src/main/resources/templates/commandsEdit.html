@@ -13,7 +13,7 @@
         <!--/*@thymesVar id="LoginModel" type="ch.felix.loginapp.model.LoginModel"*/-->
         <form action="/command/edit" th:method="post" method="post">
             <label for="commandsField">Command:</label>
-            <!--/*@thymesVar id="commands" type="ch.lebois.TroyServer.controller.CommandController"*/-->
+            <!--/*@thymesVar id="commands" type="ch.lebois.troyserver.controller.CommandController"*/-->
             <input id="commandsField" name="commands" th:value="${commands}" class="input" autocomplete="off"
                    placeholder="Command"/>
             <input type="submit" class="input" id="primaryAction"/>

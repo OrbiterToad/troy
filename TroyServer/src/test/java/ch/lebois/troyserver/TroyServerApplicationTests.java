@@ -1,4 +1,4 @@
-package ch.lebois.TroyServer;
+package ch.lebois.troyserver;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

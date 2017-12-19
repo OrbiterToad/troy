@@ -1,6 +1,6 @@
-package ch.lebois.TroyServer.controller;
+package ch.lebois.troyserver.controller;
 
-import ch.lebois.TroyServer.service.FileService;
+import ch.lebois.troyserver.service.FileService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

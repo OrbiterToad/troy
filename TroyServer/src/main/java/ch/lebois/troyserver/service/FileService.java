@@ -1,4 +1,4 @@
-package ch.lebois.TroyServer.service;
+package ch.lebois.troyserver.service;
 
 import com.google.common.io.Files;
 import org.springframework.stereotype.Service;
