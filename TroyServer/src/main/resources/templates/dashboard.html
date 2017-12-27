@@ -25,9 +25,9 @@
             <hr/>
             <br/>
             <h3>Commands output</h3>
-            <form action="/" th:method="post" method="post">
+            <form action="/dashboard" th:method="post" method="post">
                 <input type="submit" value="Clear" class="input secondaryAction"/>
-                <a href="/" class="input secondaryAction">Reload</a>
+                <a href="/dashboard" class="input secondaryAction">Reload</a>
             </form>
             <!--/*@thymesVar id="log" type="ch.lebois.troyserver.controller.DashboardController"*/-->
             <pre class="log logb" th:text="${log}"></pre>

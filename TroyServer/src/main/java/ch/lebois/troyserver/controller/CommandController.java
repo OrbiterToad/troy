@@ -35,7 +35,7 @@ public class CommandController {
         propertiesFile.setFilePath("commands.properties");
         propertiesFile.clear();
         propertiesFile.write(commands);
-        return "redirect:/";
+        return "redirect:/dashboard";
     }
 
 }
