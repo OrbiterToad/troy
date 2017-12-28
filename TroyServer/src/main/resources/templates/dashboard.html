@@ -9,14 +9,15 @@
 <center>
     <div id="outer">
         <div id="inner">
-            <p id="title">Dashboard</p>
+            <!--/*@thymesVar id="client" type="ch.lebois.troyserver.controller.DashboardController"*/-->
+            <p id="title" th:text="'Control Panel for ' + ${client}"></p>
             <hr/>
             <h3>Client Commands</h3>
             <!--/*@thymesVar id="commands" type="ch.lebois.troyserver.controller.CommandController"*/-->
             <pre th:text="${commands} + ' '" class="log"></pre>
 
             <br/>
-            <form action="/command/edit" th:method="post" method="post">
+            <form th:action="'/command/edit/' + ${client}" th:method="post" method="post">
                 <label for="commandsField">Command:</label>
                 <input style="width: 400px;" id="commandsField" spellcheck="false" name="commands"
                        th:value="${commands}" class="input log" autocomplete="off" placeholder="Command"/>
@@ -25,9 +26,9 @@
             <hr/>
             <br/>
             <h3>Commands output</h3>
-            <form action="/dashboard" th:method="post" method="post">
+            <form th:action="'/dashboard/' + ${client}" th:method="post" method="post">
                 <input type="submit" value="Clear" class="input secondaryAction"/>
-                <a href="/dashboard" class="input secondaryAction">Reload</a>
+                <a th:href="'/dashboard/' + ${client}" class="input secondaryAction">Reload</a>
             </form>
             <!--/*@thymesVar id="log" type="ch.lebois.troyserver.controller.DashboardController"*/-->
             <pre class="log logb" th:text="${log}"></pre>

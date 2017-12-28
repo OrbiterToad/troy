@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  **/
 
 @Service
-public class UserService {
+public class AdminService {
 
     private PropertiesHandler handler = new PropertiesHandler("users.properties");
 

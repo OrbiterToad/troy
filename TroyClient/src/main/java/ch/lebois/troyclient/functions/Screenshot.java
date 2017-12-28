@@ -1,4 +1,4 @@
-package ch.lebois.troyclient;
+package ch.lebois.troyclient.functions;
 
 import java.awt.AWTException;
 import java.awt.Rectangle;

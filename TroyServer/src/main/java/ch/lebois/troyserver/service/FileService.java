@@ -41,6 +41,12 @@ public class FileService {
         return null;
     }
 
+    public String[] readRows() {
+        String content = read();
+        return content.split("\\n");
+    }
+
+
     public void write(String text) {
         String history = read();
         try {

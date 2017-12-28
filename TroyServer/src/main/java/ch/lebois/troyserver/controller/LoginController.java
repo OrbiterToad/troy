@@ -2,7 +2,7 @@ package ch.lebois.troyserver.controller;
 
 import ch.lebois.troyserver.service.CookieService;
 import ch.lebois.troyserver.service.EncodingShaImpl;
-import ch.lebois.troyserver.service.UserService;
+import ch.lebois.troyserver.service.AdminService;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     private final EncodingShaImpl shaService;
-    private final UserService userService;
+    private final AdminService userService;
     private final CookieService cookieService;
 
-    public LoginController(EncodingShaImpl shaService, UserService userService, CookieService cookieService) {
+    public LoginController(EncodingShaImpl shaService, AdminService userService, CookieService cookieService) {
         this.shaService = shaService;
         this.userService = userService;
         this.cookieService = cookieService;

@@ -1,4 +1,4 @@
-package ch.lebois.troyclient;
+package ch.lebois.troyclient.service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +12,7 @@ public class WebHandler {
 
     private URL url;
 
-    WebHandler(String url) {
+    public WebHandler(String url) {
         try {
             this.url = new URL(url);
         } catch (MalformedURLException e) {
