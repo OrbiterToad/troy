@@ -2,7 +2,7 @@ package ch.lebois.troyserver.controller;
 
 import ch.lebois.troyserver.service.ClientService;
 import ch.lebois.troyserver.service.CookieService;
-import ch.lebois.troyserver.service.FileService;
+import ch.menthe.io.FileHandler;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DashboardController {
 
     private final ClientService clientService;
-    private FileService fileService;
+    private FileHandler fileService;
     private CookieService cookieService;
 
 
-    DashboardController(FileService fileService, CookieService cookieService, ClientService clientService) {
-        this.fileService = fileService;
+    DashboardController(CookieService cookieService, ClientService clientService) {
+        this.fileService = new FileHandler("");
         this.cookieService = cookieService;
         this.clientService = clientService;
     }

@@ -1,5 +1,6 @@
 package ch.lebois.troyserver.service;
 
+import ch.menthe.io.FileHandler;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClientService {
 
-    private FileService fileService;
 
-    public ClientService(FileService fileService) {
-        this.fileService = fileService;
-        fileService.setFilePath("clients.txt");
+    private final FileHandler fileService;
+
+    public ClientService() {
+        fileService = new FileHandler("clients.txt");
     }
 
     public void addClient(String client) {

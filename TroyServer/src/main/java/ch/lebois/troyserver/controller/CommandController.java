@@ -1,7 +1,7 @@
 package ch.lebois.troyserver.controller;
 
 import ch.lebois.troyserver.service.ClientService;
-import ch.lebois.troyserver.service.FileService;
+import ch.menthe.io.FileHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,12 +20,10 @@ public class CommandController {
     }
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
-    public String getCommands(@PathVariable(value = "client") String client,
-                              Model model) {
+    public String getCommands(@PathVariable(value = "client") String client, Model model) {
         clientService.addClient(client);
 
-        FileService fileService = new FileService();
-        fileService.setFilePath("commands\\command_" + client + ".properties");
+        FileHandler fileService = new FileHandler("commands\\command_" + client + ".properties");
 
         model.addAttribute("commands", fileService.read());
         return "commands";
@@ -34,8 +32,7 @@ public class CommandController {
     @RequestMapping(value = {"/edit/{client}"}, method = RequestMethod.POST)
     public String edited(@PathVariable(value = "client") String client,
                          @RequestParam(name = "commands") String commands) {
-        FileService propertiesFile = new FileService();
-        propertiesFile.setFilePath("commands\\command_" + client + ".properties");
+        FileHandler propertiesFile = new FileHandler("commands\\command_" + client + ".properties");
         propertiesFile.clear();
         propertiesFile.write(commands);
         return "redirect:/dashboard/" + client;
