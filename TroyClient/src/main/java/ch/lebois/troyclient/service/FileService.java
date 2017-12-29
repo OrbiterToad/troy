@@ -1,4 +1,4 @@
-package ch.lebois.troyclient;
+package ch.lebois.troyclient.service;
 
 import com.google.common.io.Files;
 import java.io.File;

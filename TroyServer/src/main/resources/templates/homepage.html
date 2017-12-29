@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Troy Home</title>
+    <link rel="stylesheet" href="../vorlage.css"/>
+</head>
+<body>
+<center>
+    <div id="outer">
+        <div id="inner">
+            <p id="title">Home</p>
+            <hr/>
+            <h3>Clients</h3>
+            <br/>
+            <table>
+                <tr th:each="client : ${clients}">
+                    <td>
+                        <a th:href="@{'/dashboard/' + ${client}}" th:text="${client}"></a>
+                        <br/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</center>
+</body>
+</html>

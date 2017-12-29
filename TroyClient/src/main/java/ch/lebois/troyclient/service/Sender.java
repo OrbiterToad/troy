@@ -1,18 +1,17 @@
-package ch.lebois.troyclient;
+package ch.lebois.troyclient.service;
 
 import java.io.IOException;
 import java.net.URLEncoder;
 
 public class Sender {
 
-    private String url = "http://localhost:8080/reciver";
+    private final String name;
+    private String url;
 
-    Sender() {
 
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public Sender(String name) {
+        this.name = name;
+        url = "http://localhost:8080/reciver/" + name;
     }
 
     public void send(String type, String value) {

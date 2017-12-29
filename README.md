@@ -6,8 +6,8 @@ Neuer Ordner erstellen z.B. "Game-Dev"
 Git Bash 
 
 <pre>
-~/ Game-dev/ $ git init
-~/ Game-dev/ $ git pull https://github.com/Wetwer/game-dev.git
+git init
+git clone https://github.com/Wetwer/game-dev.git
 </pre>
 
 ${projectdir}Build/pom.xml mit IntelliJ als Projekt öffnen.

