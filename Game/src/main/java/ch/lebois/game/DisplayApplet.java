@@ -3,7 +3,7 @@ package ch.lebois.game;
 import javax.swing.JApplet;
 import java.awt.*;
 
-public class Display_Applet extends JApplet{
+public class DisplayApplet extends JApplet{
     private Display display = new Display();
 
     public void init(){
