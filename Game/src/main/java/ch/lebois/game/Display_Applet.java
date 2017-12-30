@@ -1,10 +1,9 @@
-package com.entwicklung.Display;
+package ch.lebois.game;
 
 import javax.swing.JApplet;
 import java.awt.*;
 
 public class Display_Applet extends JApplet{
-    private static final long serialVersionUID = 1L;
     private Display display = new Display();
 
     public void init(){

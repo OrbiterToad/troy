@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+
 public class Display extends Canvas implements Runnable {
 
     public static int WIDTH = 800, HEIGHT = 600;
@@ -45,13 +46,42 @@ public class Display extends Canvas implements Runnable {
 
         try {
             thread.join();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
+
+
+    public int FPS;
+
     public void run() {
-        while (running) {
+        long timer = System.currentTimeMillis();
+        long lastLoopTime = System.nanoTime();
+        final int TARGET_FPS = 60;
+        final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+        int frames = 0;
+
+        while(running){
+            long now = System.nanoTime();
+            long updateLength = now - lastLoopTime;
+            lastLoopTime = now;
+            double delta = updateLength / ((double) OPTIMAL_TIME);
+
+            frames++;
+
+            if (System.currentTimeMillis() - timer > 1000){
+                timer += 1000;
+                FPS = frames;
+                frames = 0;
+            }
+
+            try {
+                Thread.sleep(((lastLoopTime - System.nanoTime()) + OPTIMAL_TIME) / 1000000);
+            }catch(Exception e){};
+
+
             System.out.print("This is running!");
         }
     }
