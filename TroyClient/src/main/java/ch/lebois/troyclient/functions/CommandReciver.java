@@ -6,12 +6,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CommandReciver {
 
-    final Logger log = LoggerFactory.getLogger(CommandReciver.class);
     private String name;
 
     private String url = "http://localhost:8080/command/";
@@ -70,7 +67,6 @@ public class CommandReciver {
 
 
     public ArrayList<String> execute(String command) {
-        log.info(System.getProperty("user.dir") + " $ " + command);
 
         ArrayList<String> output = new ArrayList<>();
         try {
@@ -85,12 +81,10 @@ public class CommandReciver {
 
             String s;
             while ((s = stdInput.readLine()) != null) {
-                log.info(s);
                 output.add(s);
             }
 
             while ((s = stdError.readLine()) != null) {
-                log.info(s);
                 output.add(s);
             }
         } catch (IOException e) {
