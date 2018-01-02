@@ -1,6 +1,7 @@
 package ch.lebois.game;
 
-import java.awt.Canvas;
+import java.awt.*;
+import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -14,6 +15,9 @@ public class Display extends Canvas implements Runnable {
     public Display() {
         this.setSize(WIDTH, HEIGHT);
         this.setFocusable(true);
+
+        state = new StateMachine(this);
+        state.setStates((byte)0);
     }
 
     public static void main(String[] args) {
@@ -53,8 +57,13 @@ public class Display extends Canvas implements Runnable {
     }
 
 
-
     public int FPS;
+
+    public static StateMachine state;
+
+
+
+
 
     public void run() {
         long timer = System.currentTimeMillis();
@@ -63,6 +72,8 @@ public class Display extends Canvas implements Runnable {
         final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
         int frames = 0;
 
+        this.createBufferStrategy(3);
+        BufferStrategy bs = this.getBufferStrategy();
         while(running){
             long now = System.nanoTime();
             long updateLength = now - lastLoopTime;
@@ -77,12 +88,34 @@ public class Display extends Canvas implements Runnable {
                 frames = 0;
             }
 
+            draw(bs);
+            update(delta);
+
             try {
                 Thread.sleep(((lastLoopTime - System.nanoTime()) + OPTIMAL_TIME) / 1000000);
             }catch(Exception e){};
 
 
-            System.out.print("This is running!");
         }
     }
+
+    public void draw(BufferStrategy bs){
+        do {
+            do {
+                Graphics2D g = (Graphics2D) bs.getDrawGraphics();
+                g.setColor(Color.BLACK);
+                g.fillRect(0,0, WIDTH + 50, HEIGHT + 50);
+
+                state.draw(g);
+
+                g.dispose();
+            }while (bs.contentsRestored());
+            bs.show();
+        }while (bs.contentsLost());
+    }
+
+    public void update(double delta){
+        state.update(delta);
+    }
+
 }
