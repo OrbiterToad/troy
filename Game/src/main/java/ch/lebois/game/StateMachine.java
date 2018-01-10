@@ -10,6 +10,8 @@ public class StateMachine {
     private byte selectState = 0;
 
     public StateMachine(Canvas canvas){
+        SuperStateMachine game = new GameScreen();
+        states.add(game);
         this.canvas = canvas;
     }
 
