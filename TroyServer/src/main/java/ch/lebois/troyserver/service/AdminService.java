@@ -17,12 +17,13 @@ public class AdminService {
 
     private PropertiesHandler handler = new PropertiesHandler("users.properties");
 
-    public void addUser(String user, String password) {
-        handler.setValue(user, password);
-    }
-
     public boolean userExits(String user, String password) {
-        return true;
+        if (userExits(user)) {
+            if (handler.getProperty(user).equals(password)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean userExits(String user) {

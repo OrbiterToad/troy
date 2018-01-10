@@ -57,6 +57,11 @@
             <artifactId>guava</artifactId>
             <version>23.0</version>
         </dependency>
+        <dependency>
+            <groupId>ch.menthe</groupId>
+            <artifactId>menthe-io</artifactId>
+            <version>1.5</version>
+        </dependency>
     </dependencies>
 
     <build>
