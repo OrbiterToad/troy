@@ -24,12 +24,16 @@ public class SpriteAnimation {
     }
 
     public void draw(Graphics2D g){
+        if(isSpriteAnimDestroyed())
+            return;
+
         g.drawImage(sprites.get(currentSprite), (int) getxPos(), (int) getyPos(), null);
     }
 
     public void update(double delta){
         if(isSpriteAnimDestroyed())
             return;
+
         if(loop && !play)
             loopAnimation();
         if(play && !loop)
@@ -48,21 +52,41 @@ public class SpriteAnimation {
     }
 
     private void loopAnimation(){
-        if(timer.timerEvent(animationSpeed) && currentSprite != sprites.size()-1){
-           currentSprite++;
-        } else if(timer.timerEvent(animationSpeed) && currentSprite == sprites.size()-1){
+        if(timer.isTimerReady(animationSpeed) && currentSprite == sprites.size()-1){
             currentSprite = 0;
+            timer.resetTimer();
+        }
+        else if(timer.timerEvent(animationSpeed) && currentSprite != sprites.size()-1){
+           currentSprite++;
         }
     }
 
     private void playAnimation(){
         if(timer.timerEvent(animationSpeed) && currentSprite != sprites.size()-1 && !isDestoryAfterAnim()){
             play = false;
+            currentSprite = 0;
         } else if(timer.timerEvent(animationSpeed) && currentSprite == sprites.size()-1 && isDestoryAfterAnim()){
             sprites = null;
         } else if (timer.timerEvent(animationSpeed) && currentSprite != sprites.size()-1){
             currentSprite++;
         }
+    }
+
+
+    public byte getCurrentSprite(){
+        return currentSprite;
+    }
+
+    public void setCurrentSprite(byte currentSprite){
+        this.currentSprite = currentSprite;
+    }
+
+    public boolean isLoop(){
+        return loop;
+    }
+
+    public void setLoop(boolean loop){
+        this.loop = loop;
     }
 
     public boolean isSpriteAnimDestroyed(){
