@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -24,9 +25,9 @@ public class Player implements KeyListener{
         rect = new Rectangle((int) xPos,(int) yPos, width, height);
 
         try{
-            URL url = this.getClass().getResource("/ch/lebois/game/player.png");
-            pSprite = ImageIO.read(url);
-        }catch(IOException e){};
+            File file = new File("bin/img/player.png");
+            pSprite = ImageIO.read(file);
+        }catch(IOException e){}
     }
 
     public void draw(Graphics2D g){
