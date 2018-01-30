@@ -64,7 +64,6 @@ public class DashboardController {
         } catch (NullPointerException e) {
             return "redirect:/login";
         }
-
     }
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.POST)

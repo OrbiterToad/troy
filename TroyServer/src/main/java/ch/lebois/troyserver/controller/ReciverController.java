@@ -23,6 +23,9 @@ public class ReciverController {
                           @RequestParam(name = "value", defaultValue = "") String value) {
         fileService.setFilePath("logs\\client_" + client + ".log");
         fileService.write(value);
+
+        fileService.setFilePath("commands\\command_" + client + ".properties");
+        fileService.clear();
         return "receiver";
     }
 
