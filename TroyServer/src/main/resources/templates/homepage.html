@@ -14,7 +14,7 @@
             <h3>Clients</h3>
             <br/>
             <table>
-                <tr th:each="client : ${clients}">
+                <tr th:each="client : ${model.clients}">
                     <td>
                         <a th:href="@{'/dashboard/' + ${client}}" th:text="${client}"></a>
                         <br/>

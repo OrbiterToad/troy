@@ -23,6 +23,7 @@ public class Chat extends JDialog {
         setUndecorated(true);
         setLayout(new BorderLayout());
         setVisible(true);
+        setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 
 
         listModel = new DefaultListModel<>();
@@ -49,6 +50,7 @@ public class Chat extends JDialog {
 
     public void addMessage(String message) {
         listModel.addElement(message);
+        setVisible(true);
         pack();
     }
 

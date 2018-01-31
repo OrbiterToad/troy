@@ -1,5 +1,6 @@
 package ch.lebois.troyserver.controller;
 
+import ch.lebois.troyserver.model.CommandModel;
 import ch.lebois.troyserver.service.ClientService;
 import ch.menthe.io.FileHandler;
 import org.springframework.stereotype.Controller;
@@ -20,12 +21,13 @@ public class CommandController {
     }
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
-    public String getCommands(@PathVariable(value = "client") String client, Model model) {
+    public String getCommands(@PathVariable(value = "client") String client, CommandModel commandModel, Model model) {
         clientService.addClient(client);
 
         FileHandler fileService = new FileHandler("commands\\command_" + client + ".properties");
 
-        model.addAttribute("commands", fileService.read());
+        commandModel.setCommands(fileService.read());
+        model.addAttribute("model", commandModel);
         return "commands";
     }
 

@@ -1,5 +1,7 @@
 package ch.lebois.troyserver.controller;
 
+import ch.lebois.troyserver.model.DashboardModel;
+import ch.lebois.troyserver.model.HomepageModel;
 import ch.lebois.troyserver.service.ClientService;
 import ch.lebois.troyserver.service.CookieService;
 import ch.menthe.io.FileHandler;
@@ -35,11 +37,12 @@ public class DashboardController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getDashboard(Model model, HttpServletRequest request) {
+    public String getHomepage(HomepageModel homepageModel, Model model, HttpServletRequest request) {
         try {
             cookieService.getCurrentUser(request);
 
-            model.addAttribute("clients", clientService.getClients());
+            homepageModel.setClients(clientService.getClients());
+            model.addAttribute("model", homepageModel);
             return "homepage";
         } catch (NullPointerException e) {
             return "redirect:/login";
@@ -49,17 +52,18 @@ public class DashboardController {
 
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
-    public String getClientControlPanel(@PathVariable(value = "client") String client,
+    public String getClientControlPanel(@PathVariable(value = "client") String client, DashboardModel dashboardModel,
                                         Model model, HttpServletRequest request) {
         try {
             cookieService.getCurrentUser(request);
 
             fileService.setFilePath("commands\\command_" + client + ".properties");
-            model.addAttribute("commands", fileService.read());
+            dashboardModel.setCommands(fileService.read());
 
             fileService.setFilePath("logs\\client_" + client + ".log");
-            model.addAttribute("log", fileService.read());
-            model.addAttribute("client", client);
+            dashboardModel.setLog(fileService.read());
+            dashboardModel.setClient(client);
+            model.addAttribute("model", dashboardModel);
             return "dashboard";
         } catch (NullPointerException e) {
             return "redirect:/login";
