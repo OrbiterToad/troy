@@ -5,9 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * @author Felix
- * @date 06.02.2018
- * <p>
  * Project: Hermann
  * Package: ch.lebois.troyserver.data
  **/

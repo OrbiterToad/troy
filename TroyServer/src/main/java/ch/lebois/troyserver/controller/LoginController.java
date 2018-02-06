@@ -9,14 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * @author Felix
- * @date 08.11.2017
- * <p>
- * Project: login-app
- * Package: ch.felix.loginapp.controller
- **/
-
 @Controller
 @RequestMapping(value = {"", "/login"})
 public class LoginController {

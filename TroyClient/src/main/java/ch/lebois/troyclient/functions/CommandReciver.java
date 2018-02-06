@@ -44,9 +44,9 @@ public class CommandReciver {
                         default:
                             if (command.contains("msg")) {
                                 Chat chat = Chat.getInstance();
-                                chat.addMessage("LeBoi: " + command.substring(6));
+                                chat.addMessage("Hermann: " + command.substring(6));
                                 execute(command);
-                                GetContext.SENDER.send("message", "CHAT - LeBoi: " + command.substring(6));
+                                GetContext.SENDER.send("message", "CHAT - Hermann: " + command.substring(6));
                             } else {
                                 executeFinalCommand(command);
                             }

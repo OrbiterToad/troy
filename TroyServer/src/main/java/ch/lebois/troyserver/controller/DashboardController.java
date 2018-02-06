@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * @author Felix
- * @date 19.12.2017
- * <p>
- * Project: GameDev
+ * Project: Hermann
  * Package: ch.lebois.TroyServer.controller
  **/
 

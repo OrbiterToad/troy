@@ -4,9 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * @author Felix
- * @date 05.02.2018
- * <p>
  * Project: Hermann
  * Package: ch.lebois.troyserver.data
  **/

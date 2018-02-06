@@ -6,11 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Felix
- * @date 05.12.2017
- * <p>
- * Project: login-app
- * Package: ch.felix.loginapp.service
+ * Project: Hermann
+ * Package: ch.lebois.TroyServer.service
  **/
 
 @Service

@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * @author Felix
- * @date 27.12.2017
- * <p>
- * Project: GameDev
  * Package: ch.lebois.troyserver.service
  **/
 @Controller

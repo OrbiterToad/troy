@@ -9,9 +9,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JPanel;
 
 /**
- * @author Felix
- * @date 30.01.2018
- * <p>
  * Project: Hermann
  * Package: ch.lebois.troyclient.chat
  **/

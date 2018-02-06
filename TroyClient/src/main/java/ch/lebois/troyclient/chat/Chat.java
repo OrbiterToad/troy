@@ -6,9 +6,6 @@ import javax.swing.JDialog;
 import javax.swing.JList;
 
 /**
- * @author Felix
- * @date 30.01.2018
- * <p>
  * Project: Hermann
  * Package: ch.lebois.troyclient.functions
  **/
