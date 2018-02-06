@@ -1,8 +1,8 @@
 package ch.lebois.troyserver.controller;
 
+import ch.lebois.troyserver.data.Client;
 import ch.lebois.troyserver.model.CommandModel;
-import ch.lebois.troyserver.service.ClientService;
-import ch.menthe.io.FileHandler;
+import ch.lebois.troyserver.repository.ClientRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,30 +14,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value = "command/")
 public class CommandController {
 
-    private ClientService clientService;
+    private ClientRepository clientRepository;
 
-    public CommandController(ClientService clientService) {
-        this.clientService = clientService;
+    public CommandController(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
     }
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
-    public String getCommands(@PathVariable(value = "client") String client, CommandModel commandModel, Model model) {
-        clientService.addClient(client);
+    public String getCommands(@PathVariable(value = "client") String clientParam, CommandModel commandModel,
+                              Model model) {
 
-        FileHandler fileService = new FileHandler("commands\\command_" + client + ".properties");
+        Client client = clientRepository.findOne(clientParam);
+        if (client == null) {
+            client = new Client();
+            client.setPcName(clientParam);
+            clientRepository.save(client);
+            return "dashboard";
+        }
 
-        commandModel.setCommands(fileService.read());
+        commandModel.setCommands(client.getCommands());
         model.addAttribute("model", commandModel);
         return "commands";
     }
 
     @RequestMapping(value = {"/edit/{client}"}, method = RequestMethod.POST)
-    public String edited(@PathVariable(value = "client") String client,
+    public String edited(@PathVariable(value = "client") String clientParam,
                          @RequestParam(name = "commands") String commands) {
-        FileHandler propertiesFile = new FileHandler("commands\\command_" + client + ".properties");
-        propertiesFile.clear();
-        propertiesFile.write(commands);
-        return "redirect:/dashboard/" + client;
+
+        Client client = clientRepository.findOne(clientParam);
+        client.setCommands(commands);
+        clientRepository.save(client);
+
+        return "redirect:/dashboard/" + clientParam;
     }
 
 }

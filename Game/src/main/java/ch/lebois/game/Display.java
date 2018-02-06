@@ -1,6 +1,8 @@
 package ch.lebois.game;
 
-import java.awt.*;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -8,7 +10,10 @@ import javax.swing.WindowConstants;
 
 public class Display extends Canvas implements Runnable {
 
-    public static int WIDTH = 800, HEIGHT = 600;
+    public static int WIDTH = 800;
+    public static int HEIGHT = 600;
+    public static StateMachine state;
+    public int FPS;
     private boolean running = false;
     private Thread thread;
 
@@ -17,7 +22,7 @@ public class Display extends Canvas implements Runnable {
         this.setFocusable(true);
 
         state = new StateMachine(this);
-        state.setStates((byte)0);
+        state.setStates((byte) 0);
     }
 
     public static void main(String[] args) {
@@ -33,8 +38,9 @@ public class Display extends Canvas implements Runnable {
     }
 
     public synchronized void start() {
-        if (running)
+        if (running) {
             return;
+        }
 
         running = true;
 
@@ -43,8 +49,9 @@ public class Display extends Canvas implements Runnable {
     }
 
     public synchronized void stop() {
-        if (!running)
+        if (!running) {
             return;
+        }
 
         running = false;
 
@@ -56,15 +63,6 @@ public class Display extends Canvas implements Runnable {
         }
     }
 
-
-    public int FPS;
-
-    public static StateMachine state;
-
-
-
-
-
     public void run() {
         long timer = System.currentTimeMillis();
         long lastLoopTime = System.nanoTime();
@@ -74,47 +72,46 @@ public class Display extends Canvas implements Runnable {
 
         this.createBufferStrategy(3);
         BufferStrategy bs = this.getBufferStrategy();
-        while(running){
+        while (running) {
             long now = System.nanoTime();
-            long updateLength = now - lastLoopTime;
             lastLoopTime = now;
-            double delta = updateLength / ((double) OPTIMAL_TIME);
-
             frames++;
 
-            if (System.currentTimeMillis() - timer > 1000){
+            if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
                 FPS = frames;
                 frames = 0;
             }
 
             draw(bs);
+            long updateLength = now - lastLoopTime;
+            double delta = updateLength / ((double) OPTIMAL_TIME);
             update(delta);
 
             try {
                 Thread.sleep(((lastLoopTime - System.nanoTime()) + OPTIMAL_TIME) / 1000000);
-            }catch(Exception e){};
-
-
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void draw(BufferStrategy bs){
+    public void draw(BufferStrategy bs) {
         do {
             do {
                 Graphics2D g = (Graphics2D) bs.getDrawGraphics();
                 g.setColor(Color.BLACK);
-                g.fillRect(0,0, WIDTH + 50, HEIGHT + 50);
+                g.fillRect(0, 0, WIDTH + 50, HEIGHT + 50);
 
                 state.draw(g);
 
                 g.dispose();
-            }while (bs.contentsRestored());
+            } while (bs.contentsRestored());
             bs.show();
-        }while (bs.contentsLost());
+        } while (bs.contentsLost());
     }
 
-    public void update(double delta){
+    public void update(double delta) {
         state.update(delta);
     }
 

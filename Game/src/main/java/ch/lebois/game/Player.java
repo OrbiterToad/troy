@@ -1,52 +1,57 @@
 package ch.lebois.game;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import javax.imageio.ImageIO;
 
-public class Player implements KeyListener{
+public class Player implements KeyListener {
 
     private BufferedImage pSprite;
     private Rectangle rect;
-    private double xPos, yPos;
-    private int width, height;
 
-    public Player(double xPos, double yPos, int width, int height){
-        this.xPos = xPos;
-        this.yPos = yPos;
+    private double posX;
+    private double posY;
+    private int width;
+    private int height;
+
+    public Player(double posX, double posY, int width, int height) {
+        this.posX = posX;
+        this.posY = posY;
         this.width = width;
         this.height = height;
 
-        rect = new Rectangle((int) xPos,(int) yPos, width, height);
+        rect = new Rectangle((int) posX, (int) posY, width, height);
 
-        try{
+        try {
             File file = new File("bin/img/player.png");
             pSprite = ImageIO.read(file);
-        }catch(IOException e){}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void draw(Graphics2D g){
-        g.drawImage(pSprite,(int) xPos,(int)yPos, width, height, null);
+    public void draw(Graphics2D g) {
+        g.drawImage(pSprite, (int) posX, (int) posY, width, height, null);
     }
 
-    public void update(double delta){
-
-    }
-
-    public void keyPressed(KeyEvent e){
-
-    }
-
-    public void keyReleased(KeyEvent e){
+    public void update(double delta) {
 
     }
 
-    public void keyTyped(KeyEvent e){
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    public void keyTyped(KeyEvent e) {
 
     }
 }

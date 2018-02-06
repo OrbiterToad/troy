@@ -1,5 +1,7 @@
 package ch.lebois.troyserver.model;
 
+import ch.lebois.troyserver.data.Client;
+
 /**
  * @author Felix
  * @date 31.01.2018
@@ -9,32 +11,13 @@ package ch.lebois.troyserver.model;
  **/
 public class DashboardModel {
 
-    private String commands;
-    private String log;
-    private String client;
+    private Client client;
 
-    public String getCommands() {
-        return commands;
-    }
-
-    public void setCommands(String commands) {
-        this.commands = commands;
-    }
-
-    public String getLog() {
-        return log;
-    }
-
-    public void setLog(String log) {
-        this.log = log;
-    }
-
-    public String getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(String client) {
+    public void setClient(Client client) {
         this.client = client;
     }
-
 }

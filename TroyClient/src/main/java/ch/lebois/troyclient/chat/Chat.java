@@ -16,7 +16,7 @@ public class Chat extends JDialog {
 
     private static Chat instance;
     protected DefaultListModel<String> listModel;
-    private JList list;
+    private JList<String> list;
 
     private Chat() {
         setAlwaysOnTop(true);
@@ -27,7 +27,7 @@ public class Chat extends JDialog {
 
 
         listModel = new DefaultListModel<>();
-        list = new JList(listModel);
+        list = new JList<>(listModel);
 
         add(list, BorderLayout.NORTH);
         add(new SenderField(), BorderLayout.SOUTH);
@@ -42,20 +42,9 @@ public class Chat extends JDialog {
         return instance;
     }
 
-    public static void main(String[] args) {
-        Chat chat = Chat.getInstance();
-        chat.addMessage("test");
-        chat.addMessage("teste");
-    }
-
     public void addMessage(String message) {
         listModel.addElement(message);
         setVisible(true);
         pack();
-    }
-
-    public void clearChat() {
-//        listModel = new DefaultListModel<>();
-//        pack();
     }
 }

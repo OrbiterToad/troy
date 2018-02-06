@@ -7,7 +7,9 @@ public class Sender {
 
     public void send(String type, String value) {
         try {
-            String specUrl = GetContext.URL + "/reciver/" + GetContext.CLIENT_NAME + "/?type=" + URLEncoder.encode(type, "UTF-8")
+            System.out.println(type + "\t" + value);
+            String specUrl = GetContext.URL + "/reciver/" + GetContext.CLIENT_NAME + "/?type="
+                             + URLEncoder.encode(type, "UTF-8")
                              + "&value=" + URLEncoder.encode(value, "UTF-8");
             new WebHandler(specUrl).getContent();
         } catch (IOException e) {

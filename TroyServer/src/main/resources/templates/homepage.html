@@ -13,14 +13,32 @@
             <hr/>
             <h3>Clients</h3>
             <br/>
-            <table>
-                <tr th:each="client : ${model.clients}">
+            <table style="border: 4px solid cadetblue; width: 100%; border-radius: 6px;">
+                <tr>
+                    <th>
+                        Pc Name
+                    </th>
+                    <th>
+                        Logs
+                    </th>
+                    <th>
+                        Errors
+                    </th>
+                </tr>
+                <tr th:each="client : ${model}">
                     <td>
-                        <a th:href="@{'/dashboard/' + ${client}}" th:text="${client}"></a>
+                        <a th:href="@{'/dashboard/' + ${client.client}}" th:text="${client.client}"></a>
                         <br/>
+                    </td>
+                    <td>
+                        <span th:text="${client.logcount}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${client.errorcount}"></span>
                     </td>
                 </tr>
             </table>
+            <br/>
             <a href="dashboard/help" class="input secondaryAction">Help with Commands</a>
         </div>
     </div>

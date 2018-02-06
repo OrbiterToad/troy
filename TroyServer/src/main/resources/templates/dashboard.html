@@ -11,28 +11,28 @@
     <div id="outer">
         <div id="inner">
             <!--/*@thymesVar id="client" type="ch.lebois.troyserver.controller.DashboardController"*/-->
-            <p id="title" th:text="'Control Panel for ' + ${model.client}"></p>
+            <p id="title" th:text="'Control Panel for ' + ${model.client.pcName}"></p>
             <hr/>
             <h3>Client Commands</h3>
             <!--/*@thymesVar id="commands" type="ch.lebois.troyserver.controller.CommandController"*/-->
-            <pre th:text="${model.commands} + ' '" class="log"></pre>
+            <pre th:text="${model.client.commands} + ' '" class="log"></pre>
 
             <br/>
-            <form th:action="'/command/edit/' + ${model.client}" th:method="post" method="post">
+            <form th:action="'/command/edit/' + ${model.client.pcName}" th:method="post" method="post">
                 <label for="commandsField">Command:</label>
                 <input style="width: 400px;" id="commandsField" spellcheck="false" name="commands"
-                       th:value="${model.commands}" class="input log" autocomplete="off" placeholder="Command"/>
+                       th:value="${model.client.commands}" class="input log" autocomplete="off" placeholder="Command"/>
                 <input type="submit" class="input" value="Speichern" id="primaryAction"/>
             </form>
             <hr/>
             <br/>
             <h3>Commands output</h3>
-            <form th:action="'/dashboard/' + ${model.client}" th:method="post" method="post">
+            <form th:action="'/dashboard/' + ${model.client.pcName}" th:method="post" method="post">
                 <input type="submit" value="Clear" class="input secondaryAction"/>
-                <a th:href="'/dashboard/' + ${model.client}" class="input secondaryAction">Reload</a>
+                <a th:href="'/dashboard/' + ${model.client.pcName}" class="input secondaryAction">Reload</a>
             </form>
             <!--/*@thymesVar id="log" type="ch.lebois.troyserver.controller.DashboardController"*/-->
-            <pre class="log logb" id="log" th:text="${model.log}"></pre>
+            <pre class="log logb" id="log" th:text="${logs}"></pre>
             <a href="../dashboard" class="input secondaryAction">Back</a>
         </div>
     </div>
