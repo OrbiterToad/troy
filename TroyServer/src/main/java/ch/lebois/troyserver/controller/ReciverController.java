@@ -4,6 +4,8 @@ import ch.lebois.troyserver.data.Client;
 import ch.lebois.troyserver.data.Message;
 import ch.lebois.troyserver.repository.ClientRepository;
 import ch.lebois.troyserver.repository.MessageRepository;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,7 @@ public class ReciverController {
         System.out.println(typeParam);
         System.out.println(valueParam);
 
+
         Client client = clientRepository.findOne(clientParam);
         if (client == null) {
             client = new Client();
@@ -37,12 +40,22 @@ public class ReciverController {
             clientRepository.save(client);
         }
 
-        Message message = new Message();
-        message.setPcNameFk(clientParam);
-        message.setType(typeParam);
-        message.setText(valueParam);
-        messageRepository.save(message);
+        switch (typeParam) {
+            case "os":
+                client.setOs(valueParam);
+                break;
+            case "online":
+                break;
+            default:
+                Message message = new Message();
+                message.setPcNameFk(clientParam);
+                message.setType(typeParam);
+                message.setText(valueParam);
+                messageRepository.save(message);
+                break;
+        }
 
+        client.setLastseen(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
         clientRepository.save(client);
 
         return "receiver";

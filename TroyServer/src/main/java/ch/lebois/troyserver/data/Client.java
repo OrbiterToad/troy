@@ -14,9 +14,18 @@ public class Client {
 
     @Id
     private String pcName;
-
+    private String os;
+    private String lastseen;
     private String info;
     private String commands;
+
+    public String getOs() {
+        return os;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
 
     public String getPcName() {
         return pcName;
@@ -40,6 +49,14 @@ public class Client {
 
     public void setCommands(String commands) {
         this.commands = commands;
+    }
+
+    public String getLastseen() {
+        return lastseen;
+    }
+
+    public void setLastseen(String lastseen) {
+        this.lastseen = lastseen;
     }
 }
 

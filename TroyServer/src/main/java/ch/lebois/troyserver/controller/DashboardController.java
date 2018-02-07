@@ -50,6 +50,8 @@ public class DashboardController {
                 h.setClient(c.getPcName());
                 h.setLogcount(0);
                 h.setErrorcount(0);
+                h.setOs(c.getOs());
+                h.setLastseen(c.getLastseen());
                 for (Message m : messageRepository.findAll()) {
                     if (m.getPcNameFk().equals(c.getPcName())) {
                         h.setLogcount(h.getLogcount() + 1);

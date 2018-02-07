@@ -26,10 +26,7 @@ public class SenderField extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String text = textField.getText();
 
-                if (text.equals("clear")) {
-                    //Chat.getInstance().clearChat();
-                    //SENDER.send("message", "CHAT - Cleared");
-                } else if (!text.equals("")) {
+                if (!text.equals("")) {
                     Chat.getInstance().addMessage("me: " + text);
                     GetContext.SENDER.send("message", "CHAT - client: " + text);
                 }
