@@ -21,8 +21,7 @@ public class Screenshot {
 
 
             ImageIO.write(screenFullImage, "jpg", file);
-        } catch (AWTException | IOException ex) {
-            System.out.println(ex.getMessage());
+        } catch (AWTException | IOException ignored) {
         }
         return file.getName();
     }

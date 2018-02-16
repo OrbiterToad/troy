@@ -29,10 +29,6 @@ public class ReciverController {
                           @RequestParam(name = "type", defaultValue = "") String typeParam,
                           @RequestParam(name = "value", defaultValue = "") String valueParam) {
 
-        System.out.println(typeParam);
-        System.out.println(valueParam);
-
-
         Client client = clientRepository.findOne(clientParam);
         if (client == null) {
             client = new Client();
@@ -55,7 +51,7 @@ public class ReciverController {
                 break;
         }
 
-        client.setLastseen(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
+        client.setLastseen(new SimpleDateFormat("HH:mm:ss dd.MM").format(Calendar.getInstance().getTime()));
         clientRepository.save(client);
 
         return "receiver";
