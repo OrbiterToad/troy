@@ -43,6 +43,7 @@ public class ReciverController {
             case "online":
                 break;
             default:
+                client.setCommands("");
                 Message message = new Message();
                 message.setPcNameFk(clientParam);
                 message.setType(typeParam);
@@ -51,7 +52,7 @@ public class ReciverController {
                 break;
         }
 
-        client.setLastseen(new SimpleDateFormat("HH:mm:ss dd.MM").format(Calendar.getInstance().getTime()));
+        client.setLastseen(new SimpleDateFormat("HH:mm dd.MM").format(Calendar.getInstance().getTime()));
         clientRepository.save(client);
 
         return "receiver";

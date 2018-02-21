@@ -17,6 +17,6 @@ public class LoginController {
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public String getLoginPage() {
-        return "login";
+        return "redirect:/dashboard";
     }
 }

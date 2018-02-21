@@ -1,6 +1,4 @@
-package ch.lebois.troyserver.service.data;
-
-import ch.lebois.troyserver.data.Client;
+package ch.lebois.troyserver.data;
 
 /**
  * Project: Hermann

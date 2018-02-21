@@ -1,4 +1,4 @@
-package ch.lebois.troyserver.service.data;
+package ch.lebois.troyserver.data;
 
 import java.util.List;
 

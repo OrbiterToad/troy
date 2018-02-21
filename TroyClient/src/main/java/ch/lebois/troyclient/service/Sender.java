@@ -5,9 +5,18 @@ import java.net.URLEncoder;
 
 public class Sender {
 
+
+    private final String url;
+
+    public Sender(String url) {
+
+        this.url = url;
+    }
+
+
     public void send(String type, String value) {
         try {
-            String specUrl = GetContext.URL + "/reciver/" + GetContext.CLIENT_NAME + "/?type="
+            String specUrl = url + "/reciver/" + GetContext.CLIENT_NAME + "/?type="
                              + URLEncoder.encode(type, "UTF-8")
                              + "&value=" + URLEncoder.encode(value, "UTF-8");
             new WebHandler(specUrl).getContent();

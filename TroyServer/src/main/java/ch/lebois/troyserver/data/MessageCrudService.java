@@ -1,6 +1,4 @@
-package ch.lebois.troyserver.service.data;
-
-import ch.lebois.troyserver.data.Message;
+package ch.lebois.troyserver.data;
 
 /**
  * Package: ch.lebois.troyserver.service.data

@@ -8,8 +8,6 @@ public class GetContext {
 
     public static String CLIENT_NAME;
 
-    public static String URL;
-
     public static Sender SENDER;
 
 }
