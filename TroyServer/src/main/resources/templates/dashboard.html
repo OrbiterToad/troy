@@ -4,36 +4,36 @@
     <meta charset="UTF-8"/>
     <title>Troy Dashboard</title>
     <link rel="stylesheet" href="../vorlage.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
     <script rel="script" src="../urlParam.js"></script>
 </head>
 <body>
 <center>
     <div id="outer">
         <div id="inner">
-            <!--/*@thymesVar id="client" type="ch.lebois.troyserver.controller.DashboardController"*/-->
-            <p id="title" th:text="'Control Panel for ' + ${model.client.pcName}"></p>
+            <h1 th:text="'Control Panel for ' + ${model.client.pcName}"></h1>
             <hr/>
             <h3>Client Commands</h3>
-            <!--/*@thymesVar id="commands" type="ch.lebois.troyserver.controller.CommandController"*/-->
             <pre th:text="${model.client.commands} + ' '" class="log"></pre>
 
             <br/>
             <form th:action="'/command/edit/' + ${model.client.pcName}" th:method="post" method="post">
                 <label for="commandsField">Command:</label>
                 <input style="width: 400px;" id="commandsField" spellcheck="false" name="commands"
-                       th:value="${model.client.commands}" class="input log" autocomplete="off" placeholder="Command"/>
-                <input type="submit" class="input" value="Speichern" id="primaryAction"/>
+                       th:value="${model.client.commands}" class="input log w3-card-4" autocomplete="off"
+                       placeholder="Command"/>
+                <input type="submit" class="input w3-card-4" value="Speichern" id="primaryAction"/>
             </form>
             <hr/>
             <br/>
             <h3>Commands output</h3>
             <form th:action="'/dashboard/' + ${model.client.pcName}" th:method="post" method="post">
-                <input type="submit" value="Clear" class="input secondaryAction"/>
-                <a th:href="'/dashboard/' + ${model.client.pcName}" class="input secondaryAction">Reload</a>
+                <input type="submit" value="Clear" class="input secondaryAction w3-card-4"/>
+                <a th:href="'/dashboard/' + ${model.client.pcName}" class="input secondaryAction w3-card-4">Reload</a>
             </form>
             <!--/*@thymesVar id="log" type="ch.lebois.troyserver.controller.DashboardController"*/-->
             <pre class="log logb" id="log" th:text="${logs}"></pre>
-            <a href="../dashboard" class="input secondaryAction">Back</a>
+            <a href="../dashboard" class="input secondaryAction w3-card-4">Back</a>
         </div>
     </div>
 </center>

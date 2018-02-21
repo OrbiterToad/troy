@@ -4,12 +4,13 @@
     <meta charset="UTF-8"/>
     <title>Home</title>
     <link rel="stylesheet" href="../vorlage.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
 </head>
 <body>
 <center>
     <div id="outer">
         <div id="inner">
-            <p id="title">Home</p>
+            <h1>Home</h1>
             <hr/>
             <h3>Clients</h3>
             <br/>
@@ -33,7 +34,8 @@
                 </tr>
                 <tr th:each="client : ${model}">
                     <td>
-                        <a th:href="@{'/dashboard/' + ${client.client}}" th:text="${client.client}"></a>
+                        <a th:href="@{'/dashboard/' + ${client.client}}"
+                           th:text="${client.client}"></a>
                         <br/>
                     </td>
                     <td>
@@ -51,7 +53,7 @@
                 </tr>
             </table>
             <br/>
-            <a href="dashboard/help" class="input secondaryAction">Help with Commands</a>
+            <a href="dashboard/help" class="input secondaryAction w3-card-4">Help with Commands</a>
         </div>
     </div>
 </center>
