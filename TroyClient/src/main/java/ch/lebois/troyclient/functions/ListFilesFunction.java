@@ -1,4 +1,4 @@
-package ch.lebois.troyclient.service;
+package ch.lebois.troyclient.functions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Project: Hermann
  * Package: ch.lebois.troyclient.service
  **/
-public class ListFiles {
+public class ListFilesFunction {
 
     public static ArrayList<String> ls(String path) {
         System.out.println("args" + path);

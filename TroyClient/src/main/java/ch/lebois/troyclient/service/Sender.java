@@ -1,5 +1,7 @@
 package ch.lebois.troyclient.service;
 
+import ch.lebois.troyclient.main.GetContext;
+
 import java.io.IOException;
 import java.net.URLEncoder;
 

@@ -1,4 +1,6 @@
-package ch.lebois.troyclient.service;
+package ch.lebois.troyclient.main;
+
+import ch.lebois.troyclient.service.Sender;
 
 /**
  * Project: Hermann

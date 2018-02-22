@@ -1,14 +1,14 @@
 package ch.lebois.troyclient;
 
-import ch.lebois.troyclient.functions.CommandReciver;
-import ch.lebois.troyclient.service.ConfigureInit;
-import ch.lebois.troyclient.service.GetContext;
+import ch.lebois.troyclient.main.CommandReciver;
+import ch.lebois.troyclient.main.ConfigureInit;
+import ch.lebois.troyclient.main.GetContext;
 
 public class TroyClient {
     public static void main(String[] args) throws InterruptedException {
 
         ConfigureInit init = new ConfigureInit();
-        init.configure("http://192.168.100.153:8080");
+        init.configure("http://localhost:8080");
 
         CommandReciver commandReciver = new CommandReciver(init.getWebHandler());
         while (true) {

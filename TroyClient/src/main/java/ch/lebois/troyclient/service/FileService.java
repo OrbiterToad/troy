@@ -1,13 +1,14 @@
 package ch.lebois.troyclient.service;
 
 import com.google.common.io.Files;
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
-import org.apache.commons.io.FileUtils;
 
 public class FileService {
 
@@ -83,4 +84,7 @@ public class FileService {
         }
     }
 
+    public String[] readRows() {
+        return read().split("\n");
+    }
 }

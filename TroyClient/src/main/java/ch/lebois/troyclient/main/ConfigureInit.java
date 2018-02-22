@@ -1,4 +1,8 @@
-package ch.lebois.troyclient.service;
+package ch.lebois.troyclient.main;
+
+import ch.lebois.troyclient.service.Console;
+import ch.lebois.troyclient.service.Sender;
+import ch.lebois.troyclient.service.WebHandler;
 
 /**
  * @author Felix
