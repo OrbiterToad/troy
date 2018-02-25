@@ -94,7 +94,7 @@ form {
     border-radius: 3px;
 }
 
-.logb{
+.logb {
     height: 500px;
     overflow-y: scroll;
 }
@@ -106,4 +106,8 @@ form {
     font-family: Consolas, serif;
     padding: 5px;
     border-radius: 5px;
+}
+
+ul {
+    list-style-type: none;
 }

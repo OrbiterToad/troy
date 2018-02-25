@@ -3,12 +3,14 @@ package ch.lebois.troyserver.controller;
 import ch.lebois.troyserver.data.*;
 import ch.lebois.troyserver.model.DashboardModel;
 import ch.lebois.troyserver.model.HomepageModel;
+import ch.lebois.troyserver.service.CookieService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,18 +27,20 @@ public class DashboardController {
     private ClientRepository clientRepository;
     private MessageRepository messageRepository;
     private ImageRepository imageRepository;
+    private CookieService cookieService;
 
     public DashboardController(ClientRepository clientRepository, MessageRepository messageRepository,
-                               ImageRepository imageRepository) {
+                               ImageRepository imageRepository, CookieService cookieService) {
         this.clientRepository = clientRepository;
         this.messageRepository = messageRepository;
         this.imageRepository = imageRepository;
+        this.cookieService = cookieService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getHomepage(Model model) {
+    public String getHomepage(Model model, HttpServletRequest request) {
         try {
-
+            String user = cookieService.getCurrentUser(request);
             List<HomepageModel> list = new ArrayList<>();
 
             for (Client c : clientRepository.findAll()) {
@@ -59,6 +63,7 @@ public class DashboardController {
 
 
             model.addAttribute("model", list);
+            model.addAttribute("user", user);
             return "homepage";
         } catch (NullPointerException e) {
             return "redirect:/login";
@@ -69,8 +74,10 @@ public class DashboardController {
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
     public String getClientControlPanel(@PathVariable(value = "client") String clientParam, Model model,
-                                        DashboardModel dashboardModel) {
+                                        DashboardModel dashboardModel, HttpServletRequest request) {
         try {
+            String user = cookieService.getCurrentUser(request);
+
             Client client = clientRepository.findOne(clientParam);
             if (client == null) {
                 return "redirect:/dashboard";
@@ -90,6 +97,7 @@ public class DashboardController {
             model.addAttribute("model", dashboardModel);
             model.addAttribute("logs", logs);
             model.addAttribute("images", images);
+            model.addAttribute("user", user);
             return "dashboard";
         } catch (NullPointerException e) {
             return "redirect:/login";
