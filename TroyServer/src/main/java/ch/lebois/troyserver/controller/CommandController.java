@@ -2,7 +2,7 @@ package ch.lebois.troyserver.controller;
 
 import ch.lebois.troyserver.data.Client;
 import ch.lebois.troyserver.model.CommandModel;
-import ch.lebois.troyserver.repository.ClientRepository;
+import ch.lebois.troyserver.data.ClientRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;

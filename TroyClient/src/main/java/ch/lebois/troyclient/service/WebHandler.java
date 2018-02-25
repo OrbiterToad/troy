@@ -38,6 +38,6 @@ public class WebHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
 }

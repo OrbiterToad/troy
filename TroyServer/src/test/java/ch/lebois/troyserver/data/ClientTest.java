@@ -1,6 +1,5 @@
 package ch.lebois.troyserver.data;
 
-import ch.lebois.troyserver.repository.ClientRepository;
 import org.junit.Before;
 import org.junit.Test;
 

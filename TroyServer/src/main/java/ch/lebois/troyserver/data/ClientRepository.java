@@ -1,4 +1,4 @@
-package ch.lebois.troyserver.repository;
+package ch.lebois.troyserver.data;
 
 import ch.lebois.troyserver.data.Client;
 import org.springframework.data.repository.CrudRepository;

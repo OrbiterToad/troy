@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TroyServerApplication {
+public class TroyServer {
     public static void main(String[] args) {
-        SpringApplication.run(TroyServerApplication.class, args);
+        SpringApplication.run(TroyServer.class, args);
     }
 }

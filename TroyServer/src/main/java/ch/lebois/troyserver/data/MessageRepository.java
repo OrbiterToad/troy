@@ -1,6 +1,5 @@
-package ch.lebois.troyserver.repository;
+package ch.lebois.troyserver.data;
 
-import ch.lebois.troyserver.data.Message;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -8,5 +7,4 @@ import org.springframework.data.repository.CrudRepository;
  * Package: ch.lebois.troyserver.repository
  **/
 public interface MessageRepository extends CrudRepository<Message, Long> {
-
 }

