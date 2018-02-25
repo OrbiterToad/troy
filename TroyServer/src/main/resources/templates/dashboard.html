@@ -33,6 +33,12 @@
             </form>
             <!--/*@thymesVar id="log" type="ch.lebois.troyserver.controller.DashboardController"*/-->
             <pre class="log logb" id="log" th:text="${logs}"></pre>
+            <br/>
+            <ul>
+                <li th:each="img:${images}">
+                    <a th:href="'../screenshot/' + ${img.name}" th:text="${img.name}"></a>
+                </li>
+            </ul>
             <a href="../dashboard" class="input secondaryAction w3-card-4">Back</a>
         </div>
     </div>

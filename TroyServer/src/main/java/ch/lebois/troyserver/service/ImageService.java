@@ -1,4 +1,4 @@
-package ch.lebois.troyserver;
+package ch.lebois.troyserver.service;
 
 import org.springframework.stereotype.Service;
 
@@ -29,8 +29,8 @@ public class ImageService {
 
             String imgPath = new SimpleDateFormat("dd-MM").format(new Date()) + "-" + user + ".jpg";
 
-            ImageIO.write(bImageFromConvert, "jpg", new File(imgPath));
-
+            ImageIO.write(bImageFromConvert, "jpg", new File("E:\\Projects\\Hermann\\" +
+                    "game-dev\\TroyServer\\src\\main\\resources\\screenshots\\" + imgPath));
             return imgPath;
         } catch (IOException e) {
             e.printStackTrace();

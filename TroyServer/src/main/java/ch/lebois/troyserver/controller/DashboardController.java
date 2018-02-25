@@ -1,19 +1,16 @@
 package ch.lebois.troyserver.controller;
 
-import ch.lebois.troyserver.data.Client;
-import ch.lebois.troyserver.data.Message;
+import ch.lebois.troyserver.data.*;
 import ch.lebois.troyserver.model.DashboardModel;
 import ch.lebois.troyserver.model.HomepageModel;
-import ch.lebois.troyserver.data.ClientRepository;
-import ch.lebois.troyserver.data.MessageRepository;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Project: Hermann
@@ -27,15 +24,17 @@ public class DashboardController {
 
     private ClientRepository clientRepository;
     private MessageRepository messageRepository;
+    private ImageRepository imageRepository;
 
-    DashboardController(ClientRepository clientRepository,
-                        MessageRepository messageRepository) {
+    public DashboardController(ClientRepository clientRepository, MessageRepository messageRepository,
+                               ImageRepository imageRepository) {
         this.clientRepository = clientRepository;
         this.messageRepository = messageRepository;
+        this.imageRepository = imageRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getHomepage(Model model, HttpServletRequest request) {
+    public String getHomepage(Model model) {
         try {
 
             List<HomepageModel> list = new ArrayList<>();
@@ -86,8 +85,11 @@ public class DashboardController {
                 }
             }
 
+            List<Image> images = imageRepository.findImagesByPcNameFk(clientParam);
+
             model.addAttribute("model", dashboardModel);
             model.addAttribute("logs", logs);
+            model.addAttribute("images", images);
             return "dashboard";
         } catch (NullPointerException e) {
             return "redirect:/login";
