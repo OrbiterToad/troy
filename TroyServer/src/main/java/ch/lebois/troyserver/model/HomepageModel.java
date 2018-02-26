@@ -2,7 +2,6 @@ package ch.lebois.troyserver.model;
 
 /**
  * Project: Hermann
- * Package: ch.lebois.troyserver.model
  **/
 public class HomepageModel {
     private String client;

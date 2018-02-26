@@ -4,11 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * @author Felix
- * @date 21.02.2018
- * <p>
  * Project: Hermann
- * Package: ch.lebois.troyclient.service
  **/
 public class ListFilesFunction {
 

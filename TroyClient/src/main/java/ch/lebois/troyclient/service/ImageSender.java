@@ -10,8 +10,6 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @USER Felix
- * @DATE 24.02.2018
  * @PROJECT Hermann
  */
 public class ImageSender {

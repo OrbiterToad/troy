@@ -1,8 +1,8 @@
 package ch.lebois.troyserver.controller;
 
-import ch.lebois.troyserver.data.Client;
+import ch.lebois.troyserver.data.entity.Client;
+import ch.lebois.troyserver.data.repository.ClientRepository;
 import ch.lebois.troyserver.model.CommandModel;
-import ch.lebois.troyserver.data.ClientRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,15 +26,20 @@ public class CommandController {
 
         Client client = clientRepository.findOne(clientParam);
         if (client == null) {
-            client = new Client();
-            client.setPcName(clientParam);
-            clientRepository.save(client);
+            createClient(clientParam);
             return "dashboard";
         }
 
         commandModel.setCommands(client.getCommands());
         model.addAttribute("model", commandModel);
         return "commands";
+    }
+
+    private void createClient(String clientName) {
+        Client client;
+        client = new Client();
+        client.setPcName(clientName);
+        clientRepository.save(client);
     }
 
     @RequestMapping(value = {"/edit/{client}"}, method = RequestMethod.POST)

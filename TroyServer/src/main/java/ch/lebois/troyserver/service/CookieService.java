@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @USER Felix
- * @DATE 25.02.2018
  * @PROJECT Hermann
  */
 

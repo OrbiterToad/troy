@@ -1,14 +1,12 @@
 package ch.lebois.troyserver.service;
 
-import ch.lebois.troyserver.data.User;
-import ch.lebois.troyserver.data.UserRepository;
+import ch.lebois.troyserver.data.entity.User;
+import ch.lebois.troyserver.data.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * @USER Felix
- * @DATE 25.02.2018
  * @PROJECT Hermann
  */
 

@@ -1,7 +1,7 @@
-package ch.lebois.troyserver.data;
+package ch.lebois.troyserver.data.repository;
 
+import ch.lebois.troyserver.data.entity.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 /**
  * Project: Hermann

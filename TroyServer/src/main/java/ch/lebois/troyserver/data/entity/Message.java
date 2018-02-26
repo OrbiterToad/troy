@@ -1,4 +1,4 @@
-package ch.lebois.troyserver.data;
+package ch.lebois.troyserver.data.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

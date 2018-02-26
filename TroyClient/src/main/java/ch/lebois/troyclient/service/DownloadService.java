@@ -9,8 +9,6 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
 /**
- * @USER Felix
- * @DATE 25.02.2018
  * @PROJECT Hermann
  */
 

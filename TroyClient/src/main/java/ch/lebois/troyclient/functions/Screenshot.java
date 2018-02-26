@@ -8,11 +8,7 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * @author Felix
- * @date 21.02.2018
- * <p>
  * Project: Hermann
- * Package: ch.lebois.troyclient.functions
  **/
 
 public class Screenshot {

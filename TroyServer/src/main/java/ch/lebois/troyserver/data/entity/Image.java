@@ -1,12 +1,10 @@
-package ch.lebois.troyserver.data;
+package ch.lebois.troyserver.data.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * @USER Felix
- * @DATE 25.02.2018
  * @PROJECT Hermann
  */
 

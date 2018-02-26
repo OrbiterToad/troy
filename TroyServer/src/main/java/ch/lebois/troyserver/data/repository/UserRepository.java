@@ -1,10 +1,9 @@
-package ch.lebois.troyserver.data;
+package ch.lebois.troyserver.data.repository;
 
+import ch.lebois.troyserver.data.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * @USER Felix
- * @DATE 25.02.2018
  * @PROJECT Hermann
  */
 public interface UserRepository extends JpaRepository<User, Long> {

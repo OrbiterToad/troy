@@ -11,11 +11,7 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 
 /**
- * @author Felix
- * @date 21.02.2018
- * <p>
  * Project: Hermann
- * Package: ch.lebois.troyclient.service
  **/
 public class ConfigureInit {
 

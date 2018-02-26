@@ -22,7 +22,6 @@ public class Chat extends JDialog {
         setVisible(true);
         setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 
-
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
 
@@ -32,6 +31,10 @@ public class Chat extends JDialog {
     }
 
 
+    /**
+     * Lemao SINGELTONNNNN
+     * @return
+     */
     public static Chat getInstance() {
         if (instance == null) {
             instance = new Chat();

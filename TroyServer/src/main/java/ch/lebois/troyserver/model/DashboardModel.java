@@ -1,10 +1,9 @@
 package ch.lebois.troyserver.model;
 
-import ch.lebois.troyserver.data.Client;
+import ch.lebois.troyserver.data.entity.Client;
 
 /**
  * Project: Hermann
- * Package: ch.lebois.troyserver.model
  **/
 public class DashboardModel {
 
