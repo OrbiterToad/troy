@@ -1,8 +1,5 @@
 package ch.lebois.troyserver.service;
 
-import org.springframework.stereotype.Service;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -12,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.imageio.ImageIO;
+import org.springframework.stereotype.Service;
 
 /**
  * @USER Felix
@@ -22,23 +21,6 @@ import java.util.List;
 @Service
 public class ImageService {
 
-    public String getImage(ArrayList<Byte> list, String user) {
-        try {
-            InputStream in = new ByteArrayInputStream(toByteArray(list));
-            BufferedImage bImageFromConvert = ImageIO.read(in);
-
-            String imgPath = new SimpleDateFormat("dd-MM").format(new Date()) + "-" + user + ".jpg";
-
-            ImageIO.write(bImageFromConvert, "jpg", new File("E:\\Projects\\Hermann\\" +
-                    "game-dev\\TroyServer\\src\\main\\resources\\screenshots\\" + imgPath));
-            return imgPath;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
     private static byte[] toByteArray(List<Byte> in) {
         final int n = in.size();
         byte ret[] = new byte[n];
@@ -46,6 +28,23 @@ public class ImageService {
             ret[i] = in.get(i);
         }
         return ret;
+    }
+
+    public String getImage(ArrayList<Byte> list, String user) {
+        try {
+            InputStream in = new ByteArrayInputStream(toByteArray(list));
+            BufferedImage bImageFromConvert = ImageIO.read(in);
+
+            String imgPath = new SimpleDateFormat("dd-MM hh-mm").format(new Date()) + "-" + user + ".jpg";
+            //TODO: Change Path crete Folder screenshots
+            ImageIO.write(bImageFromConvert, "jpg",
+                    new File("C:\\Users\\Felix\\Documents\\_Projekte\\Herman\\game-dev\\TroyServer\\src\\"
+                             + "main\\resources\\screenshots\\" + imgPath));
+            return imgPath;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

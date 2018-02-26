@@ -32,7 +32,7 @@ public class ConfigureInit {
 
         webHandler = new WebHandler(url + "/command/" + GetContext.CLIENT_NAME);
         operatingSystem();
-        autostart();
+//        autostart();
     }
 
     private void autostart() {

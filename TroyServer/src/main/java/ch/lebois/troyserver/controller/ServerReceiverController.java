@@ -1,16 +1,20 @@
 package ch.lebois.troyserver.controller;
 
-import ch.lebois.troyserver.data.*;
+import ch.lebois.troyserver.data.Client;
+import ch.lebois.troyserver.data.ClientRepository;
+import ch.lebois.troyserver.data.Image;
+import ch.lebois.troyserver.data.ImageRepository;
+import ch.lebois.troyserver.data.Message;
+import ch.lebois.troyserver.data.MessageRepository;
 import ch.lebois.troyserver.service.ImageService;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 @Controller
 @RequestMapping(value = "reciver/")
@@ -68,6 +72,7 @@ public class ServerReceiverController {
                 messageRepository.save(loadingMessage);
 
                 String fileName = imageService.getImage(bytes, clientParam);
+                bytes = new ArrayList<>();
 
                 Image image = new Image();
                 image.setPcNameFk(clientParam);

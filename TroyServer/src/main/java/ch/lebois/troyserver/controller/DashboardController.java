@@ -1,18 +1,29 @@
 package ch.lebois.troyserver.controller;
 
-import ch.lebois.troyserver.data.*;
+import ch.lebois.troyserver.data.Client;
+import ch.lebois.troyserver.data.ClientRepository;
+import ch.lebois.troyserver.data.Image;
+import ch.lebois.troyserver.data.ImageRepository;
+import ch.lebois.troyserver.data.Message;
+import ch.lebois.troyserver.data.MessageRepository;
 import ch.lebois.troyserver.model.DashboardModel;
 import ch.lebois.troyserver.model.HomepageModel;
 import ch.lebois.troyserver.service.CookieService;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Project: Hermann
@@ -112,6 +123,29 @@ public class DashboardController {
                 messageRepository.delete(m);
             }
         }
+        return "redirect:/dashboard/" + clientParam;
+    }
+
+    @RequestMapping(value = "/img/{file}", method = RequestMethod.GET)
+    public void getImg(@PathVariable(value = "file") String filePath, HttpServletResponse response) throws IOException {
+        InputStream in = new FileInputStream(
+//                TODO: Change Path
+                new File("C:\\Users\\Felix\\Documents\\_Projekte\\Herman\\game-dev\\TroyServer\\src\\main\\"
+                         + "resources\\screenshots\\" + filePath + ".jpg"));
+
+        try {
+            response.setContentType("image/jpeg");
+            IOUtils.copy(in, response.getOutputStream());
+        } finally {
+            IOUtils.closeQuietly(in);
+        }
+    }
+
+    @RequestMapping(value = "/img/{file}/remove", method = RequestMethod.GET)
+    public String removeImg(@PathVariable(value = "file") String filePath,
+                            @RequestParam(value = "client") String clientParam) throws IOException {
+        imageRepository.delete(imageRepository.findImageByName(filePath));
+
         return "redirect:/dashboard/" + clientParam;
     }
 

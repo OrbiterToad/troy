@@ -34,11 +34,15 @@
             <!--/*@thymesVar id="log" type="ch.lebois.troyserver.controller.DashboardController"*/-->
             <pre class="log logb" id="log" th:text="${logs}"></pre>
             <br/>
-            <ul>
-                <li th:each="img:${images}">
-                    <a th:href="'../screenshot/' + ${img.name}" th:text="${img.name}"></a>
+            <h3>Screenshots</h3>
+            <ul class="w3-ul w3-card-4 w3-hoverable">
+                <li th:each="img:${images}" class="w3-display-container">
+                    <a th:href="'/dashboard/img/' + ${img.name}" th:text="${img.name}"></a>
+                    <a th:href="'/dashboard/img/' + ${img.name} + '/remove?client=' + ${model.client.pcName}"
+                       class="w3-button w3-display-right w3-hover-red">&times;</a>
                 </li>
             </ul>
+            <br/>
             <a href="../dashboard" class="input secondaryAction w3-card-4">Back</a>
         </div>
     </div>
