@@ -3,6 +3,8 @@ package ch.lebois.troyserver.controller;
 import ch.lebois.troyserver.data.entity.Client;
 import ch.lebois.troyserver.data.repository.ClientRepository;
 import ch.lebois.troyserver.model.CommandModel;
+import ch.lebois.troyserver.service.CookieService;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CommandController {
 
     private ClientRepository clientRepository;
+    private CookieService cookieService;
 
-    public CommandController(ClientRepository clientRepository) {
+    public CommandController(ClientRepository clientRepository, CookieService cookieService) {
         this.clientRepository = clientRepository;
+        this.cookieService = cookieService;
     }
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
@@ -44,11 +48,19 @@ public class CommandController {
 
     @RequestMapping(value = {"/edit/{client}"}, method = RequestMethod.POST)
     public String edited(@PathVariable(value = "client") String clientParam,
-                         @RequestParam(name = "commands") String commands) {
+                         @RequestParam(name = "commands") String commands,
+                         HttpServletRequest request) {
 
-        Client client = clientRepository.findOne(clientParam);
-        client.setCommands(commands);
-        clientRepository.save(client);
+        try {
+            String user = cookieService.getCurrentUser(request);
+            System.out.println(user + " set Command for " + clientParam + " Comand: " + commands);
+
+            Client client = clientRepository.findOne(clientParam);
+            client.setCommands(commands);
+            clientRepository.save(client);
+        } catch (NullPointerException e) {
+            return "redirect:/login";
+        }
 
         return "redirect:/dashboard/" + clientParam;
     }
