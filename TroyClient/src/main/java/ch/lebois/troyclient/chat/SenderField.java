@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 
 /**
  * Project: Hermann
- * Package: ch.lebois.troyclient.chat
  **/
 public class SenderField extends JPanel {
 

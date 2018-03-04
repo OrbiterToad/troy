@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Project: Hermann
- * Package: ch.lebois.TroyServer.controller
  **/
 
 

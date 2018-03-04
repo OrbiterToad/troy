@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Package: ch.lebois.troyserver.service
+ * Project: Hermann
  **/
 @Controller
 @RequestMapping(value = "error")

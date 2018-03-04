@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Project: Hermann
- * Package: ch.lebois.troyserver.repository
  **/
 public interface MessageRepository extends JpaRepository<Message, Long> {
 }

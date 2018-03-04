@@ -5,7 +5,6 @@ import javax.persistence.Id;
 
 /**
  * Project: Hermann
- * Package: ch.lebois.troyserver.data
  **/
 
 
