@@ -1,8 +1,8 @@
 package ch.lebois.troyserver.controller;
 
 import ch.lebois.troyserver.data.entity.Client;
-import ch.lebois.troyserver.data.repository.ClientRepository;
 import ch.lebois.troyserver.data.entity.Message;
+import ch.lebois.troyserver.data.repository.ClientRepository;
 import ch.lebois.troyserver.data.repository.MessageRepository;
 import ch.lebois.troyserver.model.HomepageModel;
 import ch.lebois.troyserver.service.CookieService;
@@ -36,7 +36,7 @@ public class HomepageController {
     @RequestMapping(method = RequestMethod.GET)
     public String getHomepage(Model model, HttpServletRequest request) {
         try {
-            String user = cookieService.getCurrentUser(request);
+            model.addAttribute("user", cookieService.getCurrentUser(request));
             List<HomepageModel> list = new ArrayList<>();
 
             for (Client client : clientRepository.findAll()) {
@@ -44,7 +44,6 @@ public class HomepageController {
             }
 
             model.addAttribute("model", list);
-            model.addAttribute("user", user);
             return "homepage";
         } catch (NullPointerException e) {
             return "redirect:/login";

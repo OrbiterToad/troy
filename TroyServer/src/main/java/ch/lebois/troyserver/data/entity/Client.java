@@ -13,10 +13,38 @@ public class Client {
 
     @Id
     private String pcName;
+
     private String os;
+    private String ip;
+    private String pcuser;
+    private String arch;
     private String lastseen;
     private String info;
     private String commands;
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getPcuser() {
+        return pcuser;
+    }
+
+    public void setPcuser(String pcuser) {
+        this.pcuser = pcuser;
+    }
+
+    public String getArch() {
+        return arch;
+    }
+
+    public void setArch(String arch) {
+        this.arch = arch;
+    }
 
     public String getOs() {
         return os;

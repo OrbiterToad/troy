@@ -1,9 +1,9 @@
 package ch.lebois.troyserver.controller;
 
 import ch.lebois.troyserver.data.entity.Client;
+import ch.lebois.troyserver.data.entity.Message;
 import ch.lebois.troyserver.data.repository.ClientRepository;
 import ch.lebois.troyserver.data.repository.ImageRepository;
-import ch.lebois.troyserver.data.entity.Message;
 import ch.lebois.troyserver.data.repository.MessageRepository;
 import ch.lebois.troyserver.model.DashboardModel;
 import ch.lebois.troyserver.service.CookieService;
@@ -58,7 +58,9 @@ public class DashboardController {
         model.addAttribute("model", dashboardModel);
         model.addAttribute("logs", getLogs(clientName));
         model.addAttribute("images", imageRepository.findImagesByPcNameFk(clientName));
-        model.addAttribute("user", cookieService.getCurrentUser(request));
+        String user = cookieService.getCurrentUser(request);
+        System.out.println(user + " gets Dashboard for " + dashboardModel.getClient().getPcName());
+        model.addAttribute("user", user);
     }
 
     private String getLogs(String clientName) {
