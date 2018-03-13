@@ -32,7 +32,7 @@ public class ImageService {
             String imgPath = new SimpleDateFormat("dd-MM hh-mm").format(new Date()) + "-" + user + ".jpg";
             //TODO: Change Path crete Folder screenshots
             ImageIO.write(getBufferedImage(list), "jpg",
-                    new File("E:\\Projects\\Hermann\\game-dev\\TroyServer\\src\\main\\resources\\sreenshots\\"
+                    new File("C:\\Users\\Felix\\Documents\\_Projekte\\Herman\\game-dev\\TroyServer\\src\\main\\resources\\screenshots"
                             + imgPath));
             return imgPath;
         } catch (IOException e) {

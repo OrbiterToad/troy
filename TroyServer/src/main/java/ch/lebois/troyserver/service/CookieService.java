@@ -35,20 +35,4 @@ public class CookieService {
         }
         throw new NullPointerException();
     }
-
-    /**
-     * Logout User
-     * <p>
-     * Set Cookie "user" value to "" and expiry to 0
-     */
-    public void logout(HttpServletRequest request) throws NullPointerException {
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals("user")) {
-                cookie.setValue("");
-                cookie.setMaxAge(0);
-                System.out.println("cookie " + cookie.getMaxAge() + " value = " + cookie.getValue());
-            }
-        }
-    }
-
 }

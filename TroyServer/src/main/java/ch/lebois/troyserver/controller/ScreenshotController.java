@@ -34,8 +34,8 @@ public class ScreenshotController {
         InputStream in = null;
         try {
             in = new FileInputStream(
-                    new File("E:\\Projects\\Hermann\\game-dev\\TroyServer\\src\\main\\resources\\sreenshots\\"
-                            + filePath + ".jpg"));
+                    new File("C:\\Users\\Felix\\Documents\\_Projekte\\Herman\\game-dev\\TroyServer\\src\\main\\resources\\screenshots\\"
+                             + filePath + ".jpg"));
             response.setContentType("image/jpeg");
             IOUtils.copy(in, response.getOutputStream());
         } catch (FileNotFoundException e) {

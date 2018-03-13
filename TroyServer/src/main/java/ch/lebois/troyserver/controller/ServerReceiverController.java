@@ -28,6 +28,8 @@ public class ServerReceiverController {
 
     private ImageService imageService;
     private Client client;
+    private int allBytesSize;
+    private Message imgLoader;
 
     public ServerReceiverController(ClientRepository clientRepository, MessageRepository messageRepository,
                                     ImageService imageService, ImageRepository imageRepository) {
@@ -60,10 +62,22 @@ public class ServerReceiverController {
             case "online":
                 break;
             case "img":
+                imgLoader.setText(String.valueOf("Loading: " + (bytes.size() / allBytesSize)));
+                messageRepository.save(imgLoader);
                 addBytes(valueParam);
                 clearCommands();
                 break;
+            case "imgSize":
+                allBytesSize = Integer.valueOf(valueParam);
+                imgLoader = new Message();
+                imgLoader.setPcNameFk(clientParam);
+                imgLoader.setType("commandout");
+                imgLoader.setText("");
+                messageRepository.save(imgLoader);
+                clearCommands();
+                break;
             case "imgend":
+                imgLoader = new Message();
                 createMessage(clientParam, "commandout", "Creating Img");
                 createMessage(clientParam, typeParam, "Saved img: " + createImg(clientParam));
                 break;
@@ -101,8 +115,11 @@ public class ServerReceiverController {
     }
 
     private String createImg(String clientParam) {
+        System.out.println("test1");
         String fileName = imageService.getImage(bytes, clientParam);
+        System.out.println("test2");
         bytes = new ArrayList<>();
+        System.out.println("test3");
 
         Image image = new Image();
         image.setPcNameFk(clientParam);

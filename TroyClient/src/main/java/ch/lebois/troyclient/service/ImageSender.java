@@ -27,6 +27,7 @@ public class ImageSender {
             byteArrayOutputStream.flush();
 
             bytes = byteArrayOutputStream.toByteArray();
+            GetContext.SENDER.send("imgSize", String.valueOf(bytes.length));
             byteArrayOutputStream.close();
 
             StringBuilder byteHandler = new StringBuilder();

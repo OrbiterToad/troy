@@ -69,11 +69,6 @@ form {
     border-color: darkgray;
 }
 
-.psw {
-    font-family: Consolas, serif;
-    font-size: 14px;
-}
-
 #error {
     color: red;
 }
