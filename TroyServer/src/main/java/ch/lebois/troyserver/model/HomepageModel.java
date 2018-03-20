@@ -9,6 +9,15 @@ public class HomepageModel {
     private String lastseen;
     private int logcount;
     private int errorcount;
+    private String arch;
+
+    public String getArch() {
+        return arch;
+    }
+
+    public void setArch(String arch) {
+        this.arch = arch;
+    }
 
     public String getLastseen() {
         return lastseen;

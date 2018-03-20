@@ -58,6 +58,7 @@ public class HomepageController {
         homepageModel.setErrorcount(0);
         homepageModel.setOs(client.getOs());
         homepageModel.setLastseen(client.getLastseen());
+        homepageModel.setArch(client.getArch());
 
         for (Message m : messageRepository.findAll()) {
             if (m.getPcNameFk().equals(client.getPcName())) {
