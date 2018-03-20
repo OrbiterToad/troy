@@ -53,13 +53,12 @@ public class DashboardController {
         }
     }
 
-    private void setAtributes(String clientName, Model model,
-                              DashboardModel dashboardModel, HttpServletRequest request) {
+    private void setAtributes(String clientName, Model model, DashboardModel dashboardModel,
+                              HttpServletRequest request) {
         model.addAttribute("model", dashboardModel);
         model.addAttribute("logs", getLogs(clientName));
         model.addAttribute("images", imageRepository.findImagesByPcNameFk(clientName));
         String user = cookieService.getCurrentUser(request);
-        System.out.println(user + " gets Dashboard for " + dashboardModel.getClient().getPcName());
         model.addAttribute("user", user);
     }
 

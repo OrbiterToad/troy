@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ListFilesFunction {
 
     public static ArrayList<String> ls(String path) {
-        System.out.println("args" + path);
+        System.out.println("ls -> " + path);
         if (path.equals("")) {
             path = System.getProperty("user.dir");
         }

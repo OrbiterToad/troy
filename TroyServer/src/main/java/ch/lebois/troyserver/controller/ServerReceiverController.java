@@ -115,11 +115,8 @@ public class ServerReceiverController {
     }
 
     private String createImg(String clientParam) {
-        System.out.println("test1");
         String fileName = imageService.getImage(bytes, clientParam);
-        System.out.println("test2");
         bytes = new ArrayList<>();
-        System.out.println("test3");
 
         Image image = new Image();
         image.setPcNameFk(clientParam);

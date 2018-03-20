@@ -53,7 +53,6 @@ public class CommandController {
 
         try {
             String user = cookieService.getCurrentUser(request);
-            System.out.println(user + " set Command for " + clientParam + " Comand: " + commands);
 
             Client client = clientRepository.findOne(clientParam);
             client.setCommands(commands);

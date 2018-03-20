@@ -55,7 +55,7 @@ form {
 }
 
 #primaryAction:focus {
-    border-color: skyblue;
+    border-color: cornflowerblue;
 }
 
 .secondaryAction {
@@ -66,7 +66,7 @@ form {
 }
 
 .secondaryAction:focus {
-    border-color: darkgray;
+    border-color: gray;
 }
 
 #error {

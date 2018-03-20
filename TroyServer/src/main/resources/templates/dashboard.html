@@ -35,12 +35,39 @@
             <pre class="log logb" id="log" th:text="${logs}"></pre>
             <br/>
             <h3>Client Info</h3>
-            <pre style="text-align: left"><span th:text="'Pc Name: ' + ${model.client.pcName}"></span>
-<span th:text="'User: ' + ${model.client.pcuser}"></span>
-<span th:text="'Last seen: ' + ${model.client.lastseen}"></span>
-<span th:text="'OS: ' + ${model.client.os}"></span>
-<span th:text="'Ip: ' + ${model.client.ip}"></span>
-<span th:text="'Arch: ' + ${model.client.arch}"></span></pre>
+
+            <table style="border: 4px solid cadetblue; width: 100%; border-radius: 6px;">
+                <tr>
+                    <th>
+                        <b>User</b>
+                    </th>
+                    <th th:text="${model.client.pcuser}"></th>
+                </tr>
+                <tr>
+                    <th>
+                        <b>Last Seen</b>
+                    </th>
+                    <th th:text="${model.client.lastseen}"></th>
+                </tr>
+                <tr>
+                    <th>
+                        <b>OS</b>
+                    </th>
+                    <th th:text="${model.client.os}"></th>
+                </tr>
+                <tr>
+                    <th>
+                        <b>Ip</b>
+                    </th>
+                    <th th:text="${model.client.ip}"></th>
+                </tr>
+                <tr>
+                    <th>
+                        <b>Arch</b>
+                    </th>
+                    <th th:text="${model.client.arch}"></th>
+                </tr>
+            </table>
             <br/>
             <h3>Screenshots</h3>
             <ul class="w3-ul w3-card-4 w3-hoverable">
