@@ -8,36 +8,38 @@
     <script rel="script" src="../static/urlParam.js"></script>
 </head>
 <body>
-<div id="outer">
-    <div id="inner">
-        <h1>Login</h1>
-        <hr/>
-        <form action="/login" th:method="post" method="post">
-            <table id="formtable">
-                <tr>
-                    <td>User:</td>
-                    <td>
-                        <input id="user" class="input w3-card-4" name="user" spellcheck="false" autocomplete="off"
-                               required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td>
-                        <input id="password" class="input psw w3-card-4" type="password" name="password"
-                               spellcheck="false" autocomplete="off" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input id="primaryAction" class="input w3-card-4" value="Login" type="submit"/>
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <p id="error"></p>
+<center>
+    <div id="outer">
+        <div id="inner">
+            <h1>Login</h1>
+            <hr/>
+            <form action="/login" th:method="post" method="post">
+                <table id="formtable">
+                    <tr>
+                        <td>User:</td>
+                        <td>
+                            <input id="user" class="input w3-card-4" name="user" spellcheck="false" autocomplete="off"
+                                   required="required"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td>
+                            <input id="password" class="input psw w3-card-4" type="password" name="password"
+                                   spellcheck="false" autocomplete="off" required="required"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input id="primaryAction" class="input w3-card-4" value="Login" type="submit"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <p id="error"></p>
+        </div>
     </div>
-</div>
+</center>
 </body>
 </html>

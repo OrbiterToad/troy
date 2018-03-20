@@ -11,4 +11,6 @@ public class GetContext {
 
     public static Sender SENDER;
 
+    public static String VERSION;
+
 }
