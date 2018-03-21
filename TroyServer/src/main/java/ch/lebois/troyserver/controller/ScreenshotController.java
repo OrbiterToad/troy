@@ -7,7 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,11 +35,12 @@ public class ScreenshotController {
 //                TODO: Change Path
         InputStream in = null;
         try {
-            in = new FileInputStream(
-                    new File("C:\\Users\\Felix\\Documents\\_Projekte\\Herman\\game-dev\\TroyServer\\src\\main\\resources\\screenshots\\"
-                             + filePath + ".jpg"));
+            File file = new File("C:\\Users\\Felix\\Documents\\_Projekte\\Herman\\game-dev\\TroyServer\\src\\main\\"
+                                 + "resources\\screenshots\\" + filePath + ".jpg");
+            in = new FileInputStream(file);
             response.setContentType("image/jpeg");
             IOUtils.copy(in, response.getOutputStream());
+            System.out.println(file.getTotalSpace());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
