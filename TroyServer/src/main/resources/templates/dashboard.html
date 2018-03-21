@@ -13,75 +13,82 @@
         <div id="inner">
             <h1 th:text="'Control Panel for ' + ${model.client.pcName}"></h1>
             <hr/>
-            <h3>Client Commands</h3>
-            <pre th:text="${model.client.commands} + ' '" class="log"></pre>
+            <div class="w3-card-4 w3-container w3-light-grey">
+                <h3>Client Commands</h3>
+                <pre th:text="${model.client.commands} + ' '" class="log"></pre>
 
+                <br/>
+                <form th:action="'/command/edit/' + ${model.client.pcName}" th:method="post" method="post">
+                    <label for="commandsField">Command:</label>
+                    <input style="width: 400px;" id="commandsField" spellcheck="false" name="commands"
+                           th:value="${model.client.commands}" class="input log w3-card-4" autocomplete="off"
+                           placeholder="Command"/>
+                    <input type="submit" class="input w3-card-4" value="Speichern" id="primaryAction"/>
+                </form>
+                <br/>
+            </div>
             <br/>
-            <form th:action="'/command/edit/' + ${model.client.pcName}" th:method="post" method="post">
-                <label for="commandsField">Command:</label>
-                <input style="width: 400px;" id="commandsField" spellcheck="false" name="commands"
-                       th:value="${model.client.commands}" class="input log w3-card-4" autocomplete="off"
-                       placeholder="Command"/>
-                <input type="submit" class="input w3-card-4" value="Speichern" id="primaryAction"/>
-            </form>
-            <hr/>
+            <div class="w3-card-4 w3-container w3-light-grey">
+                <h3>Commands output</h3>
+                <form th:action="'/dashboard/' + ${model.client.pcName}" th:method="post" method="post">
+                    <input type="submit" value="Clear" class="input secondaryAction w3-card-4"/>
+                    <a th:href="'/dashboard/' + ${model.client.pcName}"
+                       class="input secondaryAction w3-card-4">Reload</a>
+                </form>
+                <!--/*@thymesVar id="log" type="ch.lebois.troyserver.controller.DashboardController"*/-->
+                <pre class="log logb" id="log" th:text="${logs}"></pre>
+                <br/>
+            </div>
             <br/>
-            <h3>Commands output</h3>
-            <form th:action="'/dashboard/' + ${model.client.pcName}" th:method="post" method="post">
-                <input type="submit" value="Clear" class="input secondaryAction w3-card-4"/>
-                <a th:href="'/dashboard/' + ${model.client.pcName}" class="input secondaryAction w3-card-4">Reload</a>
-            </form>
-            <!--/*@thymesVar id="log" type="ch.lebois.troyserver.controller.DashboardController"*/-->
-            <pre class="log logb" id="log" th:text="${logs}"></pre>
+            <div class="w3-card-4 w3-container w3-light-grey">
+                <h3>Client Info</h3>
+                <table class="w3-table w3-bordered">
+                    <tr>
+                        <th>
+                            <b>Computer User</b>
+                        </th>
+                        <td th:text="${model.client.pcuser}"></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <b>Last Seen</b>
+                        </th>
+                        <td th:text="${model.client.lastseen}"></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <b>Operating System</b>
+                        </th>
+                        <td th:text="${model.client.os}"></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <b>Ip Adress</b>
+                        </th>
+                        <td th:text="${model.client.ip}"></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <b>Hermann Arch</b>
+                        </th>
+                        <td th:text="${model.client.arch}"></td>
+                    </tr>
+                </table>
+            </div>
             <br/>
-            <h3>Client Info</h3>
-
-            <table class="w3-table w3-bordered">
-                <tr>
-                    <th>
-                        <b>User</b>
-                    </th>
-                    <th th:text="${model.client.pcuser}"></th>
-                </tr>
-                <tr>
-                    <th>
-                        <b>Last Seen</b>
-                    </th>
-                    <th th:text="${model.client.lastseen}"></th>
-                </tr>
-                <tr>
-                    <th>
-                        <b>OS</b>
-                    </th>
-                    <th th:text="${model.client.os}"></th>
-                </tr>
-                <tr>
-                    <th>
-                        <b>Ip</b>
-                    </th>
-                    <th th:text="${model.client.ip}"></th>
-                </tr>
-                <tr>
-                    <th>
-                        <b>Arch</b>
-                    </th>
-                    <th th:text="${model.client.arch}"></th>
-                </tr>
-            </table>
-            <br/>
-            <h3>Screenshots</h3>
-
-            <ul class="w3-ul w3-card-4 w3-hoverable">
-                <li th:each="img:${images}" class="w3-display-container"
-                    th:onClick="'javascript:document.getElementById(\''+ ${img.name} +'\').style.display=\'block\';'">
-                    <a th:text="${img.name}">
-                    </a>
-                    <a th:href="'/dashboard/img/' + ${img.name} + '/remove?client=' + ${model.client.pcName}"
-                       class="w3-button w3-display-right w3-hover-red">&times;</a>
-                </li>
-            </ul>
-
-
+            <div class="w3-card-4 w3-container w3-light-grey">
+                <h3>Screenshots</h3>
+                <ul class="w3-ul w3-card-4 w3-hoverable">
+                    <li style="cursor: pointer" th:each="img:${images}" class="w3-display-container"
+                        th:onClick="'javascript:document.getElementById(\''+ ${img.name} +'\').style.display=\'block\';'">
+                        <a th:text="${img.name}">
+                        </a>
+                        <a th:href="'/dashboard/img/' + ${img.name} + '/remove?client=' + ${model.client.pcName}"
+                           class="w3-button w3-display-right w3-hover-red">&times;</a>
+                    </li>
+                </ul>
+                <br/>
+            </div>
             <br/>
             <a href="../dashboard" class="input secondaryAction w3-card-4">Back</a>
         </div>
@@ -89,7 +96,7 @@
 </center>
 <div th:each="img:${images}" th:id="${img.name}" class="w3-modal w3-card-4" onclick="this.style.display='none'">
     <div class="w3-modal-content w3-animate-zoom">
-        <header class="w3-container w3-light-grey">
+        <header style="cursor: pointer" class="w3-container w3-light-grey">
             <h3 th:text="${img.name}"></h3>
             <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
         </header>
