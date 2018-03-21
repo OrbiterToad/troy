@@ -70,17 +70,33 @@
             </table>
             <br/>
             <h3>Screenshots</h3>
+
             <ul class="w3-ul w3-card-4 w3-hoverable">
-                <li th:each="img:${images}" class="w3-display-container">
-                    <a th:href="'/dashboard/img/' + ${img.name}" th:text="${img.name}"></a>
+                <li th:each="img:${images}" class="w3-display-container"
+                    th:onClick="'javascript:document.getElementById(\''+ ${img.name} +'\').style.display=\'block\';'">
+                    <a th:text="${img.name}">
+                    </a>
                     <a th:href="'/dashboard/img/' + ${img.name} + '/remove?client=' + ${model.client.pcName}"
                        class="w3-button w3-display-right w3-hover-red">&times;</a>
                 </li>
             </ul>
+
+
             <br/>
             <a href="../dashboard" class="input secondaryAction w3-card-4">Back</a>
         </div>
     </div>
 </center>
+<div th:each="img:${images}" th:id="${img.name}" class="w3-modal w3-card-4" onclick="this.style.display='none'">
+    <div class="w3-modal-content w3-animate-zoom">
+        <header class="w3-container w3-light-grey">
+            <h3 th:text="${img.name}"></h3>
+            <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+        </header>
+        <img th:src="'http://localhost:8080/dashboard/img/' + ${img.name}" style="width:100%"/>
+    </div>
+</div>
+
+
 </body>
 </html>
