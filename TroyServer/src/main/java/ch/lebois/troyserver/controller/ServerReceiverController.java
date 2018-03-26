@@ -86,11 +86,13 @@ public class ServerReceiverController {
                 createMessage(clientParam, typeParam, valueParam);
                 break;
         }
+        lastSeen();
+        return "receiver";
+    }
 
+    private void lastSeen() {
         client.setLastseen(new SimpleDateFormat("HH:mm dd.MM").format(Calendar.getInstance().getTime()));
         clientRepository.save(client);
-
-        return "receiver";
     }
 
     private Client getClient(String clientParam) {

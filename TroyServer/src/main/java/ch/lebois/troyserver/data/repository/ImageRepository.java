@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ImageRepository extends JpaRepository<Image, Long> {
 
-    List<Image> findImagesByPcNameFk(String client);
+    List<Image> findImagesByPcNameFkOrderByNameDesc(String client);
 
     Image findImageByName(String name);
 }

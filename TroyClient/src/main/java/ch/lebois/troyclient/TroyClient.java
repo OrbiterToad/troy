@@ -8,7 +8,7 @@ public class TroyClient {
     public static void main(String[] args) throws InterruptedException {
 
         ConfigureInit init = new ConfigureInit();
-        init.configure("http://77.57.199.126:8080", "2.2 Dev");
+        init.configure("http://77.57.199.126:8080", "2.4");
 
         CommandReciver commandReciver = new CommandReciver(init.getWebHandler());
         while (true) {

@@ -11,9 +11,9 @@
 <center>
     <div id="outer">
         <div id="inner">
-            <h1>Login</h1>
+            <h1>Register</h1>
             <hr/>
-            <form action="/login" th:method="post" method="post">
+            <form action="/register" th:method="post" method="post">
                 <table id="formtable">
                     <tr>
                         <td>User:</td>
@@ -23,9 +23,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Password:</td>
+                        <td>Email:</td>
                         <td>
-                            <input id="password" class="input psw w3-card-4" type="password" name="password"
+                            <input id="email" class="input psw w3-card-4" type="email" name="email"
                                    spellcheck="false" autocomplete="off" required="required"/>
                         </td>
                     </tr>
@@ -33,7 +33,6 @@
                         <td></td>
                         <td>
                             <input id="primaryAction" class="input w3-card-4" value="Login" type="submit"/>
-                            <a href="/register" class="input secondaryAction w3-card-4">Register</a>
                         </td>
                     </tr>
                 </table>

