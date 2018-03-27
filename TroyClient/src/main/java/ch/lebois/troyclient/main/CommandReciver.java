@@ -11,7 +11,7 @@ public class CommandReciver {
 
     public CommandReciver(WebHandler webHandler) {
         this.webHandler = webHandler;
-        sender = GetContext.SENDER;
+        sender = SystemVariables.SENDER;
     }
 
     public String[] getWebsiteCommands() {
@@ -42,9 +42,4 @@ public class CommandReciver {
             e.printStackTrace();
         }
     }
-
-    private void otherCommands(String command) {
-    }
-
-
 }

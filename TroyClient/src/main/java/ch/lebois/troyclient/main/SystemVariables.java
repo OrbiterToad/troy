@@ -5,7 +5,7 @@ import ch.lebois.troyclient.service.Sender;
 /**
  * Project: Hermann
  **/
-public class GetContext {
+public class SystemVariables {
 
     public static String CLIENT_NAME;
 
@@ -13,4 +13,5 @@ public class GetContext {
 
     public static String VERSION;
 
+    public static int REFRESHTIME;
 }

