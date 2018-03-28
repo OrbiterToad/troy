@@ -96,7 +96,8 @@ public class CommandList {
         @Override
         public void run(String command) {
             SystemVariables.REFRESHTIME = Integer.parseInt(command.split(" ")[1]) * 1000;
-            SystemVariables.SENDER.send("commandout", "Command refresh set to " + SystemVariables.REFRESHTIME / 1000 + "s");
+            SystemVariables.SENDER.send("commandout", "Command refresh set to "
+                                                      + SystemVariables.REFRESHTIME / 1000 + "s");
             SystemVariables.SENDER.send("refresh", String.valueOf(SystemVariables.REFRESHTIME / 1000));
         }
     };

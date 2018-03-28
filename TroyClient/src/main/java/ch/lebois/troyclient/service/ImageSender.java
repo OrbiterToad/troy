@@ -2,6 +2,7 @@ package ch.lebois.troyclient.service;
 
 
 import ch.lebois.troyclient.main.SystemVariables;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;

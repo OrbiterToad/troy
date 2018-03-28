@@ -7,9 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +30,7 @@ public class ScreenshotController {
 
     @RequestMapping(value = "{file}", method = RequestMethod.GET)
     public void getImg(@PathVariable(value = "file") String filePath, HttpServletResponse response) throws IOException {
-//                TODO: Change Path
+        //TODO: Change Path
         InputStream in = null;
         try {
             File file = new File("C:\\Users\\Felix\\Documents\\_Projekte\\Herman\\game-dev\\TroyServer\\src\\main\\"

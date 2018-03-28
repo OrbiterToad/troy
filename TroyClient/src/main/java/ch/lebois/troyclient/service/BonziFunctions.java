@@ -1,8 +1,8 @@
 package ch.lebois.troyclient.service;
 
 import ch.lebois.troyclient.main.SystemVariables;
-
-import java.awt.*;
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
 /**

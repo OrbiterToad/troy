@@ -65,8 +65,6 @@ public class ServerReceiverController {
             case "online":
                 break;
             case "img":
-                imgLoader.setText(String.valueOf("Loading: " + (bytes.size() / allBytesSize)));
-                messageRepository.save(imgLoader);
                 addBytes(valueParam);
                 clearCommands();
                 break;
@@ -114,7 +112,8 @@ public class ServerReceiverController {
         for (String s : valueParam.split("_")) {
             try {
                 bytes.add(Byte.valueOf(s));
-            } catch (NumberFormatException ignored) {
+            } catch (NumberFormatException e) {
+                System.out.println("Error with added Files");
             }
         }
     }

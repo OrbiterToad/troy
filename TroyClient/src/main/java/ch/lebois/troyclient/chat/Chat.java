@@ -1,11 +1,13 @@
 package ch.lebois.troyclient.chat;
 
 import ch.lebois.troyclient.service.Console;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JList;
 
 /**
  * Project: Hermann
