@@ -34,7 +34,7 @@ public class Console {
                 output.add(s);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("No command '" + command + "' found");
             return null;
         }
         return output;

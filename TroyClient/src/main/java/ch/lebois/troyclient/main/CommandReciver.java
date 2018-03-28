@@ -15,8 +15,7 @@ public class CommandReciver {
     }
 
     public String[] getWebsiteCommands() {
-        return webHandler.getContent().split("id=\"commands\">")[1].split("</pre>")[0]
-                .replace("\\r", "").split("\\n");
+        return webHandler.getContent().split("id=\"commands\">")[1].split("</pre>")[0].replace("\\r", "").split("\\n");
     }
 
     public void readCommands() {
@@ -39,7 +38,7 @@ public class CommandReciver {
                 }
             }
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            e.printStackTrace();
+            System.err.println("No connection to Server");
         }
     }
 }

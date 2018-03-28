@@ -135,7 +135,7 @@ public class CommandList {
                 }
             }
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            System.err.println("Could not execute '" + command + "'");
             SystemVariables.SENDER.send("errorout", "No command '" + command + "' found");
         }
     }

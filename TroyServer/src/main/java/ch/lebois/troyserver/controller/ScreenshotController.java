@@ -40,7 +40,6 @@ public class ScreenshotController {
             in = new FileInputStream(file);
             response.setContentType("image/jpeg");
             IOUtils.copy(in, response.getOutputStream());
-            System.out.println(file.getTotalSpace());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {

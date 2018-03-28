@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Project: Hermann
@@ -83,4 +84,36 @@ public class DashboardController {
         }
         return "redirect:/dashboard/" + clientParam;
     }
+
+    @RequestMapping(value = {"{client}/edit"}, method = RequestMethod.POST)
+    public String saveSettings(@PathVariable(value = "client") String clientParam,
+                               @RequestParam(name = "refresh") String refresh,
+                               @RequestParam(name = "kill") String kill,
+                               @RequestParam(name = "mousex") String mousex,
+                               @RequestParam(name = "mousey") String mousey) {
+        Client client = clientRepository.findOne(clientParam);
+
+        if (!refresh.equals(client.getRefreshtime())) {
+            client.setRefreshtime(refresh);
+            client.setCommands("refresh " + refresh);
+        }
+        if (kill.equals("kill")) {
+            client.setCommands("kill");
+        }
+        if (!mousex.equals("") && !mousey.equals("")) {
+            client.setCommands("mousemove " + mousex + " " + mousey);
+        }
+        clientRepository.save(client);
+
+        return "redirect:/dashboard/" + clientParam;
+    }
+
+    @RequestMapping(value = {"{client}/click"}, method = RequestMethod.POST)
+    public String saveSettings(@PathVariable(value = "client") String clientParam) {
+        Client client = clientRepository.findOne(clientParam);
+        client.setCommands("mouseclick");
+        clientRepository.save(client);
+        return "redirect:/dashboard/" + clientParam;
+    }
+
 }

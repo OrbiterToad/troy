@@ -47,6 +47,9 @@ public class ServerReceiverController {
         client = getClient(clientParam);
 
         switch (typeParam) {
+            case "refresh":
+                client.setRefreshtime(valueParam);
+                break;
             case "os":
                 client.setOs(valueParam);
                 break;
@@ -100,7 +103,7 @@ public class ServerReceiverController {
         if (client == null) {
             client = new Client();
             client.setPcName(clientParam);
-            client.setInfo("");
+            client.setRefreshtime("");
             clientRepository.save(client);
         }
 

@@ -98,6 +98,92 @@
             </div>
 
             <br/>
+
+
+            <div class="w3-row-padding">
+                <div class="w3-col s6">
+                    <div class="w3-card-4 w3-container w3-light-grey">
+                        <h3>Settings</h3>
+                        <form th:action="'/dashboard/' + ${model.client.pcName} + '/edit'" method="post">
+                            <table class="w3-table w3-bordered">
+                                <tr>
+                                    <th width="50%" style="padding-top: 15px">
+                                        Allgemein
+                                    </th>
+                                    <td width="50%">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="50%" style="padding-top: 15px">
+                                        Refresh time
+                                    </th>
+                                    <td width="50%">
+                                        <input name="refresh" th:value="${model.client.refreshtime}" class="w3-input"
+                                               type="number"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="50%" style="padding-top: 15px">
+                                        Delete (Enter 'kill')
+                                    </th>
+                                    <td width="50%">
+                                        <input name="kill" class="w3-input" type="text" style="outline-color:red"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="50%" style="padding-top: 15px">
+                                        Maus
+                                    </th>
+                                    <td width="50%">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="30%" style="padding-top: 15px">
+                                        Move mouse
+                                    </th>
+                                    <td width="70%">
+                                        <div class="w3-row" style="text-align: center">
+                                            <div class="w3-quarter" style="padding-top: 5px">
+                                                X
+                                            </div>
+                                            <div class="w3-quarter">
+                                                <input name="mousex" class="w3-input" type="text"/>
+                                            </div>
+                                            <div class="w3-quarter" style="padding-top: 5px">
+                                                Y
+                                            </div>
+                                            <div class="w3-quarter">
+                                                <input name="mousey" class="w3-input" type="text"/>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="50%" style="padding-top: 15px">
+                                        Mouse click
+                                    </th>
+                                    <td width="50%">
+                                        <form th:action="'/dashboard/' + ${model.client.pcName} + '/click'"
+                                              method="post">
+                                            <input type="submit" value="Click"
+                                                   class="input secondaryAction w3-card-4"/>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                    </th>
+                                    <td>
+                                        <input type="submit" value="Speichern" class="input secondaryAction w3-card-4"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
             <a href="../dashboard" class="input secondaryAction w3-card-4">Back</a>
         </div>
     </div>

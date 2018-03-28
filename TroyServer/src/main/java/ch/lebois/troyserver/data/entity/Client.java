@@ -19,7 +19,7 @@ public class Client {
     private String pcuser;
     private String arch;
     private String lastseen;
-    private String info;
+    private String refreshtime;
     private String commands;
 
     public String getIp() {
@@ -62,12 +62,12 @@ public class Client {
         this.pcName = pcName;
     }
 
-    public String getInfo() {
-        return info;
+    public String getRefreshtime() {
+        return refreshtime;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setRefreshtime(String refreshtime) {
+        this.refreshtime = refreshtime;
     }
 
     public String getCommands() {
