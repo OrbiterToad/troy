@@ -5,16 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <name>Hermann</name>
+    <name>ServerControl</name>
 
     <packaging>pom</packaging>
     <groupId>ch.lebois</groupId>
-    <artifactId>Hermann</artifactId>
+    <artifactId>ServerControl</artifactId>
     <version>1.0.0</version>
 
 
     <modules>
-        <module>../Game</module>
         <module>../TroyClient</module>
         <module>../TroyServer</module>
     </modules>
