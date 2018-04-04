@@ -34,8 +34,6 @@ public class WebHandler {
             }
             return sb.toString();
         } catch (ConnectException e) {
-
-            //TODO log to local file
         } catch (IOException e) {
             e.printStackTrace();
         }

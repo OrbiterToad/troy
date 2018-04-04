@@ -1,6 +1,5 @@
 package ch.lebois.troyclient.chat;
 
-import ch.lebois.troyclient.service.Console;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -27,7 +26,7 @@ public class Chat extends JDialog {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-                Console.execute("java -jar Hermann.jar");
+//                Console.execute("java -jar Hermann.jar");
             }
         });
 

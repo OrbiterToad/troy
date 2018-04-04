@@ -6,10 +6,9 @@ import ch.lebois.troyserver.data.entity.Message;
 import ch.lebois.troyserver.data.repository.ClientRepository;
 import ch.lebois.troyserver.data.repository.ImageRepository;
 import ch.lebois.troyserver.data.repository.MessageRepository;
+import ch.lebois.troyserver.service.DateService;
 import ch.lebois.troyserver.service.ImageService;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,16 +26,21 @@ public class ServerReceiverController {
     private ImageRepository imageRepository;
 
     private ImageService imageService;
+    private DateService dateService;
+
+
     private Client client;
     private int allBytesSize;
     private Message imgLoader;
 
     public ServerReceiverController(ClientRepository clientRepository, MessageRepository messageRepository,
-                                    ImageService imageService, ImageRepository imageRepository) {
+                                    ImageService imageService, ImageRepository imageRepository,
+                                    DateService dateService) {
         this.clientRepository = clientRepository;
         this.messageRepository = messageRepository;
         this.imageService = imageService;
         this.imageRepository = imageRepository;
+        this.dateService = dateService;
     }
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
@@ -92,7 +96,7 @@ public class ServerReceiverController {
     }
 
     private void lastSeen() {
-        client.setLastseen(new SimpleDateFormat("HH:mm dd.MM").format(Calendar.getInstance().getTime()));
+        client.setLastseen(dateService.getDate());
         clientRepository.save(client);
     }
 

