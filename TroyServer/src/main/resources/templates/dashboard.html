@@ -11,7 +11,7 @@
 <center>
     <div id="outer">
         <div id="inner">
-            <h1 th:text="'Control Panel for ' + ${model.client.pcName}"></h1>
+            <h1 th:text="'Control Panel for ' + ${model.client.pcNickname}"></h1>
             <hr/>
             <div class="w3-card-4 w3-container w3-light-grey">
                 <h3>Client Commands</h3>
@@ -111,6 +111,14 @@
                                         Allgemein
                                     </th>
                                     <td width="50%">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="50%" style="padding-top: 15px">
+                                        Pc Name
+                                    </th>
+                                    <td width="50%">
+                                        <input name="nickname" th:value="${model.client.pcNickname}" class="w3-input"/>
                                     </td>
                                 </tr>
                                 <tr>

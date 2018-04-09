@@ -105,6 +105,7 @@ public class ServerReceiverController {
         if (client == null) {
             client = new Client();
             client.setPcName(clientParam);
+            client.setPcNickname(clientParam);
             client.setRefreshtime("");
             clientRepository.save(client);
         }

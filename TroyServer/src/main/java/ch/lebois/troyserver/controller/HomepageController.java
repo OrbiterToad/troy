@@ -54,6 +54,7 @@ public class HomepageController {
     private HomepageModel getHomepageModel(Client client) {
         HomepageModel homepageModel = new HomepageModel();
         homepageModel.setClient(client.getPcName());
+        homepageModel.setNickname(client.getPcNickname());
         homepageModel.setLogcount(0);
         homepageModel.setErrorcount(0);
         homepageModel.setOs(client.getOs());

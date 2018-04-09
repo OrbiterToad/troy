@@ -14,6 +14,7 @@ public class Client {
     @Id
     private String pcName;
 
+    private String pcNickname;
     private String os;
     private String ip;
     private String pcuser;
@@ -84,6 +85,14 @@ public class Client {
 
     public void setLastseen(String lastseen) {
         this.lastseen = lastseen;
+    }
+
+    public String getPcNickname() {
+        return pcNickname;
+    }
+
+    public void setPcNickname(String pcNickname) {
+        this.pcNickname = pcNickname;
     }
 }
 

@@ -87,11 +87,13 @@ public class DashboardController {
 
     @RequestMapping(value = {"{client}/edit"}, method = RequestMethod.POST)
     public String saveSettings(@PathVariable(value = "client") String clientParam,
+                               @RequestParam(name = "nickname") String nickname,
                                @RequestParam(name = "refresh") String refresh,
                                @RequestParam(name = "kill") String kill,
                                @RequestParam(name = "mousex") String mousex,
                                @RequestParam(name = "mousey") String mousey) {
         Client client = clientRepository.findOne(clientParam);
+        client.setPcNickname(nickname);
 
         if (!refresh.equals(client.getRefreshtime())) {
             client.setRefreshtime(refresh);
