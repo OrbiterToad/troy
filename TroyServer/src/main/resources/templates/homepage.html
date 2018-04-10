@@ -91,14 +91,48 @@
                 </div>
             </div>
             <br/>
-            <div class="w3-card-4 w3-container w3-light-grey">
-                <h3>Logged in as <span th:text="${user}"></span></h3>
-                <p>
-                    <a class="input secondaryAction w3-card-4"
-                       href="https://drive.google.com/open?id=1SP41Rzmq-VkwruaWoCADx9xBfkhl3bI6">
-                        Download Herman V.2.1
-                    </a>
-                </p>
+
+            <div class="w3-row-padding">
+                <div class="w3-col s6">
+                    <div class="w3-card-4 w3-container w3-light-grey">
+                        <h3>Logged in as <span th:text="${user}"></span></h3>
+                        <p>
+                            <a class="input secondaryAction w3-card-4"
+                               href="https://drive.google.com/open?id=1SP41Rzmq-VkwruaWoCADx9xBfkhl3bI6">
+                                Download Herman V.2.1
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="w3-col s6">
+                    <div class="w3-card-4 w3-container w3-light-grey">
+                        <h3>Registrations</h3>
+                        <ul class="w3-ul w3-card-4 w3-hoverable">
+                            <li style="cursor: pointer" th:each="registration:${registrations}"
+                                class="w3-display-container">
+                                <a th:text="${registration.text}"></a>
+                                <a class="w3-button w3-display-right w3-hover-red">&times;</a>
+                            </li>
+                        </ul>
+                        <br/>
+                        <form action="/register/create" th:method="post" method="post">
+                            <div class="w3-row-padding">
+                                <div class="w3-col s5">
+                                    <input class="w3-input" name="user" type="text" placeholder="Username"/>
+                                </div>
+                                <div class="w3-col s5">
+                                    <input class="w3-input" name="password" type="password" placeholder="Password"/>
+                                </div>
+                                <div class="w3-col s2">
+                                    <input type="submit" value="Save" class="input secondaryAction w3-card-4"/>
+                                </div>
+                            </div>
+
+
+                        </form>
+                        <br/>
+                    </div>
+                </div>
             </div>
             <br/>
             <br/>

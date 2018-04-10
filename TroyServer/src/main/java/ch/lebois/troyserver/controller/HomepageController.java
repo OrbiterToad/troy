@@ -45,8 +45,9 @@ public class HomepageController {
             for (Client client : clientRepository.findAll()) {
                 list.add(getHomepageModel(client));
             }
-
+            List<Message> registrations = messageRepository.findMessagesByType("newUser");
             model.addAttribute("model", list);
+            model.addAttribute("registrations", registrations);
             return "homepage";
         } catch (NullPointerException e) {
             return "redirect:/login";
