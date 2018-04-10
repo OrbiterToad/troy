@@ -20,7 +20,15 @@
                         <div style="cursor: default" class="w3-container w3-light-grey">
                             <h3 th:text="${client.nickname}"></h3>
                         </div>
+
+
+                        <div th:switch="${client.img}">
+                            <span th:case="'none'"></span>
+                            <img th:case="*" src="" th:src="'../dashboard/img/' + ${client.img}" style="width:100%"/>
+                        </div>
+
                         <div class="w3-container">
+                            <hr/>
                             <p th:text="${client.os}"></p>
                             <hr/>
                             <p th:text="${client.lastseen}"></p>
