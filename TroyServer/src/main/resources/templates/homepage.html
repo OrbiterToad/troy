@@ -23,7 +23,7 @@
 
 
                         <div th:switch="${client.img}">
-                            <span th:case="'none'"></span>
+                            <!--<span th:case="'none'"></span>-->
                             <img th:case="*" src="" th:src="'../dashboard/img/' + ${client.img}" style="width:100%"/>
                         </div>
 
