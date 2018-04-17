@@ -1,5 +1,5 @@
 ${AnsiColor.BLACK} __  __
-/\ \/\ \                                     ${AnsiColor.BLUE}TroyServer ${AnsiColor.GREEN}02.2018${AnsiColor.BLACK}
+/\ \/\ \       寒意                          ${AnsiColor.BLUE}TroyServer ${AnsiColor.GREEN}02.2018${AnsiColor.BLACK}
 \ \ \_\ \     __   _ __    ___ ___      __      ___     ___
  \ \  _  \  /'__`\/\`'__\/' __` __`\  /'__`\  /' _ `\ /' _ `\
   \ \ \ \ \/\  __/\ \ \/ /\ \/\ \/\ \/\ \L\.\_/\ \/\ \/\ \/\ \

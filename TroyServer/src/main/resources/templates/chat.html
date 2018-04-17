@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Troy Dashboard</title>
+    <link rel="stylesheet" href="../vorlage.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    <script rel="script" src="../urlParam.js"></script>
+</head>
+<body>
+<center>
+    <div id="outer">
+        <div id="inner">
+            <h1 th:text="'Chat for ' + ${client.nickname}"></h1>
+            <hr/>
+
+            <div class="w3-card-4 w3-container w3-light-grey">
+                <h3>Screenshots</h3>
+                <ul class="w3-ul w3-card-4">
+                    <li th:each="message:${messages}" th:text="${message.text}"
+                        class="w3-display-container">
+                    </li>
+                </ul>
+                <br/>
+            </div>
+            <br/>
+            <div class="w3-card-4 w3-container w3-light-grey">
+                <br/>
+                <form th:action="'/command/edit/chat/' + ${client.client}" method="post">
+                    <label for="commandsField">Message:</label>
+                    <input style="width: 100px;" spellcheck="false" name="sender" class="input log w3-card-4"
+                           autocomplete="off" placeholder="Sender"/>
+                    <input style="width: 400px;" id="commandsField" spellcheck="false" name="text" autocomplete="off"
+                           class="input log w3-card-4" placeholder="Message"/>
+                    <input type="submit" class="input w3-card-4" value="Speichern" id="primaryAction"/>
+                </form>
+                <br/>
+            </div>
+            <br/>
+        </div>
+    </div>
+</center>
+<div style="position: fixed; bottom: 3px; right: 3px; padding: 3px;" class="w3-card-4">
+    寒意
+</div>
+</body>
+</html>

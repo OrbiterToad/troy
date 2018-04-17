@@ -14,46 +14,14 @@ public class Client {
     @Id
     private String pcName;
 
-    private String pcNickname;
-    private String os;
-    private String ip;
-    private String pcuser;
-    private String arch;
-    private String lastseen;
-    private String refreshtime;
-    private String commands;
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getPcuser() {
-        return pcuser;
-    }
-
-    public void setPcuser(String pcuser) {
-        this.pcuser = pcuser;
-    }
-
-    public String getArch() {
-        return arch;
-    }
-
-    public void setArch(String arch) {
-        this.arch = arch;
-    }
-
-    public String getOs() {
-        return os;
-    }
-
-    public void setOs(String os) {
-        this.os = os;
-    }
+//    private String pcNickname;
+//    private String os;
+//    private String ip;
+//    private String pcuser;
+//    private String arch;
+//    private String lastseen;
+//    private String refreshtime;
+//    private String commands;
 
     public String getPcName() {
         return pcName;
@@ -61,38 +29,6 @@ public class Client {
 
     public void setPcName(String pcName) {
         this.pcName = pcName;
-    }
-
-    public String getRefreshtime() {
-        return refreshtime;
-    }
-
-    public void setRefreshtime(String refreshtime) {
-        this.refreshtime = refreshtime;
-    }
-
-    public String getCommands() {
-        return commands;
-    }
-
-    public void setCommands(String commands) {
-        this.commands = commands;
-    }
-
-    public String getLastseen() {
-        return lastseen;
-    }
-
-    public void setLastseen(String lastseen) {
-        this.lastseen = lastseen;
-    }
-
-    public String getPcNickname() {
-        return pcNickname;
-    }
-
-    public void setPcNickname(String pcNickname) {
-        this.pcNickname = pcNickname;
     }
 }
 

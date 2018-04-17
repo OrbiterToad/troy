@@ -1,19 +1,38 @@
 package ch.lebois.troyserver.model;
 
 /**
- * Project: Hermann
+ * @author Felix
+ * @date 11.04.2018
+ * <p>
+ * Project: ServerControl
+ * Package: ch.lebois.troyserver.model
  **/
-public class HomepageModel {
+public class ClientModel {
+
     private String client;
     private String nickname;
+    private String pcuser;
+
+    private String command;
+
     private String os;
+    private String ip;
+    private String arch;
+
     private String lastseen;
+    private String refreshtime;
+    private String img;
+
     private int logcount;
     private int errorcount;
-    private String ip;
-    private String pcuser;
-    private String arch;
-    private String img;
+
+    public String getRefreshtime() {
+        return refreshtime;
+    }
+
+    public void setRefreshtime(String refreshtime) {
+        this.refreshtime = refreshtime;
+    }
 
     public String getImg() {
         return img;
@@ -93,5 +112,13 @@ public class HomepageModel {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
     }
 }

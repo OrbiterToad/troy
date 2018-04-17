@@ -10,4 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findMessagesByType(String type);
+
+    List<Message> findMessagesByTypeAndPcNameFk(String type, String pcNameFk);
 }

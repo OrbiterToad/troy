@@ -27,7 +27,7 @@ public class SenderField extends JPanel {
 
                 if (!text.equals("")) {
                     Chat.getInstance().addMessage("me: " + text);
-                    SystemVariables.SENDER.send("message", "CHAT - client: " + text);
+                    SystemVariables.SENDER.send("message", "client: " + text);
                 }
                 textField.setText("");
                 textField.requestFocus();

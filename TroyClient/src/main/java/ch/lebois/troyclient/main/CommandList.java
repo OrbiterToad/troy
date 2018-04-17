@@ -24,9 +24,15 @@ public class CommandList {
         @Override
         public void run(String command) {
             Chat chat = Chat.getInstance();
-            chat.addMessage("Hermann: " + command.substring(6));
+            String[] chatelems = command.split(" ", 3);
+
+            if (chatelems[1].equals("exit")) {
+                chat.setVisible(false);
+                SystemVariables.SENDER.send("message", "Chat exit");
+            }
+            chat.addMessage(chatelems[1] + ": " + chatelems[2]);
             Console.execute(command);
-            SystemVariables.SENDER.send("message", "CHAT - Hermann: " + command.substring(6));
+            SystemVariables.SENDER.send("message", chatelems[1] + ": " + chatelems[2]);
         }
     };
 
