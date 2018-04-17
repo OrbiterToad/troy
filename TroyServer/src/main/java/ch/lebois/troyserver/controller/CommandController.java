@@ -72,7 +72,7 @@ public class CommandController {
     @RequestMapping(value = {"/edit/chat/{client}"}, method = RequestMethod.POST)
     public String editedChat(@PathVariable(value = "client") String clientParam,
                              @RequestParam(name = "sender") String senderParam,
-                             @RequestParam(name = "message") String messageParam,
+                             @RequestParam(name = "text") String messageParam,
                              HttpServletRequest request) {
 
         try {

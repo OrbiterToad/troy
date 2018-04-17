@@ -15,30 +15,33 @@
             <hr/>
 
             <div class="w3-card-4 w3-container w3-light-grey">
-                <h3>Screenshots</h3>
-                <ul class="w3-ul w3-card-4">
-                    <li th:each="message:${messages}" th:text="${message.text}"
-                        class="w3-display-container">
-                    </li>
-                </ul>
+                <h3>Messages</h3>
+                <table class="w3-table w3-striped w3-bordered w3-card-4">
+                    <tr th:each="message:${messages.messages}" style="text-align: left">
+                        <td th:text="${message.client}" width="17%"></td>
+                        <td th:text="${message.text}"></td>
+                    </tr>
+                </table>
                 <br/>
             </div>
             <br/>
             <div class="w3-card-4 w3-container w3-light-grey">
                 <br/>
-                <form th:action="'/command/edit/chat/' + ${client.client}" method="post">
+                <form th:action="'../../command/edit/chat/' + ${client.client}" method="post">
                     <label for="commandsField">Message:</label>
                     <input style="width: 100px;" spellcheck="false" name="sender" class="input log w3-card-4"
                            autocomplete="off" placeholder="Sender"/>
                     <input style="width: 400px;" id="commandsField" spellcheck="false" name="text" autocomplete="off"
                            class="input log w3-card-4" placeholder="Message"/>
-                    <input type="submit" class="input w3-card-4" value="Speichern" id="primaryAction"/>
+                    <input type="submit" class="input w3-card-4" id="primaryAction"/>
                 </form>
                 <br/>
             </div>
             <br/>
+            <a th:href="'../dashboard/' + ${client.client}" class="input secondaryAction w3-card-4">Back</a>
         </div>
     </div>
+
 </center>
 <div style="position: fixed; bottom: 3px; right: 3px; padding: 3px;" class="w3-card-4">
     寒意

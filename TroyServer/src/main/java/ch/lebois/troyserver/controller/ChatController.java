@@ -1,7 +1,10 @@
 package ch.lebois.troyserver.controller;
 
+import ch.lebois.troyserver.data.entity.Message;
 import ch.lebois.troyserver.data.repository.ClientRepository;
 import ch.lebois.troyserver.data.repository.MessageRepository;
+import ch.lebois.troyserver.model.ChatModel;
+import ch.lebois.troyserver.model.MessageModel;
 import ch.lebois.troyserver.service.CookieService;
 import ch.lebois.troyserver.service.ModelService;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +41,8 @@ public class ChatController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getChat(@PathVariable(name = "client") String client, Model model, HttpServletRequest request) {
+    public String getChat(@PathVariable(name = "client") String client, Model model, HttpServletRequest request,
+                          ChatModel chatModel) {
         try {
             model.addAttribute("user", cookieService.getCurrentUser(request));
         } catch (NullPointerException e) {
@@ -46,7 +50,16 @@ public class ChatController {
         }
 
         model.addAttribute("client", modelService.getClientModel(clientRepository.findOne(client)));
-        model.addAttribute("messages", messageRepository.findMessagesByTypeAndPcNameFk("message", client));
+
+        for (Message message : messageRepository.findMessagesByTypeAndPcNameFk("message", client)) {
+            String[] split = message.getText().split(": ");
+            MessageModel messageModel = new MessageModel();
+            messageModel.setClient(split[0]);
+            messageModel.setText(split[1]);
+            chatModel.getMessages().add(messageModel);
+        }
+
+        model.addAttribute("messages", chatModel);
 
         return "chat";
 
