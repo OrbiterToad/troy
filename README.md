@@ -10,11 +10,11 @@ The Module TroyServer is the Server to wich the Data gets sent and controlls the
   - Commandline access
   - Screenshots
   - Chat
-  and some smaller cool things...
+and some smaller cool things...
 
 To install client edit ch.lebois.troyclient.TroyClient.java :
 <pre>
-          init.configure("[Here TroyServerIp:Port]", "2.8");
+init.configure("[Here TroyServerIp:Port]", "2.8");
 </pre>
 
 To start Server add new MySql DB
